@@ -3,7 +3,7 @@ MyProjects 🚀💻
 Welcome to MyProjects, the portfolio of Mohammed Abdullkareem—a passionate Flutter developer dedicated to crafting innovative and impactful solutions! Here, you’ll find a collection of projects that reflect my commitment to solving real-world problems with creativity, technology, and a user-first mindset. From productivity tools to complex systems, I pour my heart into every line of code to make life easier, smarter, and more connected. 🌟
 
 🌟 About Me
-I’m Mohammed Abdullkareem, a Flutter enthusiast and problem-solver with a knack for building apps that people love to use. My journey in tech is all about creating meaningful solutions—whether it’s helping users manage their tasks, streamlining education systems, or supporting humanitarian efforts. I specialize in cross-platform development with Flutter, focusing on responsive design, multilingual support, and seamless user experiences. When I’m not coding, I’m exploring new ways to innovate and bring ideas to life. Let’s build the future together! 💡
+I’m Mohammed Ghassan Abdullkareem, a Software Engineer and App Developer enthusiast and problem-solver with a knack for building apps that people love to use. My journey in tech is all about creating meaningful solutions—whether it’s helping users manage their tasks, streamlining education systems, or supporting humanitarian efforts. I specialize in cross-platform development with Flutter, focusing on responsive design, multilingual support, and seamless user experiences. When I’m not coding, I’m exploring new ways to innovate and bring ideas to life. Let’s build the future together! 💡
 
 🛠️ My Projects
 Dive into my portfolio to see the projects I’ve been working on. Each one is a testament to my dedication to quality and innovation, with more exciting updates on the way!
@@ -35,7 +35,7 @@ Security: Protecting my work to ensure it remains unique and impactful.
 I’m currently working on enhancing all these projects, adding new features, and ensuring they meet the highest standards. Your feedback and support inspire me to keep pushing the boundaries of what’s possible! 🌐
 
 🤝 Let’s Collaborate!
-I’m always open to new ideas, partnerships, or feedback. If you’re interested in any of my projects or want to collaborate on something innovative, feel free to reach out. Contact me at megoabkm@example.com or start a discussion on GitHub (while respecting the privacy of my work).
+I’m always open to new ideas, partnerships, or feedback. If you’re interested in any of my projects or want to collaborate on something innovative, feel free to reach out. Contact me at sonsabdulkareem@gmail.com or start a discussion on GitHub (while respecting the privacy of my work).
 
 🎉 Join Me on This Journey!
 Thank you for exploring MyProjects! I’m excited to share more as these apps evolve. Follow along to see how I’m transforming ideas into reality, one project at a time. Let’s make the world more organized, connected, and inspired! 🚀
