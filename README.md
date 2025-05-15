@@ -1,6 +1,6 @@
 MyProjects 🚀💻
  
-Welcome to MyProjects, the portfolio of Mohammed Abdullkareem—a passionate Flutter developer dedicated to crafting innovative and impactful solutions! Here, you’ll find a collection of projects that reflect my commitment to solving real-world problems with creativity, technology, and a user-first mindset. From productivity tools to complex systems, I pour my heart into every line of code to make life easier, smarter, and more connected. 🌟
+Welcome to MyProjects, the portfolio of Mohammed Abdullkareem—a passionate Software Enginner and App developer dedicated to crafting innovative and impactful solutions! Here, you’ll find a collection of projects that reflect my commitment to solving real-world problems with creativity, technology, and a user-first mindset. From productivity tools to complex systems, I pour my heart into every line of code to make life easier, smarter, and more connected. 🌟
 
 🌟 About Me
 I’m Mohammed Ghassan Abdullkareem, a Software Engineer and App Developer enthusiast and problem-solver with a knack for building apps that people love to use. My journey in tech is all about creating meaningful solutions—whether it’s helping users manage their tasks, streamlining education systems, or supporting humanitarian efforts. I specialize in cross-platform development with Flutter, focusing on responsive design, multilingual support, and seamless user experiences. When I’m not coding, I’m exploring new ways to innovate and bring ideas to life. Let’s build the future together! 💡
