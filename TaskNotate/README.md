@@ -37,7 +37,7 @@ TaskNotate proudly supports multiple languages to make it accessible for everyon
 Switch languages effortlessly and manage your tasks in the way that feels most comfortable to you.
 
 🤝 Get Involved
-Love TaskNotate and want to share feedback or ideas? I’d love to hear from you! Reach out to discuss potential collaborations or to learn more about the app’s journey. Contact me at megoabkm@example.com or open a discussion on GitHub (while keeping specifics private).
+Love TaskNotate and want to share feedback or ideas? I’d love to hear from you! Reach out to discuss potential collaborations or to learn more about the app’s journey. Contact me at tasknotate@gmail.com or open a discussion on GitHub (while keeping specifics private).
 
 🎉 Start Organizing with TaskNotate Today!
 Download now and experience a smarter, more colorful way to manage your tasks and notes. Let TaskNotate bring order to your world—one task at a time! 🌈
