@@ -17,32 +17,53 @@ class MainActivity : FlutterActivity() {
     private var initialIntentData: Map<String, Any?>? = null
 
     private fun applyLockScreenFlags() {
+        Log.d("MainActivity", "Applying lock screen flags (showWhenLocked, turnScreenOn)")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
             // Optional: Dismiss keyguard. Test this behavior carefully.
+            // The alarm package's fullScreenIntent should ideally handle this.
             // val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            // if (keyguardManager.isKeyguardLocked) {
-            //     keyguardManager.requestDismissKeyguard(this, null)
+            // if (keyguardManager.isKeyguardSecure && keyguardManager.isKeyguardLocked) {
+            //    keyguardManager.requestDismissKeyguard(this, null)
             // }
         } else {
             window.addFlags(
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
                         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED //or
-                       // WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                       // WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD // Use with caution
+            )
+        }
+    }
+
+    private fun clearLockScreenFlags() {
+        Log.d("MainActivity", "Clearing lock screen flags (showWhenLocked, turnScreenOn)")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(false)
+            setTurnScreenOn(false)
+        } else {
+            window.clearFlags(
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED //or
+                        // WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
             )
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Apply window flags BEFORE super.onCreate() if the intent is an alarm trigger
+        // Apply/Clear window flags BEFORE super.onCreate()
         if (intent?.action == "com.example.tasknotate.ALARM_TRIGGER") {
             Log.d("MainActivity", "onCreate: ALARM_TRIGGER intent found. Applying lock screen flags.")
             applyLockScreenFlags()
+        } else {
+            Log.d("MainActivity", "onCreate: Normal launch or non-alarm intent. Clearing lock screen flags.")
+            clearLockScreenFlags() // Ensure flags are cleared on normal startup
         }
+
         super.onCreate(savedInstanceState)
-        Log.d("MainActivity", "onCreate complete. Intent: ${intent?.action}")
+        Log.d("MainActivity", "onCreate complete. Intent action: ${intent?.action}")
         handleIntent(intent)
     }
 
@@ -56,13 +77,12 @@ class MainActivity : FlutterActivity() {
                 "getInitialIntent" -> {
                     Log.d("MainActivity", "MethodChannel: getInitialIntent called by Flutter. Data: $initialIntentData")
                     result.success(initialIntentData)
-                    // Clear it after sending if it's a one-time thing for initial launch,
-                    // to prevent re-processing if Flutter restarts without activity restart.
-                    // initialIntentData = null
+                    // initialIntentData = null // Optional: clear after sending
                 }
                 "stopAlarm" -> {
                     val alarmId = call.argument<Int>("alarmId")
-                    Log.d("MainActivity", "MethodChannel: stopAlarm called by Flutter for ID $alarmId.")
+                    Log.d("MainActivity", "MethodChannel: stopAlarm called by Flutter for ID $alarmId. Clearing lock screen flags.")
+                    clearLockScreenFlags() // IMPORTANT: Clear flags when alarm is stopped
                     result.success(null)
                 }
                 else -> {
@@ -70,18 +90,21 @@ class MainActivity : FlutterActivity() {
                 }
             }
         }
-        // No need to re-process initialIntentData here if Flutter's getInitialIntent handles it.
     }
 
     override fun onNewIntent(intent: Intent) {
-        Log.d("MainActivity", "onNewIntent called. New Intent: ${intent.action}")
-        // Apply window flags if a new alarm intent comes while activity is running
+        Log.d("MainActivity", "onNewIntent called. New Intent action: ${intent.action}")
+        super.onNewIntent(intent)
+        setIntent(intent) // Update the activity's intent to be the new one
+
         if (intent.action == "com.example.tasknotate.ALARM_TRIGGER") {
             Log.d("MainActivity", "onNewIntent: ALARM_TRIGGER intent. Applying lock screen flags.")
             applyLockScreenFlags()
+        } else {
+            // If the activity is brought to front for a non-alarm reason
+            Log.d("MainActivity", "onNewIntent: Non-ALARM_TRIGGER intent. Clearing lock screen flags.")
+            clearLockScreenFlags()
         }
-        super.onNewIntent(intent)
-        setIntent(intent) // Update the activity's intent
         handleIntent(intent)
     }
 
@@ -97,35 +120,18 @@ class MainActivity : FlutterActivity() {
                     "alarmId" to alarmId,
                     "title" to title
                 )
-                // If Flutter engine is ready and app is resumed, could invoke directly.
-                // However, relying on getInitialIntent for launch and AlarmService stream for runtime
-                // is generally more robust.
-                if (flutterEngine != null && methodChannel != null && lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)) {
-                     Log.d("MainActivity", "handleIntent: App resumed. Invoking showAlarmScreen on Flutter for ALARM_TRIGGER.")
-                     // This direct invocation might be redundant if AlarmService also picks it up,
-                     // or if main.dart handles initial intent. Be cautious of double navigations.
-                     // For alarms received while app is running, AlarmService stream is often preferred.
-                     // invokeShowAlarmScreen(alarmId, title)
-                } else {
-                     Log.d("MainActivity", "handleIntent: ALARM_TRIGGER. Data stored for getInitialIntent.")
-                }
+                // The AppBootstrapService will use this data for initial routing
             } else {
                 Log.w("MainActivity", "handleIntent: ALARM_TRIGGER missing alarmId or title.")
                 initialIntentData = mapOf("action" to "com.example.tasknotate.ALARM_TRIGGER", "error" to "Missing data")
             }
         } else if (intent != null) {
-            // For non-alarm intents, store some basic info if needed.
             initialIntentData = mapOf("action" to intent.action, "data" to intent.dataString)
             Log.d("MainActivity", "handleIntent: Normal intent. Action: ${intent.action}")
         } else {
-            initialIntentData = null // Clear if intent is null
+            initialIntentData = null
         }
     }
-
-    // Method to call the 'showAlarmScreen' method on the Flutter side (if needed for direct invocation)
-    // private fun invokeShowAlarmScreen(alarmId: Int, title: String) {
-    //    methodChannel?.invokeMethod("showAlarmScreen", mapOf("alarmId" to alarmId, "title" to title))
-    // }
 
     override fun onDestroy() {
         Log.d("MainActivity", "onDestroy called.")
