@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tasknotate/controller/home_controller.dart';
-import 'package:tasknotate/core/constant/utils/extensions.dart';
+import 'package:tasknotate/core/constant/utils/extensions.dart'; // For context.appTheme
 import 'package:tasknotate/core/constant/utils/scale_confige.dart';
 import 'package:tasknotate/data/model/categorymodel.dart';
 
@@ -21,60 +21,66 @@ class NoteCategoryDropdown extends StatelessWidget {
     return GetBuilder<HomeController>(
       id: 'note-category-view',
       builder: (controller) {
-        // Ensure the selected category is valid
-        String selectedCategory = 'Home';
+        // This 'Home' is an internal identifier/default value
+        String selectedCategoryValue = 'Home'; // Internal value
         if (controller.selectedNoteCategoryId.value != null) {
           final category = controller.noteCategories.firstWhere(
             (category) =>
                 category.id == controller.selectedNoteCategoryId.value,
+            // This 'Home' is the default categoryName if not found.
             orElse: () => CategoryModel(id: null, categoryName: "Home"),
           );
-          selectedCategory = category.categoryName;
+          selectedCategoryValue = category.categoryName;
         }
 
         return Container(
-          constraints: const BoxConstraints(
-            maxWidth: 100, // Smaller static width
+          constraints: BoxConstraints(
+            maxWidth: scale.scale(100),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 6), // Static padding
+          padding: EdgeInsets.symmetric(horizontal: scale.scale(6)),
           decoration: BoxDecoration(
             color: context.appTheme.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(6), // Static radius
+            borderRadius: BorderRadius.circular(scale.scale(6)),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: selectedCategory,
-              icon: const Icon(
+              value: selectedCategoryValue, // Use the internal value
+              icon: Icon(
                 FontAwesomeIcons.filter,
-                color: Colors.white, // Assuming onSecondary is white
-                size: 14, // Smaller static icon size
+                color: context.appTheme.colorScheme.onSecondary,
+                size: scale.scale(14),
               ),
-              style: const TextStyle(
-                color: Colors.white, // Assuming onSecondary is white
-                fontSize: 12, // Smaller static font size
+              style: TextStyle(
+                color: context.appTheme.colorScheme.onSecondary,
+                fontSize: scale.scaleText(12),
               ),
               dropdownColor: context.appTheme.colorScheme.secondary,
               isExpanded: true,
               items: [
                 DropdownMenuItem(
-                  value: 'Home',
+                  value: 'Home', // The non-translated value for logic
                   child: Text(
-                    'Home'.tr,
+                    'key_home'.tr, // The translated text for display
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 ...controller.noteCategories.map((category) => DropdownMenuItem(
-                      value: category.categoryName,
+                      value: category
+                          .categoryName, // categoryName acts as the value
                       child: Text(
+                        // If category.categoryName needs translation, it should be handled here.
+                        // For now, assuming category.categoryName is directly displayable or already translated.
                         category.categoryName,
                         overflow: TextOverflow.ellipsis,
                       ),
                     )),
               ],
               onChanged: (value) {
+                // Logic compares against the non-translated 'Home'
                 if (value == 'Home') {
                   controller.filterNotesByCategory(null);
-                } else {
+                } else if (value != null) {
+                  // Ensure value is not null
                   final category = controller.noteCategories
                       .firstWhere((c) => c.categoryName == value);
                   controller.filterNotesByCategory(category.id);

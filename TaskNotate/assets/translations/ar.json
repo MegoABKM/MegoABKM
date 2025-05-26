@@ -548,7 +548,7 @@
     "key_notification_body": "مهمتك مستحقة!",
     "key_notification_stop_button": "إيقاف المنبه",
     "key_alarm_set": "تم ضبط المنبه",
-    "key_alarm_set_message": "تم ضبط المنبه لـ {s}",
+    "key_alarm_set_message": "تم ضبط المنبه ",
     "key_alarm_error": "خطأ في المنبه",
     "key_alarm_failed": "فشل في ضبط المنبه",
     "key_alarm_error_message": "خطأ في ضبط المنبه: {s}",
@@ -572,5 +572,66 @@
     "dismiss": "رفض",
     "view_tasks": "عرض المهام" ,
      "key_reminder_text": "تذكير",
-  "key_stop_alarm_button": "إيقاف التنبيه"
+  "key_stop_alarm_button": "إيقاف التنبيه" , 
+  "disabled_screen_default_message": "التطبيق قيد التحديث حاليًا. يرجى المحاولة مرة أخرى بعد قليل!",
+    "disabled_screen_cooldown_wait_message_template": "صبرًا يا نجم! 🧘 {seconds} ثوانٍ فقط لإعادة المحاولة.",
+    "disabled_screen_cooldown_active_title": "بدء فترة الانتظار! ❄️",
+    "disabled_screen_error_title": "عفوًا! 😬",
+    "disabled_screen_service_unavailable_message": "يبدو أن مساعدينا الصغار 🐹 في استراحة قهوة. الخدمة غير متوفرة الآن، يرجى المحاولة مرة أخرى بعد لحظات.",
+    "disabled_screen_still_unavailable_title": "لا يزال متوقفًا! 🔒",
+    "disabled_screen_access_restricted_message": "الوصول لا يزال في فترة راحة قصيرة. يرجى المحاولة مرة أخرى بمجرد انتهاء فترة الانتظار!",
+    "disabled_screen_check_failed_message": "مشكلة في الاتصال! 📶 تحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
+    "disabled_screen_maintenance_title": "🔧 صيانة سريعة!",
+    "disabled_screen_temporarily_unavailable_message": "نحن نعمل على تحسين تجربتك! ✨ التطبيق غير متوفر مؤقتًا، يرجى التحقق مرة أخرى قريبًا.",
+    "disabled_screen_retry_button": "حاول مرة أخرى! 💪",
+    "disabled_screen_exit_button": "الخروج الآن 👋",
+    "key_alarm_data_missing_error": "عفوًا! لم نتمكن من العثور على تفاصيل المنبه. يرجى المحاولة مرة أخرى أو الاتصال بالدعم إذا استمرت هذه المشكلة.",
+
+    "notification_channel_name": "جرعتك اليومية من الطاقة ✨",
+    "notification_channel_description": "تذكيرات ودية لقهر يومك!",
+    "notification_morning_title": "☀️ صباح الخير يا بطل!",
+    "notification_morning_body": "يومك لوحة بيضاء. هيا نرسم تحفة من الإنتاجية! 🎨 ما هو أول شيء في قائمتك؟",
+    "notification_afternoon_title": "🚀 دفعة طاقة بعد الظهر!",
+    "notification_afternoon_body": "حافظ على هذا الزخم الرائع! تفقد سريع يمكن أن يحدث فرقًا كبيرًا. أنت تبلي بلاءً حسنًا! 💪",
+    "notification_evening_title": "🌙 استرخاء المساء والتحضير",
+    "notification_evening_body": "عمل رائع اليوم! دعنا نراجع بسرعة ونستعد ليوم غد أكثر روعة. أحلام سعيدة في طريقها إليك! ✨",
+    "notification_action_dismiss": "حسنًا 👍",
+    "notification_action_view_tasks": "هيا بنا! 🚀" ,
+      "key_home": "الرئيسية" , 
+       "saveButtonText": "حفظ",
+    "scheduleRemindersSectionTitle": "جدولة وتذكيرات",
+    "additionalDetailsSectionTitle": "تفاصيل إضافية",
+    "noSubtasksPrompt": "لم تتم إضافة أي مهام فرعية بعد. انقر أعلاه لإضافة واحدة!",
+    "subtaskItemHint": "أدخل تفاصيل المهمة الفرعية...",
+    "removeSubtaskTooltip": "إزالة المهمة الفرعية",
+    "selectPriorityDropdownHint": "اختر الأولوية",
+    "selectStatusDropdownHint": "اختر الحالة",
+    "selectCategoryDropdownHint": "اختر الفئة",
+    "selectOptionDropdownHint": "اختر خيارًا",
+    "homeCategoryDropdownLabel": "الرئيسية",
+    "Pick Start Date": "اختر تاريخ البدء",
+    "Pick Finish Date": "اختر تاريخ الانتهاء",
+    "Set Reminder": "ضبط تذكير",
+    "Select Date/Time": "اختر التاريخ/الوقت" , 
+  "key_create_note_appbar_title": "إنشاء ملاحظة",
+  "key_note_title_hint": "العنوان",
+  "key_note_content_hint": "ابدأ بكتابة ملاحظتك...",
+  "key_category_label": "الفئة",
+  "key_select_category_hint": "اختر الفئة",
+  "key_no_category_option": "الرئيسية",
+  "key_drawing_mode_on_tooltip": "التبديل إلى وضع النص",
+  "key_drawing_mode_off_tooltip": "التبديل إلى وضع الرسم",
+  "key_drawing_canvas_label": "لوحة الرسم",
+  "key_add_drawing_button": "إضافة رسم",
+  "key_done_drawing_button": "تم الرسم",
+  "key_view_note_title_hint": "عنوان الملاحظة",
+  "key_note_not_found_message": "الملاحظة غير موجودة.",
+  "key_view_drawing_label": "الرسم:",
+  "key_error_loading_drawing_message": "خطأ في تحميل الرسم.",
+  "key_drawing_tools_clear": "مسح",
+  "key_drawing_tools_undo": "تراجع",
+  "key_drawing_tools_done": "تم",
+  "key_save_note": "حفظ",
+  "key_untitled_placeholder": "بدون عنوان" ,
+   "key_create_task": "إنشاء مهمة"
   }

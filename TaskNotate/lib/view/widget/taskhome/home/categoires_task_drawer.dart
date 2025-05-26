@@ -8,7 +8,8 @@ import 'package:tasknotate/data/datasource/local/sqldb.dart';
 
 class CategoryDrawerTask extends StatelessWidget {
   final HomeController controller;
-  final bool isTaskDrawer;
+  final bool
+      isTaskDrawer; // Controls if task titles are shown inside expansion tile
 
   const CategoryDrawerTask({
     super.key,
@@ -20,6 +21,7 @@ class CategoryDrawerTask extends StatelessWidget {
       BuildContext context, CategoryModel category) async {
     final SqlDb sqlDb = SqlDb();
     List<Map<String, dynamic>> tasksResponse;
+    // For "Home" category, category.id will be null
     if (category.id == null) {
       tasksResponse = await sqlDb.readData(
         'SELECT title FROM tasks WHERE categoryId IS NULL',
@@ -44,6 +46,7 @@ class CategoryDrawerTask extends StatelessWidget {
 
   Future<void> _updateCategory(int? id, String name) async {
     if (id == null) {
+      // Handles "Home" category
       Get.snackbar('key_error'.tr, 'key_cannot_update_home'.tr,
           snackPosition: SnackPosition.BOTTOM);
       return;
@@ -56,8 +59,9 @@ class CategoryDrawerTask extends StatelessWidget {
     }
   }
 
-  Future<void> _deleteCategory(int? id, RxBool isDeleting) async {
+  Future<void> _deleteCategory(int? id, RxBool isDeletingController) async {
     if (id == null) {
+      // Handles "Home" category
       Get.snackbar('key_error'.tr, 'key_cannot_delete_home'.tr,
           snackPosition: SnackPosition.BOTTOM);
       return;
@@ -70,9 +74,10 @@ class CategoryDrawerTask extends StatelessWidget {
     }
   }
 
-  Future<void> _setTasksToPending(int? id, String categoryName) async {
+  Future<void> _setTasksToPending(int? categoryId) async {
     try {
-      await controller.setTasksToPending(id);
+      // controller.setTasksToPending already handles null categoryId for "Home"
+      await controller.setTasksToPending(categoryId);
     } catch (e) {
       Get.snackbar('key_error'.tr, 'key_failed_to_set_pending'.tr,
           snackPosition: SnackPosition.BOTTOM);
@@ -83,7 +88,7 @@ class CategoryDrawerTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController nameController = TextEditingController();
     final RxBool showAddField = false.obs;
-    final RxBool isDeleting = false.obs;
+    final RxBool isDeleting = false.obs; // For delete operation feedback
 
     return Drawer(
       child: Column(
@@ -179,48 +184,53 @@ class CategoryDrawerTask extends StatelessWidget {
           ),
           Expanded(
             child: GetBuilder<HomeController>(
-              id: 'task-category-view',
+              id: 'task-category-view', // Updates when controller.taskCategories changes
               builder: (controller) {
-                final List<CategoryModel> categories =
-                    List.from(controller.taskCategories);
-                if (controller.taskdata.any((task) => task.category == null)) {
-                  if (!categories.any((cat) => cat.categoryName == "Home")) {
-                    categories.insert(
-                        0, CategoryModel(id: null, categoryName: "Home"));
-                  }
-                }
-
-                if (categories.isEmpty) {
-                  return Center(child: Text('key_no_categories'.tr));
-                }
+                // Start with the "Home" category
+                final List<CategoryModel> displayCategories = [
+                  CategoryModel(id: null, categoryName: "key_home".tr)
+                ];
+                // Add all other task categories from the database
+                displayCategories.addAll(controller.taskCategories);
 
                 return ListView.builder(
-                  itemCount: categories.length,
+                  itemCount: displayCategories.length,
                   itemBuilder: (context, index) {
-                    final category = categories[index];
+                    final category = displayCategories[index];
+                    final bool isHomeCategory = category.id == null;
+
                     return ExpansionTile(
                       leading: Icon(
-                        FontAwesomeIcons.folder,
+                        isHomeCategory
+                            ? FontAwesomeIcons.houseChimney
+                            : FontAwesomeIcons.folder,
                         color: context.appTheme.colorScheme.primary,
                         size: context.scaleConfig.scale(20),
                       ),
                       title: Text(
-                        category.categoryName,
+                        category
+                            .categoryName, // This will be "key_home".tr for the Home category
                         style: TextStyle(
                           fontSize: context.scaleConfig.scaleText(16),
                         ),
                       ),
+                      initiallyExpanded:
+                          controller.selectedTaskCategoryId.value ==
+                              category.id,
                       onExpansionChanged: (expanded) {
-                        if (!expanded) {
-                          if (isTaskDrawer &&
-                              controller.selectedTaskCategoryId.value ==
-                                  category.id) {
-                            controller.filterTasksByCategory(null);
+                        // No direct check for isTaskDrawer here, as filtering should always work
+                        if (expanded) {
+                          controller.filterTasksByCategory(category.id);
+                        } else {
+                          if (controller.selectedTaskCategoryId.value ==
+                              category.id) {
+                            controller.filterTasksByCategory(
+                                null); // Filter by "Home" (all unassigned)
                           }
                         }
                       },
                       children: [
-                        if (isTaskDrawer)
+                        if (isTaskDrawer) // Only show task titles if isTaskDrawer is true
                           FutureBuilder<List<String>>(
                             future: _fetchTaskTitles(context, category),
                             builder: (context, snapshot) {
@@ -234,11 +244,23 @@ class CategoryDrawerTask extends StatelessWidget {
                               if (snapshot.hasError) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text('key_error'.tr),
+                                  child: Text('key_error_fetching_tasks'.tr),
                                 );
                               }
                               final taskTitles = snapshot.data ?? [];
-                              if (taskTitles.isEmpty) {
+                              if (taskTitles.isEmpty && !isHomeCategory) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: context.scaleConfig
+                                        .scale(16 + 8), // Indent
+                                    vertical: context.scaleConfig.scale(8),
+                                  ),
+                                  child: Text('key_no_tasks_in_category'.tr,
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic)),
+                                );
+                              }
+                              if (taskTitles.isEmpty && isHomeCategory) {
                                 return const SizedBox.shrink();
                               }
                               return Padding(
@@ -275,6 +297,7 @@ class CategoryDrawerTask extends StatelessWidget {
                                               color: context.appTheme
                                                   .colorScheme.onSurface,
                                             ),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         )),
                                   ],
@@ -288,22 +311,38 @@ class CategoryDrawerTask extends StatelessWidget {
                             vertical: context.scaleConfig.scale(8),
                           ),
                           child: Wrap(
+                            // Use Wrap for better layout on small screens
                             spacing: context.scaleConfig.scale(8),
+                            alignment: WrapAlignment
+                                .spaceBetween, // Distribute space for fewer items
+                            runSpacing: context.scaleConfig.scale(4),
                             children: [
                               TextButton.icon(
                                 icon: Icon(
                                   Icons.edit,
-                                  color: context.appTheme.colorScheme.primary,
+                                  color: isHomeCategory
+                                      ? Colors.grey
+                                      : context.appTheme.colorScheme.primary,
                                   size: context.scaleConfig.scale(18),
                                 ),
-                                label: Text('key_edit'.tr),
-                                onPressed: () {
-                                  _showEditCategoryDialog(context, category);
-                                },
+                                label: Text('key_edit'.tr,
+                                    style: TextStyle(
+                                        color: isHomeCategory
+                                            ? Colors.grey
+                                            : null)),
+                                onPressed: isHomeCategory
+                                    ? null // Disable Edit for "Home"
+                                    : () {
+                                        _showEditCategoryDialog(
+                                            context, category);
+                                      },
                               ),
                               Obx(
                                 () => TextButton.icon(
-                                  icon: isDeleting.value
+                                  icon: isDeleting.value &&
+                                          controller.selectedTaskCategoryId
+                                                  .value ==
+                                              category.id
                                       ? SizedBox(
                                           width: context.scaleConfig.scale(18),
                                           height: context.scaleConfig.scale(18),
@@ -315,18 +354,25 @@ class CategoryDrawerTask extends StatelessWidget {
                                         )
                                       : Icon(
                                           Icons.delete,
-                                          color: Colors.redAccent,
+                                          color: isHomeCategory
+                                              ? Colors.grey
+                                              : Colors.redAccent,
                                           size: context.scaleConfig.scale(18),
                                         ),
-                                  label: Text('key_delete'.tr),
-                                  onPressed: isDeleting.value
-                                      ? null
+                                  label: Text('key_delete'.tr,
+                                      style: TextStyle(
+                                          color: isHomeCategory
+                                              ? Colors.grey
+                                              : null)),
+                                  onPressed: isHomeCategory || isDeleting.value
+                                      ? null // Disable Delete for "Home" or if any delete is in progress
                                       : () {
                                           _confirmDeleteCategory(
                                               context, category, isDeleting);
                                         },
                                 ),
                               ),
+                              // "Set to Pending" button is always enabled
                               TextButton.icon(
                                 icon: Icon(
                                   Icons.refresh,
@@ -354,9 +400,16 @@ class CategoryDrawerTask extends StatelessWidget {
   }
 
   void _showEditCategoryDialog(BuildContext context, CategoryModel category) {
-    print('Opening edit category dialog for ${category.categoryName}');
-    final TextEditingController nameController =
-        TextEditingController(text: category.categoryName);
+    if (category.id == null) {
+      _updateCategory(null, ''); // Will show 'key_cannot_update_home'
+      return;
+    }
+    print('Opening edit task category dialog for ${category.categoryName}');
+    final TextEditingController nameController = TextEditingController(
+        text: category.categoryName == "key_home".tr
+            ? category.categoryName.tr
+            : category.categoryName); // Display translated name if it's the key
+
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -372,17 +425,14 @@ class CategoryDrawerTask extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              print('Cancel button pressed for edit dialog');
               Navigator.of(dialogContext).pop();
             },
             child: Text('key_cancel'.tr),
           ),
           TextButton(
             onPressed: () async {
-              print('Update button pressed for edit dialog');
               if (nameController.text.isNotEmpty) {
                 await _updateCategory(category.id, nameController.text);
-                print('Closing edit dialog after update');
                 Navigator.of(dialogContext).pop();
               } else {
                 Get.snackbar(
@@ -399,32 +449,37 @@ class CategoryDrawerTask extends StatelessWidget {
     );
   }
 
-  void _confirmDeleteCategory(
-      BuildContext context, CategoryModel category, RxBool isDeleting) {
-    print('Opening delete category dialog for ${category.categoryName}');
+  void _confirmDeleteCategory(BuildContext context, CategoryModel category,
+      RxBool isDeletingController) {
+    if (category.id == null) {
+      _deleteCategory(
+          null, isDeletingController); // Will show 'key_cannot_delete_home'
+      return;
+    }
+    print('Opening delete task category dialog for ${category.categoryName}');
+    // Get the translated name for the dialog message
+    String displayCategoryName = category.categoryName.tr;
+
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (dialogContext) => AlertDialog(
         title: Text('key_delete_category'.tr),
-        content: Text('key_confirm_delete_category'
-            .tr
-            .replaceFirst('{}', category.categoryName)),
+        content: Text(
+            'key_confirm_delete_category_named' // Use a key that expects a named parameter
+                .trParams({'categoryName': displayCategoryName})),
         actions: [
           TextButton(
             onPressed: () {
-              print('Cancel button pressed for delete dialog');
               Navigator.of(dialogContext).pop();
             },
             child: Text('key_cancel'.tr),
           ),
           TextButton(
             onPressed: () async {
-              print('Delete button pressed for delete dialog');
-              isDeleting.value = true;
-              await _deleteCategory(category.id, isDeleting);
-              isDeleting.value = false;
-              print('Closing delete dialog after deletion');
+              isDeletingController.value = true;
+              await _deleteCategory(category.id, isDeletingController);
+              isDeletingController.value = false;
               Navigator.of(dialogContext).pop();
             },
             child: Text('key_delete'.tr),
@@ -436,27 +491,32 @@ class CategoryDrawerTask extends StatelessWidget {
 
   void _confirmSetTasksToPending(BuildContext context, CategoryModel category) {
     print('Opening set tasks pending dialog for ${category.categoryName}');
+    // Get the translated name for the dialog message
+    String displayCategoryName =
+        category.categoryName.tr; // "key_home".tr becomes "Home"
+
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (dialogContext) => AlertDialog(
         title: Text('key_set_tasks_pending'.tr),
-        content: Text('key_confirm_set_tasks_pending'
-            .tr
-            .replaceFirst('{}', category.categoryName)),
+        content: Text(
+          (category.id == null
+              ? 'key_confirm_set_tasks_pending_home'.tr // Specific key for Home
+              : 'key_confirm_set_tasks_pending_category' // Key for other categories
+                  .trParams({'categoryName': displayCategoryName})),
+        ),
         actions: [
           TextButton(
             onPressed: () {
-              print('Cancel button pressed for set pending dialog');
               Navigator.of(dialogContext).pop();
             },
             child: Text('key_cancel'.tr),
           ),
           TextButton(
             onPressed: () async {
-              print('Confirm button pressed for set pending dialog');
-              await _setTasksToPending(category.id, category.categoryName);
-              print('Closing set pending dialog after confirmation');
+              await _setTasksToPending(
+                  category.id); // Pass original id (null for Home)
               Navigator.of(dialogContext).pop();
             },
             child: Text('key_confirm'.tr),

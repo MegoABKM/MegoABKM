@@ -12,7 +12,7 @@ class AboutUsScreen extends StatelessWidget {
     return packageInfo.version;
   }
 
-  Future<void> _sendEmail(String email) async {
+  Future<void> sendEmail(String email) async {
     final uri = Uri(
       scheme: 'mailto',
       path: email,

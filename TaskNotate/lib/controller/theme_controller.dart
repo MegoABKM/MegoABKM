@@ -8,8 +8,8 @@ class ThemeController extends GetxController {
   final StorageService myServices = Get.find<StorageService>();
   bool isDarkMode = false;
   ThemeData currentTheme;
-  String primaryColorKey = 'deepTeal';
-  String secondaryColorKey = 'deepTeal';
+  String primaryColorKey = 'oceanCyan';
+  String secondaryColorKey = 'oceanCyan';
 
   ThemeController() : currentTheme = AppThemes.lightTheme("en");
 
@@ -50,17 +50,17 @@ class ThemeController extends GetxController {
     // Migrate old color keys to new ones
     primaryColorKey = _colorMigrationMap[savedPrimaryColor] ??
         savedPrimaryColor ??
-        'deepTeal';
+        'oceanCyan';
     secondaryColorKey = _colorMigrationMap[savedSecondaryColor] ??
         savedSecondaryColor ??
-        'deepTeal';
+        'oceanCyan';
 
     // Validate colors exist in availableColors
     if (!AppThemes.availableColors.containsKey(primaryColorKey)) {
-      primaryColorKey = 'deepTeal';
+      primaryColorKey = 'oceanCyan';
     }
     if (!AppThemes.availableColors.containsKey(secondaryColorKey)) {
-      secondaryColorKey = 'deepTeal';
+      secondaryColorKey = 'oceanCyan';
     }
 
     // Save migrated colors and theme

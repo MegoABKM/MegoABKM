@@ -21,60 +21,70 @@ class CategoryDropdown extends StatelessWidget {
     return GetBuilder<HomeController>(
       id: 'task-category-view',
       builder: (controller) {
-        // Ensure the selected category is valid
-        String selectedCategory = 'Home';
+        // This 'Home' is an internal identifier/default value, NOT for direct display as is.
+        // The display will come from the DropdownMenuItem's child.
+        String selectedCategoryValue = 'Home'; // Internal value
         if (controller.selectedTaskCategoryId.value != null) {
           final category = controller.taskCategories.firstWhere(
             (category) =>
                 category.id == controller.selectedTaskCategoryId.value,
+            // This 'Home' is the default categoryName if not found.
             orElse: () => CategoryModel(id: null, categoryName: "Home"),
           );
-          selectedCategory = category.categoryName;
+          selectedCategoryValue = category.categoryName;
         }
 
         return Container(
           constraints: const BoxConstraints(
-            maxWidth: 100, // Smaller static width
+            maxWidth: 100,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 6), // Static padding
+          padding: const EdgeInsets.symmetric(horizontal: 6),
           decoration: BoxDecoration(
             color: context.appTheme.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(6), // Static radius
+            borderRadius: BorderRadius.circular(6),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: selectedCategory,
-              icon: const Icon(
+              value: selectedCategoryValue, // Use the internal value
+              icon: Icon(
                 FontAwesomeIcons.filter,
-                color: Colors.white, // Assuming onSecondary is white
-                size: 14, // Smaller static icon size
+                color:
+                    context.appTheme.colorScheme.onSecondary, // Use theme color
+                size: 14,
               ),
-              style: const TextStyle(
-                color: Colors.white, // Assuming onSecondary is white
-                fontSize: 12, // Smaller static font size
+              style: TextStyle(
+                color:
+                    context.appTheme.colorScheme.onSecondary, // Use theme color
+                fontSize: 12,
               ),
               dropdownColor: context.appTheme.colorScheme.secondary,
               isExpanded: true,
               items: [
                 DropdownMenuItem(
-                  value: 'Home',
+                  value: 'Home', // The non-translated value for logic
                   child: Text(
-                    'Home'.tr,
+                    'key_home'.tr, // The translated text for display
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 ...controller.taskCategories.map((category) => DropdownMenuItem(
-                      value: category.categoryName,
+                      value: category
+                          .categoryName, // categoryName acts as the value
                       child: Text(
+                        // If category names themselves need translation,
+                        // they should also be keys or have a translation mechanism.
+                        // For now, assuming category.categoryName is directly displayable or already translated.
                         category.categoryName,
                         overflow: TextOverflow.ellipsis,
                       ),
                     )),
               ],
               onChanged: (value) {
+                // Logic compares against the non-translated 'Home'
                 if (value == 'Home') {
                   controller.filterTasksByCategory(null);
-                } else {
+                } else if (value != null) {
+                  // Ensure value is not null
                   final category = controller.taskCategories
                       .firstWhere((c) => c.categoryName == value);
                   controller.filterTasksByCategory(category.id);

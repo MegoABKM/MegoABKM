@@ -7,15 +7,34 @@ import 'package:tasknotate/core/constant/utils/extensions.dart';
 import 'package:tasknotate/view/widget/taskhome/home/empty_task_message.dart';
 import 'package:tasknotate/view/widget/taskhome/home/task_list/customtaskcard/task_dialog.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:tasknotate/core/localization/changelocal.dart'; // Import your LocalController
 
 class TimelineHome extends StatelessWidget {
   const TimelineHome({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Get the current locale from LocalController
+    final LocalController localController = Get.find<LocalController>();
+    final String currentLocale = localController.language.languageCode;
+
     return FutureBuilder(
-      future: initializeDateFormatting('ar', null),
+      // Use a ValueKey with currentLocale to ensure FutureBuilder rebuilds if locale changes
+      key: ValueKey(currentLocale),
+      // Initialize date formatting for the current application locale
+      future: initializeDateFormatting(currentLocale, null),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          // Handle initialization error (e.g., locale data not found)
+          print(
+              "Error initializing date formatting for locale '$currentLocale': ${snapshot.error}");
+          return SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                  'Error initializing date formats for ${currentLocale.toUpperCase()}.'),
+            ),
+          );
+        }
         if (snapshot.connectionState != ConnectionState.done) {
           return SliverToBoxAdapter(
             child: SizedBox(
@@ -25,6 +44,7 @@ class TimelineHome extends StatelessWidget {
           );
         }
 
+        // If initialization is done, proceed to build the timeline
         return GetBuilder<HomeController>(
           id: 'timeline-view',
           builder: (controller) {
@@ -43,11 +63,13 @@ class TimelineHome extends StatelessWidget {
                     final hasStartTime =
                         task.starttime != null && task.starttime != "Not Set";
 
+                    // Use currentLocale for DateFormat
                     final timelineMarker = hasStartTime &&
                             task.starttime != null
-                        ? DateFormat('dd MMMM yyyy, HH:mm', 'ar')
+                        ? DateFormat('dd MMMM yyyy, HH:mm',
+                                currentLocale) // Use currentLocale
                             .format(DateTime.parse(task.starttime!))
-                        : "${'362'.tr}: ${task.date != null ? DateFormat('dd MMMM yyyy', 'ar').format(DateTime.parse(task.date!)) : '363'.tr}";
+                        : "${'362'.tr}: ${task.date != null ? DateFormat('dd MMMM yyyy', currentLocale).format(DateTime.parse(task.date!)) : '363'.tr}"; // Use currentLocale
 
                     final statusColor = _getStatusColor(task.status);
 
@@ -140,7 +162,8 @@ class TimelineHome extends StatelessWidget {
                                         padding: EdgeInsets.only(
                                             top: context.scaleConfig.scale(8)),
                                         child: Text(
-                                          "361".tr,
+                                          "361"
+                                              .tr, // Assuming this is "All day" or similar
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall
@@ -179,9 +202,12 @@ class TimelineHome extends StatelessWidget {
                       ),
                     );
                   }
+                  // This handles the extra item for potential bottom padding/spacing
                   return SizedBox(height: 80 * context.scaleConfig.scaleHeight);
                 },
-                childCount: controller.taskdata.length + 1,
+                // Keep childCount as is, or adjust if the last SizedBox is not desired
+                childCount: controller.taskdata.length +
+                    (controller.taskdata.isNotEmpty ? 1 : 0),
               ),
             );
           },
@@ -193,13 +219,13 @@ class TimelineHome extends StatelessWidget {
   Color _getStatusColor(String? status) {
     switch (status) {
       case "Pending":
-        return Colors.yellow;
+        return Colors.orangeAccent; // Changed for better visibility perhaps
       case "In Progress":
-        return Colors.blue;
+        return Colors.blueAccent;
       case "Completed":
         return Colors.green;
       default:
-        return Colors.grey;
+        return Colors.grey.shade400;
     }
   }
 }

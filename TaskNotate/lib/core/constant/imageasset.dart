@@ -11,11 +11,11 @@ class AppImageAsset {
   // static const String offline = "$rootImages/offline.json";
   // static const String nodata = "$rootImages/nodata.json";
   // static const String google = "$rootImages/google_icon.png";
-  static const String noteanimation3 = "$rootImages/noteanimation3.json";
+  static const String noteanimation3 = "$rootImages/noteanimation4.json";
   // static const String taskbackgrounddark =
   //     "$rootImages/taskbackgrounddarkmode.json";
   // static const String taskcompanyloading = "$rootImages/loadingcompany.json";
-  static const String taskpencil = "$rootImages/taskpencil.json";
+  static const String taskpencil = "$rootImages/taskpencil2.json";
   static const String taskunchecked = "$rootImages/squarecheck.json";
   static const String checked2 = "$rootImages/checked2.json";
   static const String pendingtask2 = "$rootImages/pendingtask2.json";

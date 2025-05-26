@@ -53,8 +53,8 @@ class AnimateAppBarTask extends GetView<HomeController> {
           padding: EdgeInsets.only(
             top: scaleConfig.scale(40),
             bottom: scaleConfig.scale(20),
-            left: isArabic ? scaleConfig.scale(30) : scaleConfig.scale(40),
-            right: isArabic ? scaleConfig.scale(0) : 0,
+            left: isArabic ? scaleConfig.scale(30) : scaleConfig.scale(0),
+            right: isArabic ? scaleConfig.scale(25) : 0,
           ),
           child: LottieBuilder.asset(
             AppImageAsset.taskpencil,

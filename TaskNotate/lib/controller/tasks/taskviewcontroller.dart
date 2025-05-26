@@ -44,10 +44,10 @@ class Taskviewcontroller extends BaseTaskController {
 
   Future<String?> fromIdToName(String? categoryid) async {
     if (categoryid == null || categoryid.isEmpty || categoryid == "Home")
-      return "Home";
+      return "key_home".tr;
     int? parsedCategoryId = int.tryParse(categoryid);
     if (parsedCategoryId == null)
-      return "Home"; // Should not happen if DB stores int
+      return "key_home".tr; // Should not happen if DB stores int
     List<Map<String, dynamic>> response = await sqlDb.readData(
       // sqlDb inherited
       "SELECT categoryName FROM categoriestasks WHERE id = ?",
@@ -55,7 +55,7 @@ class Taskviewcontroller extends BaseTaskController {
     );
     return response.isNotEmpty && response[0]['categoryName'] != null
         ? response[0]['categoryName'] as String
-        : "Home";
+        : "key_home".tr;
   }
 
   Future<void> updateStatus(

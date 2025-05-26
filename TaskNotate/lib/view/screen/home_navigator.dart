@@ -34,6 +34,7 @@ class HomeNavigator extends StatelessWidget {
         Get.find<StorageService>().sharedPreferences.getString("lang") == "ar";
 
     return Scaffold(
+      // ignore: deprecated_member_use
       body: WillPopScope(
         onWillPop: () => alertExitApp(),
         child: Stack(

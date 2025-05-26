@@ -1,6 +1,5 @@
-import 'dart:ui';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart'; // Keep for Color and WidgetsBindingObserver
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,23 +34,23 @@ class NotificationService extends GetxService with WidgetsBindingObserver {
 
   Future init() async {
     await AwesomeNotifications().initialize(
-      'resource://drawable/notification_icon',
+      'resource://drawable/notification_icon', // Your app icon
       [
         NotificationChannel(
           channelKey: 'daily_reminder_channel',
-          channelName: 'Daily Reminders',
-          channelDescription: 'Daily reminders for your tasks',
+          channelName: 'notification_channel_name'.tr, // Updated
+          channelDescription: 'notification_channel_description'.tr, // Updated
           importance: NotificationImportance.Max,
           playSound: true,
           enableVibration: true,
           enableLights: true,
-          ledColor: const Color(0xFFFF0000),
+          ledColor: const Color(0xFFFF0000), // Example color
           channelShowBadge: true,
-          criticalAlerts: false,
+          criticalAlerts: false, // Set to true only for very critical alerts
           icon: 'resource://drawable/notification_icon',
         ),
       ],
-      debug: true,
+      debug: true, // Set to false in production
     );
 
     final granted =
@@ -65,74 +64,86 @@ class NotificationService extends GetxService with WidgetsBindingObserver {
         print('Notification created: ID=${notification.id}');
       },
       onNotificationDisplayedMethod: (ReceivedNotification notification) async {
-        if (_appLifecycleState == AppLifecycleState.resumed) {
+        // If app is in foreground, consider not showing or dismissing immediately
+        if (_appLifecycleState == AppLifecycleState.resumed &&
+            notification.id != null) {
+          // Optional: Dismiss if you don't want it to persist while app is open
           await AwesomeNotifications().dismiss(notification.id!);
-          print('Dismissed notification ID=${notification.id} in foreground');
+          print(
+              'Dismissed notification ID=${notification.id} (displayed in foreground)');
           return;
         }
         print('Notification displayed: ID=${notification.id}');
       },
       onDismissActionReceivedMethod: (ReceivedAction action) async {
-        print('Notification dismissed: ID=${action.id}');
+        print('Notification dismissed by user: ID=${action.id}');
       },
     );
 
     return this;
   }
 
-  static Future onActionReceivedMethod(ReceivedAction action) async {
+  static Future onActionReceivedMethod(ReceivedAction receivedAction) async {
     print(
-        'Background action received: ID=${action.id}, Button=${action.buttonKeyPressed}');
+        'Action received: ID=${receivedAction.id}, Button Key Pressed: ${receivedAction.buttonKeyPressed}, Input: ${receivedAction.buttonKeyInput}');
+    // Handle actions, e.g., navigate to a specific screen
+    // if (receivedAction.buttonKeyPressed == 'view_tasks') {
+    //   // Get.toNamed(AppRoute.tasksScreen); // Example
+    // }
   }
 
   Future scheduleDailyNotifications({bool isTesting = false}) async {
-    await cancelAllNotifications(); // Clear existing schedules
+    await cancelAllNotifications();
 
     final now = DateTime.now();
-    final testTimes = isTesting
-        ? [
-            now.add(const Duration(seconds: 10)),
-            now.add(const Duration(seconds: 20)),
-            now.add(const Duration(seconds: 30)),
-          ]
-        : [
-            DateTime(now.year, now.month, now.day, 8, 0).add(
-                now.hour > 8 || (now.hour == 8 && now.minute >= 0)
-                    ? const Duration(days: 1)
-                    : Duration.zero),
-            DateTime(now.year, now.month, now.day, 14, 0).add(
-                now.hour > 14 || (now.hour == 14 && now.minute >= 0)
-                    ? const Duration(days: 1)
-                    : Duration.zero),
-            DateTime(now.year, now.month, now.day, 19, 0).add(
-                now.hour > 19 || (now.hour == 19 && now.minute >= 0)
-                    ? const Duration(days: 1)
-                    : Duration.zero),
-          ];
+    final List<DateTime> scheduledTimes;
+
+    if (isTesting) {
+      scheduledTimes = [
+        now.add(const Duration(seconds: 10)), // Morning
+        now.add(const Duration(seconds: 20)), // Afternoon
+        now.add(const Duration(seconds: 30)), // Evening
+      ];
+    } else {
+      scheduledTimes = [
+        DateTime(now.year, now.month, now.day, 8, 00).isBefore(now)
+            ? DateTime(now.year, now.month, now.day, 8, 00)
+                .add(const Duration(days: 1))
+            : DateTime(now.year, now.month, now.day, 8, 00), // 8:00 AM
+        DateTime(now.year, now.month, now.day, 14, 00).isBefore(now)
+            ? DateTime(now.year, now.month, now.day, 14, 00)
+                .add(const Duration(days: 1))
+            : DateTime(now.year, now.month, now.day, 14, 00), // 2:00 PM
+        DateTime(now.year, now.month, now.day, 19, 00).isBefore(now)
+            ? DateTime(now.year, now.month, now.day, 19, 00)
+                .add(const Duration(days: 1))
+            : DateTime(now.year, now.month, now.day, 19, 00), // 7:00 PM
+      ];
+    }
 
     await _scheduleNotification(
       id: 1,
-      titleKey: 'morning_title',
-      bodyKey: 'morning_body',
-      scheduledTime: testTimes[0],
+      titleKey: 'notification_morning_title', // Updated
+      bodyKey: 'notification_morning_body', // Updated
+      scheduledTime: scheduledTimes[0],
     );
-    print('Scheduled morning notification at ${testTimes[0]}');
+    print('Scheduled morning notification at ${scheduledTimes[0]}');
 
     await _scheduleNotification(
       id: 2,
-      titleKey: 'afternoon_title',
-      bodyKey: 'afternoon_body',
-      scheduledTime: testTimes[1],
+      titleKey: 'notification_afternoon_title', // Updated
+      bodyKey: 'notification_afternoon_body', // Updated
+      scheduledTime: scheduledTimes[1],
     );
-    print('Scheduled afternoon notification at ${testTimes[1]}');
+    print('Scheduled afternoon notification at ${scheduledTimes[1]}');
 
     await _scheduleNotification(
       id: 3,
-      titleKey: 'before_night_title',
-      bodyKey: 'before_night_body',
-      scheduledTime: testTimes[2],
+      titleKey: 'notification_evening_title', // Updated (was before_night)
+      bodyKey: 'notification_evening_body', // Updated
+      scheduledTime: scheduledTimes[2],
     );
-    print('Scheduled before night notification at ${testTimes[2]}');
+    print('Scheduled evening notification at ${scheduledTimes[2]}');
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('notifications_scheduled', true);
@@ -142,7 +153,7 @@ class NotificationService extends GetxService with WidgetsBindingObserver {
 
     final active = await AwesomeNotifications().listScheduledNotifications();
     print(
-        'Active notifications: ${active.map((n) => "ID=${n.content?.id}, Title=${n.content?.title}, Schedule=${n.schedule?.toMap()}").toList()}');
+        'Active notifications: ${active.map((n) => "ID=${n.content?.id}, Title=${n.content?.title}, Schedule=${n.schedule?.toMap().toString().substring(0, 50)}...").toList()}');
   }
 
   Future _scheduleNotification({
@@ -152,45 +163,38 @@ class NotificationService extends GetxService with WidgetsBindingObserver {
     required DateTime scheduledTime,
   }) async {
     try {
-      final isForeground = _appLifecycleState == AppLifecycleState.resumed;
-      if (isForeground) {
-        print(
-            'Skipped displaying notification ID=$id in foreground (Title=$titleKey.tr, Time=$scheduledTime)');
-      }
-
+      // displayOnForeground: false means it won't pop up if app is active.
+      // The onNotificationDisplayedMethod handles immediate dismissal if app is in foreground.
       await AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: id,
-          channelKey: 'daily_reminder_channel',
-          title: titleKey.tr,
-          body: bodyKey.tr,
-          notificationLayout: NotificationLayout.Default,
-          category: NotificationCategory.Reminder,
-          criticalAlert: false,
-          wakeUpScreen: false,
-          fullScreenIntent: false,
-          autoDismissible: false,
-          icon: 'resource://drawable/notification_icon',
-          displayOnForeground: false,
-        ),
-        actionButtons: [
-          NotificationActionButton(key: 'dismiss', label: 'dismiss'.tr),
-          NotificationActionButton(key: 'view', label: 'view_tasks'.tr),
-        ],
-        schedule: NotificationCalendar(
-          year: scheduledTime.year,
-          month: scheduledTime.month,
-          day: scheduledTime.day,
-          hour: scheduledTime.hour,
-          minute: scheduledTime.minute,
-          second: scheduledTime.second,
-          millisecond: 0,
-          allowWhileIdle: true,
-          preciseAlarm: true,
-        ),
-      );
+          content: NotificationContent(
+            id: id,
+            channelKey: 'daily_reminder_channel',
+            title: titleKey.tr, // Use .tr
+            body: bodyKey.tr, // Use .tr
+            notificationLayout: NotificationLayout.Default,
+            category: NotificationCategory.Reminder,
+            wakeUpScreen: true, // Wakes up screen briefly
+            fullScreenIntent: false, // Avoid if not absolutely necessary
+            autoDismissible: true, // User can swipe away
+            icon: 'resource://drawable/notification_icon',
+            displayOnForeground:
+                false, // System handles if app is in foreground based on importance
+            // But our onNotificationDisplayedMethod will dismiss it anyway.
+          ),
+          actionButtons: [
+            NotificationActionButton(
+                key: 'DISMISS',
+                label: 'notification_action_dismiss'.tr,
+                autoDismissible: true), // Updated
+            NotificationActionButton(
+                key: 'VIEW_TASKS',
+                label: 'notification_action_view_tasks'.tr,
+                autoDismissible: true), // Updated
+          ],
+          schedule: NotificationCalendar.fromDate(
+              date: scheduledTime, allowWhileIdle: true, preciseAlarm: true));
       print(
-          'Notification scheduled: ID=$id, Title=$titleKey.tr, Time=$scheduledTime, Foreground=$isForeground');
+          'Notification scheduled: ID=$id, Title=${titleKey.tr}, Time=$scheduledTime');
     } catch (e) {
       print('Error scheduling notification ID=$id: $e');
     }
@@ -200,8 +204,9 @@ class NotificationService extends GetxService with WidgetsBindingObserver {
     await AwesomeNotifications().cancelAllSchedules();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('notifications_scheduled', false);
-    await prefs.remove('is_testing_notifications');
-    print('Cancelled all notifications');
+    // Consider if you want to remove is_testing_notifications or keep it
+    // await prefs.remove('is_testing_notifications');
+    print('Cancelled all scheduled notifications');
   }
 
   Future checkAndRescheduleNotifications() async {
@@ -211,16 +216,21 @@ class NotificationService extends GetxService with WidgetsBindingObserver {
     print(
         'Checked notifications_scheduled: $isScheduled, is_testing_notifications: $isTesting');
     if (!isScheduled) {
-      print('Notifications not scheduled, rescheduling');
+      print('Notifications not scheduled or schedule lost, rescheduling...');
       await scheduleDailyNotifications(isTesting: isTesting);
     }
   }
 
+  // This static method might be called from background isolate, be careful with GetX dependencies
   static Future rescheduleNotifications() async {
-    print('Rescheduling notifications at ${DateTime.now()}');
-    final notificationService = NotificationService();
-    await notificationService.init();
+    print('Static rescheduleNotifications called at ${DateTime.now()}');
+    // Re-initialize AwesomeNotifications if called from a new isolate context
+    // For simplicity, assuming it's called where GetX bindings are available.
+    // If called from true background (e.g. android_alarm_manager), you'd need careful setup.
+    final notificationService = NotificationService(); // Get or create instance
+    await notificationService.init(); // Ensure it's initialized
     await notificationService.cancelAllNotifications();
-    await notificationService.scheduleDailyNotifications(isTesting: false);
+    await notificationService.scheduleDailyNotifications(
+        isTesting: false); // Default to non-testing
   }
 }

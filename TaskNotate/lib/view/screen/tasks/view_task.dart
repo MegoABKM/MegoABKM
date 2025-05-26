@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tasknotate/controller/tasks/taskviewcontroller.dart';
 import 'package:tasknotate/core/constant/routes.dart';
 import 'package:tasknotate/core/constant/utils/extensions.dart';
+import 'package:tasknotate/core/services/sound_service.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/viewtask/custom_float_action_button.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/viewtask/image_section.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/viewtask/task_view_attributes.dart';
@@ -64,6 +65,8 @@ class ViewTask extends StatelessWidget {
                                       "Completed",
                                     );
                                     Get.offAllNamed(AppRoute.home);
+                                    Get.find<SoundService>()
+                                        .playTaskCompletedSound();
                                   },
                                   icon: Icon(Icons.check,
                                       size: context.scaleConfig.scale(18)),

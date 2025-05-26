@@ -8,7 +8,8 @@ import 'package:tasknotate/data/datasource/local/sqldb.dart';
 
 class NoteCategoryDrawer extends StatelessWidget {
   final HomeController controller;
-  final bool isNoteDrawer;
+  final bool
+      isNoteDrawer; // This flag seems to determine if note titles are shown
 
   const NoteCategoryDrawer({
     super.key,
@@ -20,6 +21,7 @@ class NoteCategoryDrawer extends StatelessWidget {
       BuildContext context, CategoryModel category) async {
     final SqlDb sqlDb = SqlDb();
     List<Map<String, dynamic>> notesResponse;
+    // For "Home" category, category.id will be null
     if (category.id == null) {
       notesResponse = await sqlDb.readData(
         'SELECT title FROM notes WHERE categoryId IS NULL',
@@ -42,8 +44,10 @@ class NoteCategoryDrawer extends StatelessWidget {
     }
   }
 
+  // This local helper already prevents updating "Home"
   Future<void> _updateNoteCategory(int? id, String name) async {
     if (id == null) {
+      // This correctly identifies the "Home" category
       Get.snackbar('key_error'.tr, 'key_cannot_update_home'.tr,
           snackPosition: SnackPosition.BOTTOM);
       return;
@@ -56,13 +60,19 @@ class NoteCategoryDrawer extends StatelessWidget {
     }
   }
 
-  Future<void> _deleteNoteCategory(int? id, RxBool isDeleting) async {
+  // This local helper already prevents deleting "Home"
+  Future<void> _deleteNoteCategory(int? id, RxBool isDeletingController) async {
     if (id == null) {
+      // This correctly identifies the "Home" category
       Get.snackbar('key_error'.tr, 'key_cannot_delete_home'.tr,
           snackPosition: SnackPosition.BOTTOM);
       return;
     }
     try {
+      // Pass the RxBool to the controller if it needs to manage its state,
+      // or manage it locally if the controller's delete method is synchronous
+      // For simplicity, assuming controller.deleteNoteCategory handles its own feedback
+      // or the existing isDeleting logic is sufficient.
       await controller.deleteNoteCategory(id);
     } catch (e) {
       Get.snackbar('key_error'.tr, 'key_failed_to_delete_category'.tr,
@@ -74,6 +84,8 @@ class NoteCategoryDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController nameController = TextEditingController();
     final RxBool showAddField = false.obs;
+    // isDeleting is used to provide feedback during the delete operation.
+    // It's a single bool for all categories in this drawer instance.
     final RxBool isDeleting = false.obs;
 
     return Drawer(
@@ -170,49 +182,64 @@ class NoteCategoryDrawer extends StatelessWidget {
           ),
           Expanded(
             child: GetBuilder<HomeController>(
-              id: 'note-category-view',
+              id: 'note-category-view', // Updates when controller.noteCategories changes
               builder: (controller) {
-                final List<CategoryModel> categories =
-                    List.from(controller.noteCategories);
-                if (controller.notedata
-                    .any((note) => note.categoryId == null)) {
-                  if (!categories.any((cat) => cat.categoryName == "Home")) {
-                    categories.insert(
-                        0, CategoryModel(id: null, categoryName: "Home"));
-                  }
-                }
+                // Start with the "Home" category
+                final List<CategoryModel> displayCategories = [
+                  CategoryModel(id: null, categoryName: "key_home".tr)
+                ];
+                // Add all other categories from the database
+                displayCategories.addAll(controller.noteCategories);
 
-                if (categories.isEmpty) {
-                  return Center(child: Text('key_no_categories'.tr));
-                }
+                // No need for this anymore, "Home" is always there.
+                // if (categories.isEmpty) {
+                //   return Center(child: Text('key_no_categories'.tr));
+                // }
 
                 return ListView.builder(
-                  itemCount: categories.length,
+                  itemCount: displayCategories.length,
                   itemBuilder: (context, index) {
-                    final category = categories[index];
+                    final category = displayCategories[index];
+                    final bool isHomeCategory = category.id == null;
+
                     return ExpansionTile(
+                      // Use a key if items can be reordered, but here order is fixed.
+                      // key: ValueKey(category.id ?? 'home_category'),
                       leading: Icon(
-                        FontAwesomeIcons.folder,
+                        isHomeCategory
+                            ? FontAwesomeIcons.houseChimney
+                            : FontAwesomeIcons
+                                .folder, // Differentiate Home icon
                         color: context.appTheme.colorScheme.primary,
                         size: context.scaleConfig.scale(20),
                       ),
                       title: Text(
-                        category.categoryName,
+                        category
+                            .categoryName, // This will be "key_home".tr for the Home category
                         style: TextStyle(
                           fontSize: context.scaleConfig.scaleText(16),
                         ),
                       ),
+                      // Keep tile expanded if it's the currently selected filter
+                      initiallyExpanded:
+                          controller.selectedNoteCategoryId.value ==
+                              category.id,
                       onExpansionChanged: (expanded) {
-                        if (!expanded) {
-                          if (isNoteDrawer &&
-                              controller.selectedNoteCategoryId.value ==
-                                  category.id) {
-                            controller.filterNotesByCategory(null);
+                        if (isNoteDrawer) {
+                          if (expanded) {
+                            // When expanded, filter by this category
+                            controller.filterNotesByCategory(category.id);
+                          } else {
+                            // When collapsed, if it was the selected one, clear filter (select "Home"/All)
+                            if (controller.selectedNoteCategoryId.value ==
+                                category.id) {
+                              controller.filterNotesByCategory(null);
+                            }
                           }
                         }
                       },
                       children: [
-                        if (isNoteDrawer)
+                        if (isNoteDrawer) // If this drawer is for notes, show note titles
                           FutureBuilder<List<String>>(
                             future: _fetchNoteTitles(context, category),
                             builder: (context, snapshot) {
@@ -226,12 +253,27 @@ class NoteCategoryDrawer extends StatelessWidget {
                               if (snapshot.hasError) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text('key_error'.tr),
+                                  child: Text('key_error_fetching_notes'
+                                      .tr), // More specific error key
                                 );
                               }
                               final noteTitles = snapshot.data ?? [];
-                              if (noteTitles.isEmpty) {
-                                return const SizedBox.shrink();
+                              if (noteTitles.isEmpty && !isHomeCategory) {
+                                // Don't hide for home if it's empty
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: context.scaleConfig
+                                        .scale(16 + 8), // Indent
+                                    vertical: context.scaleConfig.scale(8),
+                                  ),
+                                  child: Text('key_no_notes_in_category'.tr,
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic)),
+                                );
+                              }
+                              if (noteTitles.isEmpty && isHomeCategory) {
+                                return const SizedBox
+                                    .shrink(); // Or a message like "No notes in Home"
                               }
                               return Padding(
                                 padding: EdgeInsets.symmetric(
@@ -242,7 +284,7 @@ class NoteCategoryDrawer extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'key_notes'.tr,
+                                      'key_notes'.tr, // Sub-header "Notes"
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize:
@@ -255,7 +297,8 @@ class NoteCategoryDrawer extends StatelessWidget {
                                         height: context.scaleConfig.scale(4)),
                                     ...noteTitles.map((title) => Padding(
                                           padding: EdgeInsets.only(
-                                            left: context.scaleConfig.scale(8),
+                                            left: context.scaleConfig
+                                                .scale(8), // Indent note titles
                                             bottom:
                                                 context.scaleConfig.scale(4),
                                           ),
@@ -267,6 +310,7 @@ class NoteCategoryDrawer extends StatelessWidget {
                                               color: context.appTheme
                                                   .colorScheme.onSurface,
                                             ),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         )),
                                   ],
@@ -280,23 +324,37 @@ class NoteCategoryDrawer extends StatelessWidget {
                             vertical: context.scaleConfig.scale(8),
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween, // Or MainAxisAlignment.end for buttons on one side
                             children: [
                               TextButton.icon(
                                 icon: Icon(
                                   Icons.edit,
-                                  color: context.appTheme.colorScheme.primary,
+                                  color: isHomeCategory
+                                      ? Colors.grey
+                                      : context.appTheme.colorScheme.primary,
                                   size: context.scaleConfig.scale(18),
                                 ),
-                                label: Text('key_edit'.tr),
-                                onPressed: () {
-                                  _showEditCategoryDialog(
-                                      context, controller, category);
-                                },
+                                label: Text('key_edit'.tr,
+                                    style: TextStyle(
+                                        color: isHomeCategory
+                                            ? Colors.grey
+                                            : null)),
+                                onPressed: isHomeCategory
+                                    ? null // Disable Edit for "Home"
+                                    : () {
+                                        _showEditCategoryDialog(
+                                            context, controller, category);
+                                      },
                               ),
                               Obx(
+                                // Use Obx for the delete button if its state depends on isDeleting
                                 () => TextButton.icon(
-                                  icon: isDeleting.value
+                                  icon: isDeleting.value &&
+                                          controller.selectedNoteCategoryId
+                                                  .value ==
+                                              category
+                                                  .id // Example: Show spinner only for the one being deleted
                                       ? SizedBox(
                                           width: context.scaleConfig.scale(18),
                                           height: context.scaleConfig.scale(18),
@@ -308,11 +366,19 @@ class NoteCategoryDrawer extends StatelessWidget {
                                         )
                                       : Icon(
                                           Icons.delete,
-                                          color: Colors.redAccent,
+                                          color: isHomeCategory
+                                              ? Colors.grey
+                                              : Colors.redAccent,
                                           size: context.scaleConfig.scale(18),
                                         ),
-                                  label: Text('key_delete'.tr),
-                                  onPressed: isDeleting.value
+                                  label: Text('key_delete'.tr,
+                                      style: TextStyle(
+                                          color: isHomeCategory
+                                              ? Colors.grey
+                                              : null)),
+                                  onPressed: isHomeCategory ||
+                                          isDeleting
+                                              .value // Disable Delete for "Home" or if any delete is in progress
                                       ? null
                                       : () {
                                           _confirmDeleteCategory(context,
@@ -337,6 +403,12 @@ class NoteCategoryDrawer extends StatelessWidget {
 
   void _showEditCategoryDialog(
       BuildContext context, HomeController controller, CategoryModel category) {
+    // This check is redundant if button is disabled, but good for safety
+    if (category.id == null) {
+      _updateNoteCategory(
+          null, ''); // This will show the 'key_cannot_update_home' snackbar
+      return;
+    }
     print('Opening edit note category dialog for ${category.categoryName}');
     final TextEditingController nameController =
         TextEditingController(text: category.categoryName);
@@ -364,6 +436,8 @@ class NoteCategoryDrawer extends StatelessWidget {
             onPressed: () async {
               print('Update button pressed for edit note dialog');
               if (nameController.text.isNotEmpty) {
+                // _updateNoteCategory handles the id == null case internally,
+                // but here category.id is guaranteed not to be null.
                 await _updateNoteCategory(category.id, nameController.text);
                 print('Closing edit note dialog after update');
                 Navigator.of(dialogContext).pop();
@@ -383,7 +457,13 @@ class NoteCategoryDrawer extends StatelessWidget {
   }
 
   void _confirmDeleteCategory(BuildContext context, HomeController controller,
-      CategoryModel category, RxBool isDeleting) {
+      CategoryModel category, RxBool isDeletingController) {
+    // This check is redundant if button is disabled, but good for safety
+    if (category.id == null) {
+      _deleteNoteCategory(null,
+          isDeletingController); // This will show 'key_cannot_delete_home'
+      return;
+    }
     print('Opening delete note category dialog for ${category.categoryName}');
     showDialog(
       context: context,
@@ -404,10 +484,12 @@ class NoteCategoryDrawer extends StatelessWidget {
           TextButton(
             onPressed: () async {
               print('Delete button pressed for delete note dialog');
-              isDeleting.value = true;
-              await _deleteNoteCategory(category.id, isDeleting);
-              isDeleting.value = false;
-              print('Closing delete note dialog after deletion');
+              isDeletingController.value = true; // Start loading
+              // _deleteNoteCategory handles id == null internally,
+              // but here category.id is guaranteed not to be null.
+              await _deleteNoteCategory(category.id, isDeletingController);
+              isDeletingController.value = false; // Stop loading
+              print('Closing delete note dialog after deletion attempt');
               Navigator.of(dialogContext).pop();
             },
             child: Text('key_delete'.tr),

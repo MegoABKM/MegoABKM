@@ -73,7 +73,7 @@ class TaskViewAttributes extends GetView<Taskviewcontroller> {
           context: context,
           icon: Icons.list,
           title: "368".tr, // "Category"
-          value: controller.categoryName ?? "Home",
+          value: controller.categoryName ?? "key_home".tr,
         ),
         SizedBox(height: context.scaleConfig.scale(8)),
         _buildAttributeRow(

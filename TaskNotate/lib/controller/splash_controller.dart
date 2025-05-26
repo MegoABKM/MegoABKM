@@ -3,6 +3,14 @@ import 'package:get/get.dart';
 
 class SplashController extends GetxController {
   RxDouble opacity = 0.0.obs;
+  var animationStarted = false.obs;
+  void startAnimation() {
+    animationStarted.value = true;
+    Future.delayed(Duration(milliseconds: 100), () {
+      // Slight delay before starting fade
+      opacity.value = 1.0;
+    });
+  }
 
   @override
   void onInit() {

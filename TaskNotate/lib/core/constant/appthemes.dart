@@ -5,38 +5,21 @@ import 'package:tasknotate/core/services/storage_service.dart';
 class AppThemes {
   static final StorageService myServices = Get.find<StorageService>();
 
+  static bool isColorDark(Color color) {
+    return color.computeLuminance() < 0.5;
+  }
+
   static TextTheme getCommonTextTheme() => TextTheme(
-        displayLarge: TextStyle(
-          fontSize: 96,
-          fontWeight: FontWeight.bold,
-        ),
-        displayMedium: TextStyle(
-          fontSize: 60,
-          fontWeight: FontWeight.bold,
-        ),
-        displaySmall: TextStyle(
-          fontSize: 48,
-          fontWeight: FontWeight.bold,
-        ),
-        headlineMedium: TextStyle(
-          fontSize: 34,
-          fontWeight: FontWeight.bold,
-        ),
-        headlineSmall: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        titleLarge: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        displayLarge: TextStyle(fontSize: 96, fontWeight: FontWeight.bold),
+        displayMedium: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+        displaySmall: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+        headlineMedium: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+        headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         bodyLarge: TextStyle(fontSize: 16),
         bodyMedium: TextStyle(fontSize: 14),
         bodySmall: TextStyle(fontSize: 12),
-        labelLarge: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
+        labelLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
       );
 
   static const double appBarElevation = 4.0;
@@ -46,7 +29,6 @@ class AppThemes {
   static const TextStyle dropdownTextStyle = TextStyle(
     fontSize: 14.0,
     fontWeight: FontWeight.bold,
-    color: Colors.black87,
   );
 
   static const TextStyle emptyTaskTextStyle = TextStyle(
@@ -58,6 +40,11 @@ class AppThemes {
     color: Colors.black26,
     blurRadius: 6,
     offset: Offset(0, 2),
+  );
+  static const BoxShadow darkCardBoxShadow = BoxShadow(
+    color: Colors.black54,
+    blurRadius: 8,
+    offset: Offset(0, 3),
   );
 
   static ButtonThemeData buttonTheme(ColorScheme colorScheme) {
@@ -74,101 +61,136 @@ class AppThemes {
           const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: colorScheme.primary.withOpacity(0.5)),
+        borderSide: BorderSide(color: colorScheme.onSurface.withOpacity(0.3)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+        borderSide: BorderSide(
+            color: colorScheme.brightness == Brightness.light
+                ? colorScheme.primary
+                : colorScheme.secondary,
+            width: 2),
       ),
       hintStyle: TextStyle(color: colorScheme.onSurface.withOpacity(0.6)),
       labelStyle: TextStyle(color: colorScheme.primary),
     );
   }
 
-  // Expanded color palette with darker variants for light theme
   static final Map<String, Color> availableColors = {
-    // Original colors (slightly darkened)
     'vibrantBlue': Color(0xFF1976D2),
     'sunsetCoral': Color(0xFFE64A19),
     'emeraldGreen': Color(0xFF27AE60),
     'royalPurple': Color(0xFF7B1FA2),
     'goldenYellow': Color(0xFFFFA000),
-    'deepTeal': Color(0xFF00695C),
+    'deepTeal': Color(0xFF00695C), // This IS the darker variant for aquaMarine
     'rubyRed': Color(0xFFD81B60),
     'oceanCyan': Color(0xFF00838F),
     'limeBurst': Color(0xFFAFB42B),
     'twilightIndigo': Color(0xFF303F9F),
-    // Dark variants for original colors
-    'darkVibrantBlue': Color(0xFF0D47A1),
+
     'darkSunsetCoral': Color(0xFFBF360C),
     'darkEmeraldGreen': Color(0xFF1B5E20),
     'darkRoyalPurple': Color(0xFF4A148C),
     'darkGoldenYellow': Color(0xFFF57F17),
-    'darkDeepTeal': Color(0xFF004D40),
-    'darkRubyRed': Color(0xFFB71C1C),
+    'darkDeepTeal':
+        Color(0xFF004D40), // Even darker teal, distinct from deepTeal
     'darkOceanCyan': Color(0xFF006064),
     'darkLimeBurst': Color(0xFF827717),
-    'darkTwilightIndigo': Color(0xFF1A237E),
-    // New colors
+
     'forestGreen': Color(0xFF2E7D32),
     'burntOrange': Color(0xFFEF6C00),
     'amethystPurple': Color(0xFFAB47BC),
-    'sapphireBlue': Color(0xFF0D47A1),
-    'crimsonRed': Color(0xFFB71C1C),
-    'aquaMarine': Color(0xFF26A69A),
-    'sunflowerYellow': Color(0xFFFFD600),
-    'midnightBlue': Color(0xFF1A237E),
+    'sapphireBlue': Color(0xFF0D47A1), // Was duplicate of darkVibrantBlue
+    'crimsonRed': Color(0xFFB71C1C), // Was duplicate of darkRubyRed
+    'aquaMarine': Color(0xFF26A69A), // Current default
+    'midnightBlue': Color(0xFF1A237E), // Was duplicate of darkTwilightIndigo
     'coralPink': Color(0xFFF06292),
     'oliveGreen': Color(0xFF4CAF50),
-    // Dark variants for new colors
-    'darkForestGreen': Color(0xFF1B5E20),
-    'darkBurntOrange': Color(0xFFBF360C),
+
+    // Truly unique dark variants
     'darkAmethystPurple': Color(0xFF6A1B9A),
     'darkSapphireBlue': Color(0xFF002171),
     'darkCrimsonRed': Color(0xFF7F0000),
-    'darkAquaMarine': Color(0xFF00695C),
     'darkSunflowerYellow': Color(0xFFC6A700),
     'darkMidnightBlue': Color(0xFF0D1428),
     'darkCoralPink': Color(0xFFC2185B),
-    'darkOliveGreen': Color(0xFF2E7D32),
   };
 
-  static Color getPrimaryColor() {
+  static Color getPrimaryColor(bool isDarkMode) {
     String? colorKey = myServices.sharedPreferences.getString('PrimaryColor');
-    return availableColors[colorKey] ?? availableColors['vibrantBlue']!;
+    // Default key is 'aquaMarine' as set in ThemeController
+    Color selectedColor =
+        availableColors[colorKey] ?? availableColors['aquaMarine']!;
+
+    if (isDarkMode) {
+      if (colorKey == 'aquaMarine') {
+        return availableColors[
+            'deepTeal']!; // Use 'deepTeal' as the dark variant for 'aquaMarine'
+      }
+      // Add other explicit mappings for mid-tones to their darker counterparts if needed
+      // e.g., if 'goldenYellow' is selected, use 'darkGoldenYellow' in dark mode
+      // else if (colorKey == 'goldenYellow') {
+      //   return availableColors['darkGoldenYellow']!;
+      // }
+    }
+    return selectedColor;
   }
 
-  static Color getSecondaryColor() {
+  static Color getSecondaryColor(bool isDarkMode) {
     String? colorKey = myServices.sharedPreferences.getString('SecondColor');
-    return availableColors[colorKey] ?? availableColors['sunsetCoral']!;
+    // Default key is 'aquaMarine' as set in ThemeController
+    Color selectedColor =
+        availableColors[colorKey] ?? availableColors['aquaMarine']!;
+
+    if (isDarkMode) {
+      if (colorKey == 'aquaMarine') {
+        return availableColors[
+            'deepTeal']!; // Use 'deepTeal' as the dark variant for 'aquaMarine'
+      }
+      // Add other explicit mappings for mid-tones
+      // else if (colorKey == 'limeBurst') {
+      //   return availableColors['darkLimeBurst']!;
+      // }
+    }
+    return selectedColor;
   }
 
   static ThemeData lightTheme(String languageCode) {
-    final primaryColor = getPrimaryColor();
-    final secondaryColor = getSecondaryColor();
+    final primaryColor = getPrimaryColor(false);
+    final secondaryColor = getSecondaryColor(false);
+
+    final Color onPrimaryColor =
+        isColorDark(primaryColor) ? Colors.white : Colors.black87;
+    final Color onSecondaryColor =
+        isColorDark(secondaryColor) ? Colors.white : Colors.black87;
+    final Color mainTextColor = Colors.black87;
 
     return ThemeData(
       fontFamily: languageCode == "ar" ? "Cairo" : "OpenSans",
       brightness: Brightness.light,
       primaryColor: primaryColor,
-      scaffoldBackgroundColor: Colors.grey[200],
+      scaffoldBackgroundColor: Colors.grey[100],
       cardColor: Colors.white,
       colorScheme: ColorScheme.light(
         primary: primaryColor,
-        onPrimary: Colors.white,
+        onPrimary: onPrimaryColor,
         secondary: secondaryColor,
-        onSecondary: Colors.white,
+        onSecondary: onSecondaryColor,
         surface: Colors.white,
-        onSurface: Colors.black87,
+        onSurface: mainTextColor,
+        error: Colors.red.shade700,
+        onError: Colors.white,
       ),
       textTheme: getCommonTextTheme().apply(
-        bodyColor: Colors.black87,
-        displayColor: Colors.black87,
+        bodyColor: mainTextColor,
+        displayColor: mainTextColor,
       ),
-      iconTheme: IconThemeData(color: primaryColor, size: 24),
+      iconTheme: IconThemeData(
+          color: isColorDark(primaryColor) ? primaryColor : Colors.black54,
+          size: 24),
       appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
+        foregroundColor: onPrimaryColor,
         elevation: appBarElevation,
         shadowColor: Colors.black26,
       ),
@@ -179,11 +201,13 @@ class AppThemes {
       inputDecorationTheme: inputDecorationTheme(ColorScheme.light(
         primary: primaryColor,
         secondary: secondaryColor,
+        surface: Colors.white,
+        onSurface: mainTextColor,
       )),
-      dividerColor: Colors.grey[400],
+      dividerColor: Colors.grey[300],
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
+          foregroundColor: onPrimaryColor,
           backgroundColor: primaryColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -191,41 +215,58 @@ class AppThemes {
         ),
       ),
       cardTheme: CardTheme(
-        elevation: 4,
+        elevation: 2,
+        shadowColor: Colors.grey.shade300,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: secondaryColor,
+        foregroundColor: onSecondaryColor,
       ),
     );
   }
 
   static ThemeData darkTheme(String languageCode) {
-    final primaryColor = getPrimaryColor();
-    final secondaryColor = getSecondaryColor();
+    final primaryColor = getPrimaryColor(
+        true); // Will be 'deepTeal' if 'aquaMarine' was selected
+    final secondaryColor = getSecondaryColor(
+        true); // Will be 'deepTeal' if 'aquaMarine' was selected
+
+    // Now that primaryColor and secondaryColor are guaranteed to be dark enough (or a dark variant)
+    // 'on' colors can be consistently white.
+    final Color onPrimaryColor = Colors.white;
+    final Color onSecondaryColor = Colors.white;
+    final Color mainTextColor = Colors.grey.shade300;
 
     return ThemeData(
       fontFamily: languageCode == "ar" ? "Cairo" : "OpenSans",
       brightness: Brightness.dark,
       primaryColor: primaryColor,
-      scaffoldBackgroundColor: Color(0xFF1A1A1A),
-      cardColor: Color(0xFF2C2C2C),
+      scaffoldBackgroundColor: Color(0xFF121212),
+      cardColor: Color(0xFF1E1E1E),
       colorScheme: ColorScheme.dark(
         primary: primaryColor,
-        onPrimary: Colors.white,
+        onPrimary: onPrimaryColor,
         secondary: secondaryColor,
-        onSecondary: Colors.white,
-        surface: Color(0xFF2C2C2C),
-        onSurface: Colors.white70,
+        onSecondary: onSecondaryColor,
+        surface: Color(0xFF1E1E1E),
+        onSurface: mainTextColor,
+        error: Colors.red.shade400,
+        onError: Colors.black,
       ),
       textTheme: getCommonTextTheme().apply(
-        bodyColor: Colors.white70,
-        displayColor: Colors.white70,
+        bodyColor: mainTextColor,
+        displayColor: mainTextColor,
       ),
-      iconTheme: IconThemeData(color: secondaryColor, size: 24),
+      iconTheme: IconThemeData(
+          color: onSecondaryColor,
+          size: 24), // Consistent light icon on dark bg
       appBarTheme: AppBarTheme(
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
-        elevation: appBarElevation,
-        shadowColor: Colors.black45,
+        backgroundColor:
+            primaryColor, // Uses the (now correctly darkened) primary color
+        foregroundColor: onPrimaryColor,
+        elevation: 0,
       ),
       buttonTheme: buttonTheme(ColorScheme.dark(
         primary: primaryColor,
@@ -234,11 +275,13 @@ class AppThemes {
       inputDecorationTheme: inputDecorationTheme(ColorScheme.dark(
         primary: primaryColor,
         secondary: secondaryColor,
+        surface: Color(0xFF1E1E1E),
+        onSurface: mainTextColor,
       )),
-      dividerColor: Colors.grey[800],
+      dividerColor: Colors.grey[700],
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
+          foregroundColor: onPrimaryColor,
           backgroundColor: primaryColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -246,9 +289,14 @@ class AppThemes {
         ),
       ),
       cardTheme: CardTheme(
-        elevation: 4,
+        elevation: 1,
+        shadowColor: Colors.black26,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: secondaryColor,
+        foregroundColor: onSecondaryColor,
       ),
     );
   }

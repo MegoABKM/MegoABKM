@@ -1,13 +1,12 @@
-// main.dart
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasknotate/bindings/initialbinding.dart';
-import 'package:tasknotate/controller/theme_controller.dart'; // Ensure this is imported
-import 'package:tasknotate/core/functions/permission.dart';
-import 'package:tasknotate/core/localization/changelocal.dart'; // Ensure this is imported
+import 'package:tasknotate/controller/theme_controller.dart';
+import 'package:tasknotate/core/localization/changelocal.dart';
 import 'package:tasknotate/core/localization/translation.dart';
+import 'package:tasknotate/core/services/sound_service.dart';
 import 'package:tasknotate/core/services/storage_service.dart';
 import 'package:tasknotate/routes.dart';
 import 'package:tasknotate/core/services/app_bootstrap_service.dart';
@@ -16,60 +15,55 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init(showDebugLogs: true);
 
-  // Request permissions
-  await requestBatteryOptimizationPermission();
-  await requestNotificationPermission();
-  await requestExactAlarmPermission();
-  print('main.dart: Permission statuses checked.');
-
-  // Initialize StorageService (critical, often needed before other services or UI)
-  final storageService = StorageService();
-  await storageService.init();
-  Get.put<StorageService>(storageService, permanent: true);
-
-  // Initialize ThemeController and LocalController HERE, BEFORE runApp
-  // This ensures they are available for MyApp and GetMaterialApp
-  Get.put(ThemeController(), permanent: true);
-  Get.put(LocalController(), permanent: true);
-
-  // Get SharedPreferences instance once for bootstrap service
+  // Initialize StorageService
   final prefs = await SharedPreferences.getInstance();
+  final storageService = StorageService(prefs: prefs);
+  Get.put<StorageService>(storageService, permanent: true);
+  print('[Main] StorageService initialized.');
 
-  // Determine initial route using the bootstrap service
+  // Initialize ThemeController and LocalController
+  Get.put<ThemeController>(ThemeController(), permanent: true);
+  print('[Main] ThemeController put.');
+  Get.put<LocalController>(LocalController(), permanent: true);
+  print('[Main] LocalController put.');
+
+  // Initialize SoundService
+  await Get.putAsync<SoundService>(() async {
+    final service = SoundService();
+    await service.init();
+    print('[Main] SoundService initialized and put.');
+    return service;
+  }, permanent: true);
+
+  final prefsForRoute = storageService.sharedPreferences;
+
   final String determinedInitialRoute =
-      await AppBootstrapService.determineInitialRoute(prefs);
+      await AppBootstrapService.determineInitialRoute(prefsForRoute);
+  print('[Main] Determined initial route: $determinedInitialRoute');
 
-  // Setup MethodChannel for calls from Native to Flutter using the bootstrap service
   AppBootstrapService.setupNativeMethodCallHandler();
+  print('[Main] Native method call handler setup.');
 
-  // Initialize translations
   await MyTranslation.init();
+  print('[Main] Translations initialized.');
 
-  // Run the app
   runApp(MyApp(initialRoute: determinedInitialRoute));
 }
 
 class MyApp extends StatelessWidget {
   final String initialRoute;
-
   const MyApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
-    // ThemeController and LocalController are now initialized in main() and are permanent.
-    // The GetBuilder will find ThemeController.
-    // Get.find<LocalController>() will find LocalController.
     return GetBuilder<ThemeController>(
       builder: (themeCtrl) => GetMaterialApp(
         translations: MyTranslation(),
-        initialBinding:
-            InitialBinding(), // This will init OTHER services like AlarmDisplayStateService etc.
+        initialBinding: InitialBinding(),
         debugShowCheckedModeBanner: false,
-        locale: Get.find<LocalController>()
-            .language, // This will now find the controller
+        locale: Get.find<LocalController>().language,
         fallbackLocale: const Locale('en'),
-        theme:
-            themeCtrl.currentTheme, // themeCtrl from GetBuilder will be valid
+        theme: themeCtrl.currentTheme,
         getPages: routes,
         initialRoute: initialRoute,
       ),

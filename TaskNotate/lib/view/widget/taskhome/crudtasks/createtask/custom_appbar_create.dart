@@ -11,72 +11,41 @@ class CustomAppBarTaskCreate extends GetView<TaskcreateController> {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
-      height: context.scaleConfig.scale(50),
-      padding: EdgeInsets.symmetric(horizontal: context.scaleConfig.scale(12)),
+      height: context.scaleConfig.scale(60),
+      padding: EdgeInsets.symmetric(horizontal: context.scaleConfig.scale(8)),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 1,
-            child: IconButton(
-              color: context.appTheme.colorScheme.onSurface,
-              padding: EdgeInsets.only(
-                bottom: context.scaleConfig.scale(1),
-                top: context.scaleConfig.scale(12),
-              ),
-              onPressed: () {
-                controller.deleteAllImages();
-                Get.offAllNamed(AppRoute.home);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                size: context.scaleConfig.scale(24),
-              ),
+          IconButton(
+            color: context.appTheme.colorScheme.onSecondary,
+            onPressed: () {
+              controller
+                  .deleteAllImages(); // Consider if this is always desired on back press
+              Get.offAllNamed(AppRoute.home);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              size: context.scaleConfig.scale(22),
             ),
           ),
           Expanded(
-            flex: 2,
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: context.scaleConfig.scale(1),
-                top: context.scaleConfig.scale(12),
-              ),
+            child: Center(
+              // Center the "Create Task" title
               child: Text(
-                "116".tr,
+                "key_create_task".tr, // "Create Task"
                 style: context.appTheme.textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: context.appTheme.colorScheme.onSurface,
-                  fontSize: context.scaleConfig.scaleText(20),
+                  color: context.appTheme.colorScheme.onSecondary,
+                  fontSize:
+                      context.scaleConfig.scaleText(21), // Slightly larger
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              alignment: Alignment.topLeft,
-              child: TextFormField(
-                controller: controller.titlecontroller,
-                style: context.appTheme.textTheme.bodyLarge!.copyWith(
-                  fontSize: context.scaleConfig.scaleText(18),
-                  color: context.appTheme.colorScheme.onSurface,
-                ),
-                decoration: InputDecoration(
-                  hintStyle: context.appTheme.textTheme.bodyLarge!.copyWith(
-                    color:
-                        context.appTheme.colorScheme.onSurface.withOpacity(0.6),
-                    fontSize: context.scaleConfig.scaleText(18),
-                  ),
-                  border: InputBorder.none,
-                  hintText: "117".tr,
-                  counterText: "",
-                  contentPadding: EdgeInsets.only(
-                    bottom: context.scaleConfig.scale(1),
-                    top: context.scaleConfig.scale(17),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          SizedBox(
+              width: context.scaleConfig.scale(
+                  48)), // Placeholder to balance the back button, adjust as needed
         ],
       ),
     );
