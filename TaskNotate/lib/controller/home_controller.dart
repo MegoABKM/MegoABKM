@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +16,8 @@ class HomeController extends GetxController {
   List<UserTasksModel> taskdata = [];
   List<CategoryModel> taskCategories = [];
   List<CategoryModel> noteCategories = [];
+  RxBool forceRefreshTasks =
+      false.obs; // Flag for other potential refresh scenarios
   SqlDb sqlDb = SqlDb();
   SharedPreferences myService = Get.find<StorageService>().sharedPreferences;
   String? userid;
@@ -49,7 +50,6 @@ class HomeController extends GetxController {
 
   void onTapBottom(int value) {
     currentIndex = value;
-
     myService.setInt("indexhome", currentIndex);
     update();
   }
@@ -193,24 +193,32 @@ class HomeController extends GetxController {
     }
   }
 
+  // This method is for updating status from within HomeController (e.g., directly from home screen list)
   Future<void> updateStatus(
       String status, String id, String statustarget) async {
+    print(
+        "HomeController.updateStatus: Updating task $id to $statustarget from home list.");
     final double scrollOffset = scrollController.offset;
-    await sqlDb.updateData(
+    int dbResponse = await sqlDb.updateData(
         "UPDATE tasks SET status = ? WHERE id = ?", [statustarget, id]);
-    final index = taskdata.indexWhere((task) => task.id == id);
-    if (index != -1) {
-      taskdata[index] = taskdata[index].copyWith(status: statustarget);
-      if (statustarget == 'Completed') {
-        final soundService = Get.find<SoundService>();
-        await soundService.playTaskCompletedSound();
-      }
-      update(['task-view', 'timeline-view', "task-length"]);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (scrollController.hasClients) {
-          scrollController.jumpTo(scrollOffset);
+
+    if (dbResponse > 0) {
+      final index = taskdata.indexWhere((task) => task.id == id);
+      if (index != -1) {
+        taskdata[index] = taskdata[index].copyWith(status: statustarget);
+        if (statustarget == 'Completed') {
+          final soundService = Get.find<SoundService>();
+          await soundService.playTaskCompletedSound();
         }
-      });
+        update(['task-view', 'timeline-view', "task-length"]);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (scrollController.hasClients) {
+            scrollController.jumpTo(scrollOffset);
+          }
+        });
+      }
+    } else {
+      print("HomeController.updateStatus: Failed to update task $id in DB.");
     }
   }
 
@@ -255,8 +263,14 @@ class HomeController extends GetxController {
   }
 
   Future<void> getTaskData() async {
+    print(
+        "HomeController: getTaskData() CALLED. Filter: ${selectedTaskCategoryId.value}");
+    final overallStopwatch = Stopwatch()..start();
+
     isLoadingTasks = true;
-    update(['task-view', 'timeline-view', "task-length"]);
+    update(['task-view', 'timeline-view', "task-length", 'sort-view']);
+
+    final dbStopwatch = Stopwatch()..start();
     List<Map<String, dynamic>> response;
     if (selectedTaskCategoryId.value == null) {
       response =
@@ -266,22 +280,60 @@ class HomeController extends GetxController {
           'SELECT * FROM tasks WHERE categoryId = ?',
           [selectedTaskCategoryId.value]);
     }
+    dbStopwatch.stop();
+    print(
+        "HomeController: DB query took ${dbStopwatch.elapsedMilliseconds}ms for ${response.length} tasks.");
+
+    final mappingStopwatch = Stopwatch()..start();
     taskdata.clear();
     taskdata.addAll(response.map((e) => UserTasksModel.fromJson(e)).toList());
-    if (selectedSortCriterion != null) sortTasks(selectedSortCriterion!);
+    mappingStopwatch.stop();
+    print(
+        "HomeController: Mapping ${response.length} tasks took ${mappingStopwatch.elapsedMilliseconds}ms.");
+
+    // Example: If you know task '6' is the one being updated.
+    var taskToCheck = taskdata.firstWhereOrNull((t) => t.id == '6');
+    if (taskToCheck != null) {
+      print(
+          "HomeController: (In getTaskData) Task '6' status after fetch: ${taskToCheck.status}");
+    }
+
+    if (selectedSortCriterion != null) {
+      final sortStopwatch = Stopwatch()..start();
+      sortTasks(selectedSortCriterion!);
+      sortStopwatch.stop();
+      print(
+          "HomeController: Sorting tasks took ${sortStopwatch.elapsedMilliseconds}ms.");
+    }
+
     isLoadingTasks = false;
     update(['task-view', 'sort-view', 'timeline-view', "task-length"]);
+
+    overallStopwatch.stop();
+    print(
+        "HomeController: getTaskData() FINISHED in ${overallStopwatch.elapsedMilliseconds}ms. Updating UI.");
   }
 
-  Future<void> goToViewNote(String content, String title, String idnote,
-      String signature, String category) async {
+  // Method to be called from ViewTask to directly update the in-memory list
+  void updateTaskInListDirectly(String taskId, String newStatus) {
+    print(
+        "HomeController: updateTaskInListDirectly CALLED for taskId: $taskId, newStatus: $newStatus");
+    int index = taskdata.indexWhere((task) => task.id == taskId);
+    if (index != -1) {
+      taskdata[index] = taskdata[index].copyWith(status: newStatus);
+      print(
+          "HomeController: Task $taskId status updated to $newStatus IN MEMORY (taskdata list).");
+      // This update should refresh GetBuilders listening to these IDs on the home screen
+      update(['task-view', 'timeline-view', "task-length", 'sort-view']);
+    } else {
+      print(
+          "HomeController: Task $taskId NOT FOUND in taskdata list during updateTaskInListDirectly.");
+    }
+  }
+
+  Future<void> goToViewNote(UserNotesModel note) async {
     Get.toNamed(AppRoute.viewNote, arguments: {
-      "note": UserNotesModel(
-          id: idnote,
-          title: title,
-          content: content,
-          drawing: signature,
-          categoryId: category),
+      "note": note,
     });
   }
 
@@ -347,17 +399,28 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
+    print("HomeController: onInit() CALLED.");
     getTaskCategories();
     getNoteCategories();
     getNoteData();
-    getTaskData();
+    getTaskData(); // Initial data fetch
     currentIndex = myService.getInt("indexhome") ?? 0;
-    super.onInit();
   }
 
   @override
   void onReady() {
-    getTaskData();
     super.onReady();
+    print(
+        "HomeController: onReady() CALLED. forceRefreshTasks.value = ${forceRefreshTasks.value}");
+    if (forceRefreshTasks.value) {
+      // This flag can be used for other refresh scenarios
+      print("HomeController: onReady() - Forcing DB data refresh due to flag.");
+      getTaskData(); // Re-fetches from DB
+      forceRefreshTasks.value = false;
+    } else {
+      print(
+          "HomeController: onReady() - No force refresh flag set for DB reload.");
+    }
   }
 }

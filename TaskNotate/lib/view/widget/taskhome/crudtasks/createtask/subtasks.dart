@@ -28,7 +28,8 @@ class Subtasks extends GetView<TaskcreateController> {
             label: Text(
               "112".tr, // "Add Subtask" - existing key
               style: context.appTheme.textTheme.labelLarge!.copyWith(
-                color: Colors.white,
+                color: Colors
+                    .white, // Consider context.appTheme.colorScheme.onPrimary
                 fontSize: context.scaleConfig.scaleText(15),
               ),
             ),
@@ -45,16 +46,19 @@ class Subtasks extends GetView<TaskcreateController> {
             ),
             onPressed: controller.addtosubtasktextfield,
           ),
-          SizedBox(height: context.scaleConfig.scale(12)),
+          // MODIFIED: Removed SizedBox(height: context.scaleConfig.scale(12))
+          // The list of subtasks will now appear directly after the "Add Subtask" button.
+          // If a small space is desired, add a smaller SizedBox here, e.g. context.scaleConfig.scale(6)
           GetBuilder<TaskcreateController>(
             builder: (controller) {
               if (controller.subtaskControllers.isEmpty) {
                 return Container(
                   padding: EdgeInsets.symmetric(
-                      vertical: context.scaleConfig.scale(25)),
+                      vertical: context.scaleConfig.scale(
+                          25)), // This padding is for the "empty" message
                   alignment: Alignment.center,
                   child: Text(
-                    "noSubtasksPrompt".tr, // New key
+                    "noSubtasksPrompt".tr,
                     textAlign: TextAlign.center,
                     style: context.appTheme.textTheme.bodyMedium?.copyWith(
                       color: context.appTheme.colorScheme.onSurface
@@ -71,7 +75,8 @@ class Subtasks extends GetView<TaskcreateController> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: context.scaleConfig.scale(6.0)),
+                        vertical: context.scaleConfig.scale(
+                            6.0)), // This padding gives space between subtask items
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -82,6 +87,8 @@ class Subtasks extends GetView<TaskcreateController> {
                               color: context.appTheme.colorScheme.onSurface,
                               fontSize: context.scaleConfig.scaleText(16),
                             ),
+                            cursorColor: context.appTheme.colorScheme
+                                .primary, // Good practice to set cursor color
                             controller: controller.subtaskControllers[index],
                             decoration: InputDecoration(
                               hintStyle: context.appTheme.textTheme.bodyMedium!
@@ -94,7 +101,7 @@ class Subtasks extends GetView<TaskcreateController> {
                                 horizontal: context.scaleConfig.scale(14),
                                 vertical: context.scaleConfig.scale(14),
                               ),
-                              hintText: "subtaskItemHint".tr, // New key
+                              hintText: "subtaskItemHint".tr,
                               filled: true,
                               fillColor: context.appTheme.colorScheme.surface
                                   .withOpacity(0.9),
@@ -129,11 +136,14 @@ class Subtasks extends GetView<TaskcreateController> {
                         SizedBox(width: context.scaleConfig.scale(8)),
                         IconButton(
                           onPressed: () => controller.removeSubtask(index),
-                          icon: Icon(FontAwesomeIcons.trashAlt,
+                          icon: Icon(
+                              FontAwesomeIcons
+                                  .trashAlt, // Consider Icons.delete_outline for Material look
                               color: context.appTheme.colorScheme.error
                                   .withOpacity(0.75),
-                              size: context.scaleConfig.scale(18)),
-                          tooltip: "removeSubtaskTooltip".tr, // New key
+                              size: context.scaleConfig.scale(
+                                  18)), // Use scale() for icon containers, scaleText() for font icons if size is font-based
+                          tooltip: "removeSubtaskTooltip".tr,
                         ),
                       ],
                     ),

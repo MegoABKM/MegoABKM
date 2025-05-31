@@ -633,5 +633,17 @@
   "key_drawing_tools_done": "تم",
   "key_save_note": "حفظ",
   "key_untitled_placeholder": "بدون عنوان" ,
-   "key_create_task": "إنشاء مهمة"
+   "key_create_task": "إنشاء مهمة" ,
+    "key_set_reminder_or_disable": "يرجى ضبط وقت التذكير أو تعطيله.",
+  "key_set_finish_date_or_disable": "يرجى ضبط تاريخ/وقت الانتهاء أو تعطيله.",
+  "key_title_cannot_empty": "لا يمكن أن يكون العنوان فارغًا.",
+  "key_failed_refresh_task_view": "فشل تحديث عرض المهمة.",
+  "key_no_subtasks_add_new": "لم تتم إضافة أي مهام فرعية بعد. انقر فوق 'إضافة مهمة فرعية'.",
+   "IndigoBlend": "مزيج نيلي (افتراضي)" ,
+     "key_failed_to_set_pending": "فشل ضبط المهام كـ 'قيد الانتظار'.",
+  "key_error_fetching_tasks": "خطأ في جلب المهام.",
+  "key_no_tasks_in_category": "لا توجد مهام في هذه الفئة.",
+  "key_confirm_delete_category_named": "هل أنت متأكد أنك تريد حذف الفئة \"{categoryName}\"؟ سيؤدي هذا أيضًا إلى إلغاء تعيين مهامها.",
+"key_confirm_set_all_tasks_in_selected_category_pending": "هل أنت متأكد أنك تريد ضبط جميع المهام في النطاق المحدد كـ 'قيد الانتظار'؟",
+"key_confirm_delete_selected_category": "هل أنت متأكد أنك تريد حذف الفئة المحددة؟ سيؤدي هذا أيضًا إلى إلغاء تعيين مهامها."
   }

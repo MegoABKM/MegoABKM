@@ -122,54 +122,65 @@ class TaskcreateController extends BaseTaskController {
     return formatDateTimeTo12Hour(dateTimeToFormat);
   }
 
+  // In TaskcreateController.dart
+
+// ... (other imports and class definition) ...
+// final HomeController homeController = Get.find<HomeController>(); // This is already correct
+
   Future<void> uploadTask() async {
     if (titlecontroller!.text.isEmpty) {
       return Get.defaultDialog(middleText: "key_add_title_to_save_task".tr);
     }
-    saveAllSubtasks(); // Inherited: populates inherited 'subtasks' map
-    fromMapToString("subtasks"); // Sets inherited 'newsubtasksconverted'
-    fromMapToString("images"); // Sets 'newimagesconverted'
+    saveAllSubtasks();
+    fromMapToString("subtasks");
+    fromMapToString("images");
 
     String timelineJson = super.statustimeline && super.timelineTiles.isNotEmpty
-        ? jsonEncode(super.timelineTiles) // Use super for inherited members
+        ? jsonEncode(super.timelineTiles)
         : "Not Set";
 
     int taskResponse = await sqlDb.insertData(
-      // sqlDb is inherited
       "INSERT INTO tasks (title, content, date, estimatetime, starttime, status, priority, subtask, reminder, images, timeline, categoryId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        titlecontroller!.text, // titlecontroller is inherited
+        titlecontroller!.text,
         descriptioncontroller!.text,
         DateTime.now().toIso8601String(),
         selectedFinish?.toIso8601String() ?? "Not Set",
         selectedStart?.toIso8601String() ?? "Not Set",
         status ?? "Pending",
         statusprority ? prority : "Not Set",
-        statussubtasks
-            ? newsubtasksconverted
-            : "Not Set", // newsubtasksconverted is inherited
-        statustimer && selectedAlarm != null // selectedAlarm is inherited
+        statussubtasks ? newsubtasksconverted : "Not Set",
+        statustimer && selectedAlarm != null
             ? selectedAlarm!.toIso8601String()
             : "Not Set",
         newimagesconverted != null && newimagesconverted!.isNotEmpty
             ? newimagesconverted
             : "Not Set",
         timelineJson,
-        selectedCategoryId,
+        selectedCategoryId, // This is the categoryId you assign during task creation
       ],
     );
+
     if (taskResponse > 0) {
       await getLastTaskId();
       if (statustimer && selectedAlarm != null) {
         await setAlarm(
             selectedAlarm, lastTaskIdinreased, titlecontroller!.text);
       }
+
+      // --- MODIFICATION START ---
+      // Explicitly tell HomeController to refresh its task data
+      // homeController is already defined in your TaskcreateController
+      await homeController.getTaskData();
+      // --- MODIFICATION END ---
+
       Get.offAllNamed(AppRoute.home);
     } else {
       Get.snackbar("key_error".tr, "key_failed_to_save_task".tr,
           snackPosition: SnackPosition.BOTTOM);
     }
   }
+// ... (rest of TaskcreateController)
 
   Future<void> getLastTaskId() async {
     List<Map> response = await sqlDb

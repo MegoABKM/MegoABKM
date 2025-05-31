@@ -1,37 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/date_symbol_data_local.dart'; // For initializeDateFormatting
+// import 'package:intl/intl.dart'; // No longer need direct DateFormat constructor here
 import 'package:tasknotate/controller/home_controller.dart';
 import 'package:tasknotate/core/constant/utils/extensions.dart';
 import 'package:tasknotate/view/widget/taskhome/home/empty_task_message.dart';
 import 'package:tasknotate/view/widget/taskhome/home/task_list/customtaskcard/task_dialog.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-import 'package:tasknotate/core/localization/changelocal.dart'; // Import your LocalController
+import 'package:tasknotate/core/localization/changelocal.dart';
+import 'package:tasknotate/core/functions/formatdate.dart'; // YOUR FUNCTION
 
 class TimelineHome extends StatelessWidget {
   const TimelineHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Get the current locale from LocalController
     final LocalController localController = Get.find<LocalController>();
-    final String currentLocale = localController.language.languageCode;
+    final String currentLocale = localController.language?.languageCode ??
+        "en"; // Get the string locale code
 
-    return FutureBuilder(
-      // Use a ValueKey with currentLocale to ensure FutureBuilder rebuilds if locale changes
-      key: ValueKey(currentLocale),
-      // Initialize date formatting for the current application locale
-      future: initializeDateFormatting(currentLocale, null),
+    // DEBUG:
+    print(
+        "--- TimelineHome Build --- Using Locale: $currentLocale for formatting.");
+
+    return FutureBuilder<void>(
+      key: ValueKey("timeline_init_$currentLocale"), // Key depends on locale
+      future: initializeDateFormatting(currentLocale, null).catchError((e) {
+        print(
+            "CRITICAL: Failed to initialize date formatting for '$currentLocale': $e");
+        throw e; // Propagate error to be handled by snapshot.hasError
+      }),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          // Handle initialization error (e.g., locale data not found)
-          print(
-              "Error initializing date formatting for locale '$currentLocale': ${snapshot.error}");
           return SliverToBoxAdapter(
             child: Center(
-              child: Text(
-                  'Error initializing date formats for ${currentLocale.toUpperCase()}.'),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Error loading date formats for ${currentLocale.toUpperCase()}.\n${snapshot.error}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           );
         }
@@ -48,76 +57,114 @@ class TimelineHome extends StatelessWidget {
         return GetBuilder<HomeController>(
           id: 'timeline-view',
           builder: (controller) {
+            if (controller.isLoadingTasks && controller.taskdata.isEmpty) {
+              return SliverToBoxAdapter(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+              );
+            }
             if (controller.taskdata.isEmpty) {
               return const SliverFillRemaining(
                 hasScrollBody: false,
-                child: EmptyTaskMessage(),
+                child: EmptyTaskMessage(), // Consider a specific message
               );
             }
 
             return SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  if (index < controller.taskdata.length) {
-                    final task = controller.taskdata[index];
-                    final hasStartTime =
-                        task.starttime != null && task.starttime != "Not Set";
+                  if (index >= controller.taskdata.length) {
+                    return SizedBox(
+                        height: 80 * context.scaleConfig.scaleHeight);
+                  }
 
-                    // Use currentLocale for DateFormat
-                    final timelineMarker = hasStartTime &&
-                            task.starttime != null
-                        ? DateFormat('dd MMMM yyyy, HH:mm',
-                                currentLocale) // Use currentLocale
-                            .format(DateTime.parse(task.starttime!))
-                        : "${'362'.tr}: ${task.date != null ? DateFormat('dd MMMM yyyy', currentLocale).format(DateTime.parse(task.date!)) : '363'.tr}"; // Use currentLocale
+                  final task = controller.taskdata[index];
+                  final bool hasSpecificStartTime =
+                      task.starttime != null && task.starttime != "Not Set";
 
-                    final statusColor = _getStatusColor(task.status);
+                  String dateTimeStringToFormat;
+                  String prefixForMarker = "";
 
-                    return TimelineTile(
-                      alignment: TimelineAlign.manual,
-                      lineXY: 0.3,
-                      isFirst: index == 0,
-                      isLast: index == controller.taskdata.length - 1,
-                      indicatorStyle: IndicatorStyle(
-                        width: context.scaleConfig.scale(20),
-                        color: statusColor,
-                        padding: EdgeInsets.symmetric(
-                            vertical: context.scaleConfig.scale(5)),
+                  if (hasSpecificStartTime) {
+                    dateTimeStringToFormat = task.starttime!;
+                  } else if (task.date != null && task.date != "Not Set") {
+                    dateTimeStringToFormat = task.date!;
+                    // prefixForMarker = "${'362'.tr}: "; // Optional prefix
+                  } else {
+                    dateTimeStringToFormat = "";
+                  }
+
+                  // ** PASS currentLocale TO YOUR HELPER FUNCTION **
+                  final String timelineMarker = prefixForMarker +
+                      formatDateTime(dateTimeStringToFormat, currentLocale);
+
+                  // DEBUG:
+                  // print("Task: ${task.title}, Raw: $dateTimeStringToFormat, Formatted: $timelineMarker, Locale used: $currentLocale");
+
+                  final statusColor = _getStatusColor(task.status);
+
+                  return TimelineTile(
+                    alignment: TimelineAlign.manual,
+                    lineXY: 0.35,
+                    isFirst: index == 0,
+                    isLast: index == controller.taskdata.length - 1,
+                    indicatorStyle: IndicatorStyle(
+                      width: context.scaleConfig.scale(20),
+                      color: statusColor,
+                      padding: EdgeInsets.symmetric(
+                          vertical: context.scaleConfig.scale(5)),
+                    ),
+                    startChild: Container(
+                      // Responsive padding for the date/time side
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.scaleConfig.scale(8),
+                        vertical: context.scaleConfig
+                            .scale(10), // Increased vertical padding
                       ),
-                      startChild: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: context.scaleConfig.scale(8),
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Text(
+                        timelineMarker,
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: context.scaleConfig.scaleText(
+                                  13.5), // Adjusted for responsiveness
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                        maxLines: 2, // Allow date/time to wrap if very long
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    endChild: GestureDetector(
+                      onLongPress: () => TaskDialogHelper.showTaskDialog(
+                          context, task, context.scaleConfig, controller),
+                      onTap: () =>
+                          controller.goToViewTask(task, index.toString()),
+                      child: Card(
+                        // Using Card for consistent elevation and shape
+                        elevation: context.scaleConfig.scale(2),
+                        margin: EdgeInsets.symmetric(
                           vertical: context.scaleConfig.scale(8),
+                          horizontal: context.scaleConfig
+                              .scale(12), // Slightly reduced horizontal margin
                         ),
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Text(
-                          timelineMarker,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                fontSize: context.scaleConfig.scaleText(14),
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w600,
-                              ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              context.scaleConfig.scale(10)),
                         ),
-                      ),
-                      endChild: GestureDetector(
-                        onLongPress: () => TaskDialogHelper.showTaskDialog(
-                            context, task, context.scaleConfig, controller),
-                        onTap: () =>
-                            controller.goToViewTask(task, index.toString()),
                         child: Container(
-                          padding:
-                              EdgeInsets.all(context.scaleConfig.scale(16)),
-                          margin: EdgeInsets.symmetric(
-                            vertical: context.scaleConfig.scale(8),
-                            horizontal: context.scaleConfig.scale(16),
-                          ),
+                          padding: EdgeInsets.all(context.scaleConfig
+                              .scale(12)), // Slightly reduced padding
                           decoration: BoxDecoration(
+                            // Gradient can be on Card or Container
                             gradient: LinearGradient(
                               colors: [
-                                Theme.of(context).colorScheme.surface,
+                                Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(0.95),
                                 Theme.of(context)
                                     .colorScheme
                                     .surface
@@ -127,14 +174,7 @@ class TimelineHome extends StatelessWidget {
                               end: Alignment.bottomRight,
                             ),
                             borderRadius: BorderRadius.circular(
-                                context.scaleConfig.scale(12)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: context.scaleConfig.scale(4),
-                                offset: Offset(0, context.scaleConfig.scale(2)),
-                              ),
-                            ],
+                                context.scaleConfig.scale(10)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,68 +184,48 @@ class TimelineHome extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      task.title ?? "Untitled".tr,
+                                      task.title ?? "key_untitled".tr,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyLarge
+                                          .titleSmall
                                           ?.copyWith(
+                                            // Adjusted for size
                                             fontSize: context.scaleConfig
-                                                .scaleText(16),
+                                                .scaleText(15),
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                       overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
                                     ),
-                                    if (!hasStartTime)
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: context.scaleConfig.scale(8)),
-                                        child: Text(
-                                          "361"
-                                              .tr, // Assuming this is "All day" or similar
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                fontSize: context.scaleConfig
-                                                    .scaleText(14),
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface
-                                                    .withOpacity(0.7),
-                                              ),
-                                        ),
-                                      ),
+                                    // Add other info if needed
                                   ],
                                 ),
                               ),
                               Icon(
                                 Icons.arrow_forward_ios,
-                                size: context.scaleConfig.scale(20),
+                                size: context.scaleConfig
+                                    .scale(16), // Adjusted size
                                 color: Theme.of(context)
                                     .colorScheme
                                     .onSurface
-                                    .withOpacity(0.5),
+                                    .withOpacity(0.6),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      beforeLineStyle: LineStyle(
+                    ),
+                    beforeLineStyle: LineStyle(
                         color: statusColor,
-                        thickness: context.scaleConfig.scale(2),
-                      ),
-                      afterLineStyle: LineStyle(
+                        thickness: context.scaleConfig.scale(2.5)),
+                    afterLineStyle: LineStyle(
                         color: statusColor,
-                        thickness: context.scaleConfig.scale(2),
-                      ),
-                    );
-                  }
-                  // This handles the extra item for potential bottom padding/spacing
-                  return SizedBox(height: 80 * context.scaleConfig.scaleHeight);
+                        thickness: context.scaleConfig.scale(2.5)),
+                  );
                 },
-                // Keep childCount as is, or adjust if the last SizedBox is not desired
                 childCount: controller.taskdata.length +
                     (controller.taskdata.isNotEmpty ? 1 : 0),
               ),
@@ -219,7 +239,7 @@ class TimelineHome extends StatelessWidget {
   Color _getStatusColor(String? status) {
     switch (status) {
       case "Pending":
-        return Colors.orangeAccent; // Changed for better visibility perhaps
+        return Colors.orangeAccent;
       case "In Progress":
         return Colors.blueAccent;
       case "Completed":

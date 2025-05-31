@@ -8,83 +8,96 @@ import 'package:tasknotate/data/model/categorymodel.dart';
 
 class CategoryDropdown extends StatelessWidget {
   final HomeController controller;
-  final ScaleConfig scale;
 
   const CategoryDropdown({
     super.key,
     required this.controller,
-    required this.scale,
   });
 
   @override
   Widget build(BuildContext context) {
+    final ScaleConfig scale =
+        context.scaleConfig; // Get ScaleConfig from context
+
+    // Define a base font size, similar to SortDropdown
+    const double baseFontSize = 14.0;
+    // Define a base icon size, you can adjust this if FontAwesomeIcons.filter looks better smaller
+    const double baseIconSize =
+        16.0; // Slightly smaller than SortDropdown's 18 for FontAwesome
+
     return GetBuilder<HomeController>(
       id: 'task-category-view',
       builder: (controller) {
-        // This 'Home' is an internal identifier/default value, NOT for direct display as is.
-        // The display will come from the DropdownMenuItem's child.
-        String selectedCategoryValue = 'Home'; // Internal value
+        String selectedCategoryValue = 'Home';
         if (controller.selectedTaskCategoryId.value != null) {
           final category = controller.taskCategories.firstWhere(
             (category) =>
                 category.id == controller.selectedTaskCategoryId.value,
-            // This 'Home' is the default categoryName if not found.
             orElse: () => CategoryModel(id: null, categoryName: "Home"),
           );
           selectedCategoryValue = category.categoryName;
         }
 
+        // Define the TextStyle to be reused, applying responsive scaling
+        final TextStyle dropdownTextStyle = TextStyle(
+          color: context.appTheme.colorScheme.onSecondary,
+          fontSize: scale.scaleText(baseFontSize), // Scale the base font size
+        );
+
         return Container(
-          constraints: const BoxConstraints(
-            maxWidth: 100,
+          constraints: BoxConstraints(
+            maxWidth: scale.scale(100), // Keep responsive width
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 6),
+          padding: EdgeInsets.symmetric(
+              horizontal: scale.scale(6)), // Keep responsive padding
           decoration: BoxDecoration(
             color: context.appTheme.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(6),
+            borderRadius:
+                BorderRadius.circular(scale.scale(6)), // Keep responsive radius
+            // Optionally add similar shadow if desired to match SortDropdown
+            // boxShadow: const [
+            //   BoxShadow(
+            //     color: Colors.black26,
+            //     blurRadius: 4,
+            //     offset: Offset(0, 2),
+            //   ),
+            // ],
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: selectedCategoryValue, // Use the internal value
+              value: selectedCategoryValue,
               icon: Icon(
-                FontAwesomeIcons.filter,
-                color:
-                    context.appTheme.colorScheme.onSecondary, // Use theme color
-                size: 14,
+                FontAwesomeIcons.filter, // Using FontAwesome icon
+                color: context.appTheme.colorScheme.onSecondary,
+                size: scale.scale(baseIconSize), // Scale the base icon size
               ),
-              style: TextStyle(
-                color:
-                    context.appTheme.colorScheme.onSecondary, // Use theme color
-                fontSize: 12,
-              ),
+              style:
+                  dropdownTextStyle, // Apply the defined responsive text style
               dropdownColor: context.appTheme.colorScheme.secondary,
               isExpanded: true,
+              elevation: 4, // Match SortDropdown elevation
               items: [
                 DropdownMenuItem(
-                  value: 'Home', // The non-translated value for logic
+                  value: 'Home',
                   child: Text(
-                    'key_home'.tr, // The translated text for display
+                    'key_home'.tr,
                     overflow: TextOverflow.ellipsis,
+                    style: dropdownTextStyle, // Reuse the style for items
                   ),
                 ),
                 ...controller.taskCategories.map((category) => DropdownMenuItem(
-                      value: category
-                          .categoryName, // categoryName acts as the value
+                      value: category.categoryName,
                       child: Text(
-                        // If category names themselves need translation,
-                        // they should also be keys or have a translation mechanism.
-                        // For now, assuming category.categoryName is directly displayable or already translated.
                         category.categoryName,
                         overflow: TextOverflow.ellipsis,
+                        style: dropdownTextStyle, // Reuse the style for items
                       ),
                     )),
               ],
               onChanged: (value) {
-                // Logic compares against the non-translated 'Home'
                 if (value == 'Home') {
                   controller.filterTasksByCategory(null);
                 } else if (value != null) {
-                  // Ensure value is not null
                   final category = controller.taskCategories
                       .firstWhere((c) => c.categoryName == value);
                   controller.filterTasksByCategory(category.id);

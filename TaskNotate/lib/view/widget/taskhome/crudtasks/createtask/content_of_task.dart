@@ -28,6 +28,8 @@ class ContentOfTask extends GetView<TaskcreateController> {
           // Task Title TextFormField
           TextFormField(
             controller: titleController,
+            cursorColor: context.appTheme.colorScheme
+                .onSecondary, // <-- Added: Set cursor color
             style: context.appTheme.textTheme.headlineSmall!.copyWith(
               // More prominent style for title
               color: context.appTheme.colorScheme.onSecondary,
@@ -59,6 +61,8 @@ class ContentOfTask extends GetView<TaskcreateController> {
               fontSize: context.scaleConfig.scaleText(17),
               color: context.appTheme.colorScheme.onSecondary,
             ),
+            cursorColor: context.appTheme.colorScheme
+                .onSecondary, // <-- Added: Set cursor color
             controller: contentcontroller,
             maxLines: 4,
             minLines: 2,
@@ -88,8 +92,9 @@ class ContentOfTask extends GetView<TaskcreateController> {
                             itemCount: controller.images.length,
                             itemBuilder: (context, index) {
                               final imagePath = controller.images[index] ?? '';
-                              if (imagePath.isEmpty)
+                              if (imagePath.isEmpty) {
                                 return const SizedBox.shrink();
+                              }
                               return Padding(
                                 padding: EdgeInsets.only(
                                     right: context.scaleConfig.scale(10)),

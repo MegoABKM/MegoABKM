@@ -24,9 +24,9 @@ class StatusIndicator extends StatelessWidget {
     final bool isRTL = lang == "ar";
 
     return Positioned(
-      top: scale.scale(5), // Position at the top
-      right: isRTL ? null : scale.scale(5), // Right corner in LTR
-      left: isRTL ? scale.scale(5) : null, // Left corner in RTL
+      top: scale.scale(10), // Position at the top
+      right: isRTL ? null : scale.scale(10), // Right corner in LTR
+      left: isRTL ? scale.scale(10) : null, // Left corner in RTL
       child: SizedBox(
         height: scale.scale(40),
         width: scale.scale(40),

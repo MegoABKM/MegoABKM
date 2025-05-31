@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ScaleConfig {
@@ -11,6 +12,14 @@ class ScaleConfig {
   final double textScaleFactor;
   final Orientation orientation;
   final double devicePixelRatio;
+  final double globalPixelTextAdjustment;
+
+  // You might want to adjust this for testing if fonts are becoming too small
+  static const double _minAbsFontSize = 6.0;
+  // To make it easier to see changes during testing, let's use a more aggressive default here.
+  // REMEMBER TO CHANGE THIS IN YOUR ACTUAL ScaleConfig() call below for permanent effect.
+  static const double _defaultTestAdjustment =
+      0.0; // Set to -5.0 for aggressive testing if needed IN THE FACTORY
 
   ScaleConfig._({
     required this.referenceWidth,
@@ -23,6 +32,7 @@ class ScaleConfig {
     required this.textScaleFactor,
     required this.orientation,
     required this.devicePixelRatio,
+    required this.globalPixelTextAdjustment,
   });
 
   factory ScaleConfig(
@@ -30,14 +40,20 @@ class ScaleConfig {
     double refWidth = 375,
     double refHeight = 812,
     double refDPI = 326,
+    // ***** THIS IS THE IMPORTANT PART FOR YOUR GOAL *****
+    // ***** SET THIS TO -2.0 (or -5.0 for more noticeable testing) *****
+    double globalPixelTextAdjustment = -2.0, // Example: -2.0 or -5.0
   }) {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
     final orientation = mediaQuery.orientation;
-    // ignore: deprecated_member_use
     final textScale = mediaQuery.textScaleFactor;
     final devicePixelRatio = mediaQuery.devicePixelRatio;
+
+    // Log when ScaleConfig is created and with what adjustment
+    print(
+        "ScaleConfig created with globalPixelTextAdjustment: $globalPixelTextAdjustment");
 
     return ScaleConfig._(
       referenceWidth: refWidth,
@@ -50,37 +66,84 @@ class ScaleConfig {
       textScaleFactor: textScale,
       orientation: orientation,
       devicePixelRatio: devicePixelRatio,
+      globalPixelTextAdjustment: globalPixelTextAdjustment,
     );
   }
 
   double get scaleFactor {
     final baseScale = scaleWidth < scaleHeight ? scaleWidth : scaleHeight;
     final dpiRatio = devicePixelRatio / (referenceDPI / 160);
-    // Reduce DPI scaling impact for high-DPI devices
-    final dpiScale = 1.0 + (dpiRatio - 1.0) * 0.05; // More conservative
+    final dpiScale = 1.0 + (dpiRatio - 1.0) * 0.05;
     final landscapeMultiplier =
         orientation == Orientation.landscape ? 1.05 : 1.0;
     return baseScale * dpiScale * landscapeMultiplier;
   }
 
   double scale(double size) {
-    return (size * scaleFactor).clamp(size * 0.8, size * 2.0); // Looser clamp
+    return (size * scaleFactor).clamp(size * 0.8, size * 2.0);
   }
 
-  double scaleText(double fontSize) {
-    // Respect system textScaleFactor more, but cap it to prevent extreme scaling
-    double adjustedTextScaleFactor = textScaleFactor.clamp(0.7, 1.5);
-    double scaledSize = fontSize * scaleFactor * adjustedTextScaleFactor;
+  double scaleText(double fontSize, {double? overridePixelAdjustment}) {
+    final double pixelAdjustment =
+        overridePixelAdjustment ?? globalPixelTextAdjustment;
 
-    // Apply stronger reduction for very high-DPI devices
+    print("\n--- scaleText called ---");
+    print("Input fontSize: $fontSize");
+    print(
+        "Effective pixelAdjustment: $pixelAdjustment (global: $globalPixelTextAdjustment, override: $overridePixelAdjustment)");
+
+    double adjustedTextScaleFactor = textScaleFactor.clamp(0.7, 1.5);
+    print(
+        "adjustedTextScaleFactor: $adjustedTextScaleFactor (system: $textScaleFactor)");
+
+    double calculatedSize = fontSize * scaleFactor * adjustedTextScaleFactor;
+    print("Calculated size (before DPI/clamps): $calculatedSize");
+
     if (devicePixelRatio > 3.0) {
-      scaledSize *= 0.85; // Stronger reduction for Redmi 12 Pro
+      calculatedSize *= 0.85;
+      print(
+          "Applied 0.85 DPI adjustment (devicePixelRatio > 3.0). New calculatedSize: $calculatedSize");
     } else if (devicePixelRatio > 2.5) {
-      scaledSize *= 0.9;
+      calculatedSize *= 0.9;
+      print(
+          "Applied 0.9 DPI adjustment (devicePixelRatio > 2.5). New calculatedSize: $calculatedSize");
     }
 
-    // Tighter clamp to prevent oversized text
-    return scaledSize.clamp(fontSize * 0.7, fontSize * 1.3);
+    double lowerClampBound = fontSize * 0.7;
+    double upperClampBound = fontSize * 1.3;
+    double clampedCalculatedSize =
+        calculatedSize.clamp(lowerClampBound, upperClampBound);
+    print(
+        "Clamped calculated size (between $lowerClampBound and $upperClampBound): $clampedCalculatedSize");
+
+    double finalSizeAfterAdjustment = clampedCalculatedSize + pixelAdjustment;
+    print(
+        "Size after pixel adjustment ($pixelAdjustment): $finalSizeAfterAdjustment");
+
+    double finalResult;
+    if (pixelAdjustment < 0) {
+      finalResult = finalSizeAfterAdjustment.clamp(
+          _minAbsFontSize, clampedCalculatedSize);
+      print(
+          "Final result (clamped between $_minAbsFontSize and $clampedCalculatedSize because adjustment is negative): $finalResult");
+    } else if (pixelAdjustment > 0) {
+      // If increasing, ensure it respects min font size and some reasonable upper bound.
+      // The upper bound from original clamp + adjustment might be too large,
+      // let's use clampedCalculatedSize + adjustment, but still clamped by a factor of original font size.
+      // For simplicity, let's use a slightly more generous upper proportional clamp if increasing.
+      double increasedUpperClamp = (fontSize * 1.5) + pixelAdjustment.abs();
+      finalResult =
+          finalSizeAfterAdjustment.clamp(_minAbsFontSize, increasedUpperClamp);
+      print(
+          "Final result (clamped between $_minAbsFontSize and $increasedUpperClamp because adjustment is positive): $finalResult");
+    } else {
+      // No adjustment
+      finalResult = max(clampedCalculatedSize, _minAbsFontSize);
+      print(
+          "Final result (no adjustment, max of $clampedCalculatedSize and $_minAbsFontSize): $finalResult");
+    }
+    print("--- scaleText finished ---\n");
+    return finalResult;
   }
 
   bool get isTablet {
@@ -98,11 +161,20 @@ class ScaleConfig {
     return baseScaledSize;
   }
 
-  double tabletScaleText(double fontSize) {
-    final baseScaledSize = scaleText(fontSize);
+  double tabletScaleText(double fontSize, {double? overridePixelAdjustment}) {
+    // The globalPixelTextAdjustment (or override) will be applied by the scaleText call.
+    print(
+        "tabletScaleText called for fontSize: $fontSize, overridePixelAdjustment: $overridePixelAdjustment");
+    final baseScaledSize =
+        scaleText(fontSize, overridePixelAdjustment: overridePixelAdjustment);
     if (isTablet) {
-      return baseScaledSize * 1.1;
+      double tabletScaledSize = baseScaledSize * 1.1;
+      double finalTabletSize = max(tabletScaledSize, _minAbsFontSize);
+      print(
+          "Tablet scaling: baseScaledSize: $baseScaledSize, multiplied: $tabletScaledSize, final (min $_minAbsFontSize): $finalTabletSize");
+      return finalTabletSize;
     }
+    print("Not a tablet, returning baseScaledSize: $baseScaledSize");
     return baseScaledSize;
   }
 }

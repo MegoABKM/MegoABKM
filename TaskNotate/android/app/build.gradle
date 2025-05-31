@@ -13,7 +13,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.example.tasknotate"
+    namespace = "com.megoabkm.tasknotate"
     compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
@@ -31,7 +31,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.tasknotate"
+        applicationId = "com.megoabkm.tasknotate"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode.toInteger()

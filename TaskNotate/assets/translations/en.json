@@ -640,5 +640,18 @@
   "key_drawing_tools_done": "Done",
   "key_save_note": "Save",
   "key_untitled_placeholder": "Untitled"  ,
-  "key_create_task": "Create Task"
+  "key_create_task": "Create Task" , 
+  "key_task_deleted": "Task deleted" ,
+    "key_set_reminder_or_disable": "Please set a reminder time or disable the reminder.",
+  "key_set_finish_date_or_disable": "Please set a finish date/time or disable it.",
+  "key_title_cannot_empty": "Title cannot be empty.",
+  "key_failed_refresh_task_view": "Failed to refresh task view.",
+  "key_no_subtasks_add_new": "No subtasks added yet. Click 'Add Subtask'." ,
+  "IndigoBlend": "Indigo Blend (Default)" ,
+ "key_failed_to_set_pending": "Failed to set tasks to pending.",
+  "key_error_fetching_tasks": "Error fetching tasks.",
+  "key_no_tasks_in_category": "No tasks in this category.",
+"key_confirm_delete_category_named": "Are you sure you want to delete the category \"{categoryName}\"? This will also unassign its tasks.",
+"key_confirm_set_all_tasks_in_selected_category_pending": "Are you sure you want to set all tasks in the selected scope to 'Pending'?" ,
+"key_confirm_delete_selected_category": "Are you sure you want to delete the selected category? This will also unassign its tasks."
 }

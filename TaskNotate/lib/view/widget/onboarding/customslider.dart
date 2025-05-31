@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:tasknotate/controller/onboarding_controller.dart';
 import 'package:tasknotate/controller/theme_controller.dart';
 import 'package:tasknotate/core/constant/appthemes.dart';
+// Ensure this path is correct for your project structure
 import 'package:tasknotate/core/constant/utils/scale_confige.dart';
 import 'package:tasknotate/core/localization/changelocal.dart';
 import 'package:tasknotate/data/datasource/static/static.dart';
@@ -13,6 +14,9 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
 
   @override
   Widget build(BuildContext context) {
+    // To make text smaller, you'd pass globalPixelTextAdjustment here, e.g.:
+    // final scaleConfig = ScaleConfig(context, globalPixelTextAdjustment: -1.0);
+    // Or change the default in ScaleConfig.dart
     final scaleConfig = ScaleConfig(context);
     final theme = Theme.of(context);
     final localController = Get.find<LocalController>();
@@ -33,17 +37,22 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: scaleConfig.scale(40)),
-                  child: Text(
-                    onBoardingList[index].title!.tr,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: scaleConfig.scaleText(24),
-                      color: theme.colorScheme.onSurface,
+                  padding: EdgeInsets.only(top: scaleConfig.scale(40)), // Good
+                  child: Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      onBoardingList[index].title!.tr,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: scaleConfig.scaleText(24), // Good
+                        color: theme.colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(height: scaleConfig.scale(20)),
+                SizedBox(height: scaleConfig.scale(20)), // Good
+                // Using Get.width/height for proportions is fine if that's the design intent.
+                // Alternatively, you could use scaleConfig.scale(referenceLottieWidth)
                 Container(
                   width: Get.width * 0.8,
                   height: Get.height * 0.35,
@@ -54,31 +63,34 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                SizedBox(height: scaleConfig.scale(20)),
+                SizedBox(height: scaleConfig.scale(20)), // Good
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: scaleConfig.scale(20)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: scaleConfig.scale(20)), // Good
                   child: Text(
                     onBoardingList[index].body!.tr,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      height: 1.5,
+                      height:
+                          1.5, // Line height is usually relative, so fixed is okay
                       color: theme.colorScheme.onSurface.withOpacity(0.7),
                       fontWeight: FontWeight.w500,
-                      fontSize: scaleConfig.scaleText(18),
+                      fontSize: scaleConfig.scaleText(18), // Good
                     ),
                   ),
                 ),
-                // Language Dropdown for "Choose your language" slide (index 0)
+                // Language Dropdown
                 if (index == 0) ...[
-                  SizedBox(height: scaleConfig.scale(20)),
+                  SizedBox(height: scaleConfig.scale(20)), // Good
                   GetBuilder<LocalController>(
                     builder: (localController) => DropdownButton<String>(
                       value: localController.language.languageCode,
                       items: [
+                        // ... DropdownMenuItem ... (content not scaled, usually fine for short text)
                         DropdownMenuItem(
                           value: 'en',
-                          child: Text('English'),
+                          child: Text(
+                              'English'), // Text inside items usually doesn't need explicit scaleText
                         ),
                         DropdownMenuItem(
                           value: 'ar',
@@ -103,17 +115,18 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                         }
                       },
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        fontSize: scaleConfig.scaleText(16),
+                        fontSize: scaleConfig.scaleText(16), // Good
                         color: theme.colorScheme.onSurface,
                       ),
                       dropdownColor: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(scaleConfig.scale(8)),
+                      borderRadius:
+                          BorderRadius.circular(scaleConfig.scale(8)), // Good
                     ),
                   ),
                 ],
-                // Theme Toggle for "Personalized Experience" slide (index 4)
+                // Theme Toggle
                 if (index == 4) ...[
-                  SizedBox(height: scaleConfig.scale(20)),
+                  SizedBox(height: scaleConfig.scale(20)), // Good
                   GetBuilder<ThemeController>(
                     builder: (themeController) => SwitchListTile(
                       title: Text(
@@ -121,7 +134,7 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                             ? 'dark_mode'.tr
                             : 'light_mode'.tr,
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: scaleConfig.scaleText(16),
+                          fontSize: scaleConfig.scaleText(16), // Good
                           color: theme.colorScheme.onSurface,
                         ),
                       ),
@@ -133,34 +146,40 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                     ),
                   ),
                 ],
-                // Color Selection for "Change Color" slide (index 5)
+                // Color Selection
                 if (index == 5) ...[
-                  SizedBox(height: scaleConfig.scale(20)),
+                  SizedBox(height: scaleConfig.scale(20)), // Good
                   Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          scaleConfig.scale(20).clamp(15, 30)),
+                          scaleConfig.scale(20).clamp(15, 30)), // Good
                     ),
-                    elevation: scaleConfig.scale(8).clamp(5, 10),
+                    elevation: scaleConfig.scale(8).clamp(5, 10), // Good
                     color: theme.cardColor.withOpacity(0.9),
                     child: Padding(
-                      padding:
-                          EdgeInsets.all(scaleConfig.scale(20).clamp(15, 25)),
+                      padding: EdgeInsets.all(
+                          scaleConfig.scale(20).clamp(15, 25)), // Good
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             '370'.tr, // Color Selection
                             style: theme.textTheme.headlineSmall?.copyWith(
-                              fontSize: scaleConfig.scaleText(20).clamp(16, 22),
+                              fontSize: scaleConfig
+                                  .scaleText(20)
+                                  .clamp(16, 22), // Good
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: scaleConfig.scale(16).clamp(10, 20)),
+                          SizedBox(
+                              height:
+                                  scaleConfig.scale(16).clamp(10, 20)), // Good
                           Text(
                             '371'.tr, // Color
                             style: theme.textTheme.bodyLarge?.copyWith(
-                              fontSize: scaleConfig.scaleText(16).clamp(14, 18),
+                              fontSize: scaleConfig
+                                  .scaleText(16)
+                                  .clamp(14, 18), // Good
                             ),
                           ),
                           GetBuilder<ThemeController>(
@@ -182,23 +201,23 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                                         Container(
                                           width: scaleConfig
                                               .scale(20)
-                                              .clamp(15, 25),
+                                              .clamp(15, 25), // Good
                                           height: scaleConfig
                                               .scale(20)
-                                              .clamp(15, 25),
+                                              .clamp(15, 25), // Good
                                           color: entry.value,
                                         ),
                                         SizedBox(
                                             width: scaleConfig
                                                 .scale(10)
-                                                .clamp(5, 15)),
+                                                .clamp(5, 15)), // Good
                                         Text(
                                           entry.key.tr,
                                           style: theme.textTheme.bodyLarge
                                               ?.copyWith(
                                             fontSize: scaleConfig
                                                 .scaleText(16)
-                                                .clamp(14, 18),
+                                                .clamp(14, 18), // Good
                                           ),
                                         ),
                                       ],
@@ -212,17 +231,21 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                                   }
                                 },
                                 underline: Container(
-                                  height: 2,
+                                  height:
+                                      2, // Fixed height for underline is often fine
                                   color: theme.colorScheme.secondary,
                                 ),
                                 icon: Icon(
                                   Icons.color_lens,
                                   color: theme.iconTheme.color,
-                                  size: scaleConfig.scale(24).clamp(20, 30),
+                                  size: scaleConfig
+                                      .scale(24)
+                                      .clamp(20, 30), // Good
                                 ),
                                 style: theme.textTheme.bodyLarge?.copyWith(
-                                  fontSize:
-                                      scaleConfig.scaleText(16).clamp(14, 18),
+                                  fontSize: scaleConfig
+                                      .scaleText(16)
+                                      .clamp(14, 18), // Good
                                 ),
                                 dropdownColor: theme.cardColor,
                               );
@@ -233,7 +256,7 @@ class CustomSliderOnBoarding extends GetView<OnBoardingControllerImp> {
                     ),
                   ),
                 ],
-                SizedBox(height: scaleConfig.scale(20)),
+                SizedBox(height: scaleConfig.scale(20)), // Good
               ],
             ),
           ),

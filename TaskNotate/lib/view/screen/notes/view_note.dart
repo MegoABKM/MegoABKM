@@ -5,15 +5,14 @@ import 'package:tasknotate/controller/notes/noteview_controller.dart';
 import 'package:tasknotate/core/constant/routes.dart';
 import 'package:tasknotate/core/constant/utils/extensions.dart';
 import 'package:tasknotate/controller/home_controller.dart';
-import 'package:tasknotate/core/constant/utils/scale_confige.dart'; // For categories
-// Removed unused ScaleConfig import if not directly used, extensions.dart handles it.
+import 'package:tasknotate/core/constant/utils/scale_confige.dart';
 
 class ViewNote extends StatelessWidget {
   const ViewNote({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final NoteviewController controller = Get.put(NoteviewController());
+    final NoteviewController controller = Get.find<NoteviewController>();
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final ScaleConfig scale = context.scaleConfig;
@@ -25,25 +24,44 @@ class ViewNote extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new,
               color: colorScheme.onSurfaceVariant),
-          onPressed: () {
-            controller.updateData(); // Save on back press
+          onPressed: () async {
+            // Make onPressed async
+            if (controller.areControllersInitialized &&
+                controller.note != null) {
+              print(
+                  "[ViewNote BackButton] Attempting to save note before navigating...");
+              await controller.updateData(); // AWAIIT for the save to complete
+              // This updateData() will call Get.find<HomeController>().getNoteData()
+              // which updates the *persistent* HomeController.
+              print(
+                  "[ViewNote BackButton] Save attempt finished. Navigating to home.");
+            } else {
+              print(
+                  "[ViewNote BackButton] No note to save or controllers not ready. Navigating to home.");
+            }
             Get.offAllNamed(AppRoute.home);
           },
         ),
-        title: GetBuilder<NoteviewController>(
-          builder: (ctrl) => TextField(
-            controller: ctrl.insideTitleField,
-            readOnly: ctrl
-                .isDrawingMode, // Title not editable in drawing view/edit mode
+        title: GetBuilder<NoteviewController>(builder: (ctrl) {
+          if (ctrl.isLoadingNoteFromArgs ||
+              ctrl.note == null ||
+              !ctrl.areControllersInitialized) {
+            // Show a simple text or nothing while loading or if note isn't ready
+            return Text("key_loading_note".tr,
+                style: TextStyle(
+                    fontSize: scale.scaleText(18),
+                    color: colorScheme.onSurfaceVariant));
+          }
+          return TextField(
+            controller: ctrl.insideTitleField!,
+            readOnly: ctrl.isDrawingMode,
             style: TextStyle(
-              fontSize: scale.scaleText(
-                  22), // Slightly smaller than create for appbar feel
+              fontSize: scale.scaleText(22),
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
             ),
             decoration: InputDecoration(
-              hintText:
-                  "key_view_note_title_hint".tr, // New Key (replaces 173.tr)
+              hintText: "key_view_note_title_hint".tr,
               border: InputBorder.none,
               counterText: "",
               hintStyle: TextStyle(
@@ -54,11 +72,16 @@ class ViewNote extends StatelessWidget {
             ),
             onChanged: ctrl.saveTitle,
             textCapitalization: TextCapitalization.sentences,
-          ),
-        ),
+          );
+        }),
         actions: [
-          GetBuilder<NoteviewController>(
-            builder: (ctrl) => IconButton(
+          GetBuilder<NoteviewController>(builder: (ctrl) {
+            if (ctrl.isLoadingNoteFromArgs ||
+                ctrl.note == null ||
+                !ctrl.areControllersInitialized) {
+              return const SizedBox.shrink(); // No actions if note isn't ready
+            }
+            return IconButton(
               icon: Icon(
                 ctrl.isDrawingMode
                     ? Icons.text_fields_outlined
@@ -67,43 +90,54 @@ class ViewNote extends StatelessWidget {
                 size: scale.scale(26),
               ),
               tooltip: ctrl.isDrawingMode
-                  ? "key_drawing_mode_on_tooltip"
-                      .tr // New Key "Switch to Text Mode"
-                  : "key_drawing_mode_off_tooltip"
-                      .tr, // New Key "Switch to Drawing/View Drawing"
+                  ? "key_drawing_mode_on_tooltip".tr
+                  : "key_drawing_mode_off_tooltip".tr,
               onPressed: () {
                 ctrl.toggleDrawingMode();
-                // If switching from drawing edit to text view, and canvas has changes, save.
                 if (!ctrl.isDrawingMode &&
-                    ctrl.signatureController.isNotEmpty) {
-                  ctrl.updateData();
+                    ctrl.signatureController?.isNotEmpty == true) {
+                  ctrl.updateData(); // Save drawing if switching out of drawing mode with content
                 }
               },
-            ),
-          ),
-          // Future actions: Delete, Share
-          // IconButton(icon: Icon(Icons.delete_outline, color: colorScheme.error), onPressed: () {/* ... */}),
+            );
+          }),
         ],
       ),
       body: SafeArea(
         child: GetBuilder<NoteviewController>(
           builder: (controller) {
+            if (controller.isLoadingNoteFromArgs) {
+              print("[ViewNote UI] State: Loading arguments.");
+              return const Center(child: CircularProgressIndicator());
+            }
+
             if (controller.note == null) {
+              // Arguments processed, but no note found/loaded
+              print(
+                  "[ViewNote UI] State: Note is null (after attempting to load from args).");
               return Center(
-                child: Text(
-                  "key_note_not_found_message".tr, // New Key (replaces 170.tr)
-                  style: TextStyle(
-                    fontSize: scale.scaleText(18),
-                    color: colorScheme.error,
+                child: Padding(
+                  padding: EdgeInsets.all(scale.scale(20)),
+                  child: Text(
+                    "key_note_not_found_message".tr,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: scale.scaleText(18),
+                      color: colorScheme.error,
+                    ),
                   ),
                 ),
               );
             }
+
+            // Note is loaded, and areControllersInitialized should be true
+            // because loadNoteData (which uses them) was called.
+            print(
+                "[ViewNote UI] State: Note loaded (ID: ${controller.note!.id}). Building main content.");
             return Column(
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    // Changed to SingleChildScrollView for independent scrolling of content
                     padding: EdgeInsets.symmetric(
                         horizontal: scale.scale(18), vertical: scale.scale(10)),
                     child: Column(
@@ -115,7 +149,7 @@ class ViewNote extends StatelessWidget {
 
                         if (!controller.isDrawingMode)
                           _buildTextContentView(context, controller)
-                        else // In drawing mode (viewing or editing drawing)
+                        else // In drawing mode
                           _buildDrawingViewOrEditCanvas(context, controller),
 
                         // Display existing drawing below text if not in drawing mode and drawing exists
@@ -127,13 +161,12 @@ class ViewNote extends StatelessWidget {
                         SizedBox(
                             height: scale.scale(controller.isDrawingMode
                                 ? 20
-                                : 80)), // Adjust bottom space
+                                : 80)), // Bottom padding
                       ],
                     ),
                   ),
                 ),
-                if (controller
-                    .isDrawingMode) // Show drawing tools only in drawing mode
+                if (controller.isDrawingMode) // Drawing tools bar
                   _buildDrawingModeBottomBar(context, controller),
               ],
             );
@@ -149,13 +182,17 @@ class ViewNote extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final ScaleConfig scale = context.scaleConfig;
 
+    // Ensure homeController.noteCategories is accessible and populated
+    // Add a check or default to empty list if not ready.
+    final categoriesList = homeController.noteCategories;
+
     final categories = [
       DropdownMenuItem<int?>(
         value: null,
         child: Text("key_no_category_option".tr,
             style: TextStyle(fontSize: scale.scaleText(14))),
       ),
-      ...homeController.noteCategories.map((category) {
+      ...categoriesList.map((category) {
         return DropdownMenuItem<int?>(
           value: category.id,
           child: Text(category.categoryName,
@@ -169,7 +206,7 @@ class ViewNote extends StatelessWidget {
           horizontal: scale.scale(12), vertical: scale.scale(4)),
       decoration: BoxDecoration(
         color: colorScheme.surfaceVariant.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(scale.scale(20)), // Pill shape
+        borderRadius: BorderRadius.circular(scale.scale(20)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<int?>(
@@ -177,7 +214,7 @@ class ViewNote extends StatelessWidget {
           items: categories,
           onChanged: (int? newValue) {
             controller.selectedCategoryId = newValue;
-            controller.updateData(); // Save category change
+            controller.updateData(); // Save category change immediately
           },
           icon:
               Icon(Icons.arrow_drop_down, color: colorScheme.onSurfaceVariant),
@@ -188,7 +225,7 @@ class ViewNote extends StatelessWidget {
           ),
           dropdownColor: theme.cardColor,
           hint: Text(
-            "key_select_category_hint".tr, // Reusing key from create
+            "key_select_category_hint".tr,
             style: TextStyle(
                 color: colorScheme.onSurfaceVariant,
                 fontSize: scale.scaleText(14)),
@@ -204,19 +241,20 @@ class ViewNote extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final ScaleConfig scale = context.scaleConfig;
 
-    // Hero tag should be unique and stable for the note
-    String heroTag =
-        controller.note?.id ?? DateTime.now().millisecondsSinceEpoch.toString();
+    String heroTag = controller.note!.id ??
+        DateTime.now()
+            .millisecondsSinceEpoch
+            .toString(); // Note ID is non-null here
 
     return Hero(
       tag: heroTag,
       child: Material(
-        // Wrap TextField in Material for Hero animation
         type: MaterialType.transparency,
         child: TextField(
-          controller: controller.insideTextField,
+          controller:
+              controller.insideTextField!, // Controller is non-null here
           maxLines: null,
-          minLines: 10, // Adjust as needed
+          minLines: 10,
           readOnly: controller.isDrawingMode,
           keyboardType: TextInputType.multiline,
           textCapitalization: TextCapitalization.sentences,
@@ -226,7 +264,7 @@ class ViewNote extends StatelessWidget {
             height: 1.5,
           ),
           decoration: InputDecoration(
-            hintText: "key_note_content_hint".tr, // Reusing key
+            hintText: "key_note_content_hint".tr,
             border: InputBorder.none,
             hintStyle: TextStyle(
               fontSize: scale.scaleText(16),
@@ -245,12 +283,13 @@ class ViewNote extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final ScaleConfig scale = context.scaleConfig;
 
+    // drawingBytes is checked non-null before this widget is built
     return Padding(
       padding: EdgeInsets.only(top: scale.scale(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("key_view_drawing_label".tr, // New Key "Drawing:"
+          Text("key_view_drawing_label".tr,
               style: TextStyle(
                   fontSize: scale.scaleText(14),
                   fontWeight: FontWeight.w500,
@@ -270,7 +309,7 @@ class ViewNote extends StatelessWidget {
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) => Center(
                     child: Text(
-                  "key_error_loading_drawing_message".tr, // New Key
+                  "key_error_loading_drawing_message".tr,
                   style: TextStyle(
                       color: colorScheme.error, fontSize: scale.scaleText(14)),
                 )),
@@ -288,21 +327,14 @@ class ViewNote extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final ScaleConfig scale = context.scaleConfig;
 
-    // If there's an existing drawing and we are in drawing mode,
-    // but the signature controller is empty, it means we are viewing an existing drawing.
-    // However, the requirement is more like "edit drawing" mode.
-    // So, the signature canvas is always active for editing in drawing mode.
-    // The initial points would need to be loaded if you want to edit existing drawings.
-    // For simplicity, entering drawing mode clears the canvas for new input or to overlay on existing.
-    // (The controller logic handles loading initial drawingBytes to display)
-
+    // signatureController is non-null here
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: scale.scale(8)),
           child: Text(
-            "key_drawing_canvas_label".tr, // Reusing key
+            "key_drawing_canvas_label".tr,
             style: TextStyle(
                 fontSize: scale.scaleText(14),
                 fontWeight: FontWeight.w500,
@@ -322,29 +354,30 @@ class ViewNote extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(scale.scale(11)),
             child: Signature(
-              controller: controller.signatureController,
+              controller: controller.signatureController!,
               backgroundColor: theme.brightness == Brightness.dark
                   ? colorScheme.surfaceVariant
                   : Colors.white,
-              // To load existing drawing into canvas for editing:
-              // This is complex as SignatureController takes points, not image bytes.
-              // For now, it's a fresh canvas when isDrawingMode is true.
-              // The displayed `drawingBytes` (if any) acts as a visual reference underneath.
             ),
           ),
         ),
-        // Display current drawingBytes as a background if available and canvas is clear, for reference
+        // Optional: Show existing drawing as a faint background reference if canvas is empty
         if (controller.drawingBytes != null &&
-            controller.signatureController.isEmpty)
+            controller.signatureController?.isEmpty == true)
           Opacity(
-            opacity: 0.3, // So it's clear it's a reference
+            opacity: 0.3,
             child: Padding(
-              padding: EdgeInsets.only(top: scale.scale(8.0)),
-              child: Image.memory(
-                controller.drawingBytes!,
-                height: scale.scale(350), // Match canvas height
-                width: double.infinity,
-                fit: BoxFit.contain,
+              padding: EdgeInsets.only(
+                  top: scale.scale(
+                      8.0)), // Should be under, but this is simpler for now
+              child: IgnorePointer(
+                // So it doesn't interfere with signature canvas
+                child: Image.memory(
+                  controller.drawingBytes!,
+                  height: scale.scale(350),
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
@@ -358,6 +391,7 @@ class ViewNote extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final ScaleConfig scale = context.scaleConfig;
 
+    // signatureController is non-null here
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: scale.scale(8), horizontal: scale.scale(16)),
@@ -378,10 +412,9 @@ class ViewNote extends StatelessWidget {
             icon: Icon(Icons.undo, color: colorScheme.primary),
             tooltip: "key_drawing_tools_undo".tr,
             onPressed: () {
-              if (controller.signatureController.isNotEmpty) {
-                controller.signatureController.undo();
-                controller
-                    .update(); // To reflect change if not automatically updating
+              if (controller.signatureController?.isNotEmpty == true) {
+                controller.signatureController!.undo();
+                controller.update(); // UI triggered update
               }
             },
           ),
@@ -389,21 +422,19 @@ class ViewNote extends StatelessWidget {
             icon: Icon(Icons.delete_outline, color: colorScheme.error),
             tooltip: "key_drawing_tools_clear".tr,
             onPressed: () {
-              controller.signatureController.clear();
-              controller.update();
+              controller.signatureController?.clear();
+              controller.update(); // UI triggered update
             },
           ),
           TextButton.icon(
             icon: Icon(Icons.check_circle_outline, color: colorScheme.primary),
-            label: Text("key_drawing_tools_done".tr, // New Key "Done"
+            label: Text("key_drawing_tools_done".tr,
                 style: TextStyle(
                     color: colorScheme.primary, fontWeight: FontWeight.bold)),
             onPressed: () {
-              // Save the drawing and switch out of drawing mode
-              controller
-                  .updateData(); // This will capture the drawing from signatureController
-              controller.isDrawingMode = false;
-              controller.update(); // Refresh UI
+              controller.updateData(); // This will capture the drawing
+              controller.isDrawingMode = false; // Switch mode
+              controller.update(); // Refresh UI for mode switch
             },
           ),
         ],

@@ -42,7 +42,6 @@ class NotesHome extends GetView<HomeController> {
                   children: [
                     NoteCategoryDropdown(
                       controller: controller,
-                      scale: context.scaleConfig,
                     ),
                   ],
                 ),

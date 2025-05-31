@@ -23,7 +23,7 @@ class TitleUpdateTask extends GetView<TaskUpdatecontroller> {
                 color: context.appTheme.colorScheme.onSurface.withOpacity(0.5),
                 fontSize: Get.width * 0.06,
               ),
-          border: InputBorder.none,
+          // border: InputBorder.none,
         ),
       ),
     );

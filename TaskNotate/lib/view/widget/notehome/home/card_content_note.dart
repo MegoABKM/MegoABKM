@@ -26,8 +26,9 @@ class CardContentNote extends GetView<HomeController> {
         },
       ),
       onTap: () {
-        controller.goToViewNote(note.content ?? "", note.title ?? "",
-            note.id ?? "", note.drawing ?? "", note.categoryId ?? "Home");
+        print(
+            "[CardContentNote onTap] Going to view note ID: ${note.id}, Title: '${note.title}'");
+        controller.goToViewNote(note);
       },
       child: Hero(
         tag: note.id ?? "",

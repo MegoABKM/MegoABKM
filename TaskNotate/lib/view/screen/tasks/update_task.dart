@@ -46,15 +46,29 @@ class UpdateTask extends StatelessWidget {
                       const Discriptionupdatetask(),
                       SizedBox(height: context.scaleConfig.scale(16)),
                       controller.decodedImages.isNotEmpty
-                          ? const Imagegridviewtaskupdate()
+                          ? Imagegridviewtaskupdate()
                           : const Noimagetaskupdate(),
-                      SizedBox(height: context.scaleConfig.scale(16)),
+                      // MODIFIED: Removed SizedBox(height: context.scaleConfig.scale(16)) before Subtaskupdate
+                      // If spacing is still desired, add a smaller SizedBox here, e.g., SizedBox(height: context.scaleConfig.scale(8))
+                      // Or let the natural spacing of elements take over. For now, removed.
+                      // Consider adding a SizedBox(height: context.scaleConfig.scale(16)) IF the previous element
+                      // (Imagegridviewtaskupdate or Noimagetaskupdate) doesn't have bottom margin/padding AND
+                      // Subtaskupdate doesn't have top margin/padding, and they appear too close.
+                      // For now, direct placement after removing the explicit spacer.
+                      // A common pattern is to have consistent spacing between sections.
+                      // If previous SizedBox was 16, and we want *some* space, perhaps 8 or 16.
+                      // Let's re-add a standard spacing for consistency, as other sections have it.
+                      SizedBox(
+                          height: context.scaleConfig.scale(
+                              16)), // Re-added for consistent section spacing
                       const Subtaskupdate(),
                       SizedBox(height: context.scaleConfig.scale(16)),
                       TimelineTaskUpdate(
                         controller: controller,
                       ),
-                      SizedBox(height: context.scaleConfig.scale(80)),
+                      SizedBox(
+                          height: context.scaleConfig
+                              .scale(80)), // For FAB clearance
                     ],
                   ),
                 ),

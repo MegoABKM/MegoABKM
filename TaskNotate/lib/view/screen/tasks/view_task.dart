@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tasknotate/controller/home_controller.dart'; // Import HomeController
 import 'package:tasknotate/controller/tasks/taskviewcontroller.dart';
 import 'package:tasknotate/core/constant/routes.dart';
 import 'package:tasknotate/core/constant/utils/extensions.dart';
-import 'package:tasknotate/core/services/sound_service.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/viewtask/custom_float_action_button.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/viewtask/image_section.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/viewtask/task_view_attributes.dart';
@@ -58,18 +58,29 @@ class ViewTask extends StatelessWidget {
                                 padding: EdgeInsets.only(
                                     top: context.scaleConfig.scale(16)),
                                 child: ElevatedButton.icon(
-                                  onPressed: () {
-                                    controller.updateStatus(
+                                  onPressed: () async {
+                                    final String taskIdToUpdate =
+                                        controller.task!.id!;
+                                    final String targetStatus = "Completed";
+                                    await controller.updateStatus(
                                       controller.task!.status ?? "",
-                                      controller.task!.id ?? "",
-                                      "Completed",
+                                      taskIdToUpdate,
+                                      targetStatus,
                                     );
+                                    if (Get.isRegistered<HomeController>()) {
+                                      try {
+                                        final homeController =
+                                            Get.find<HomeController>();
+                                        homeController.updateTaskInListDirectly(
+                                            taskIdToUpdate, targetStatus);
+                                      } catch (e) {
+                                        // print("ViewTask: ERROR finding/calling homeController: $e");
+                                      }
+                                    }
                                     Get.offAllNamed(AppRoute.home);
-                                    Get.find<SoundService>()
-                                        .playTaskCompletedSound();
                                   },
                                   icon: Icon(Icons.check,
-                                      size: context.scaleConfig.scale(18)),
+                                      size: context.scaleConfig.scaleText(18)),
                                   label: Text("156".tr),
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: context
@@ -105,39 +116,68 @@ class ViewTask extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.all(context.scaleConfig.scale(16)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.scaleConfig
+                          .scale(16)), // Horizontal padding only
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Attributes always shown, so it can have its own top padding if needed inside its own widget
+                      // or add a SizedBox above it if consistent top padding is desired for the first item.
+                      SizedBox(
+                          height: context.scaleConfig.scale(
+                              16)), // Initial top padding for the content block
                       TaskViewAttributes(
                         task: controller.task!,
                         onTap: () => controller.pickDateTime(context),
                       ),
-                      if (controller.task!.content?.isNotEmpty ?? false)
+
+                      // Conditionally add padding AND the widget
+                      if (controller.task!.content != null &&
+                          controller.task!.content != "Not Set" &&
+                          controller.task!.content!.isNotEmpty)
                         Padding(
                           padding: EdgeInsets.only(
                               top: context.scaleConfig.scale(16)),
                           child: TaskViewContent(
                               content: controller.task!.content!),
+                        )
+                      else if (controller.task!.content != null &&
+                          controller.task!.content != "Not Set" &&
+                          controller.task!.content!
+                              .isEmpty) // Explicitly handle empty but not "Not Set"
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: context.scaleConfig.scale(16)),
+                          child: TaskViewContent(
+                              content: controller.task!
+                                  .content!), // Will show "No description"
                         ),
+
                       if (controller.decodedImages.isNotEmpty)
                         Padding(
                           padding: EdgeInsets.only(
                               top: context.scaleConfig.scale(16)),
                           child: ImageSectionTask(controller: controller),
                         ),
-                      if (controller.task!.subtask != "Not Set")
+
+                      // For subtasks, only show if not "Not Set" and add padding conditionally
+                      if (controller.task!.subtask != null &&
+                          controller.task!.subtask != "Not Set")
                         Padding(
                           padding: EdgeInsets.only(
                               top: context.scaleConfig.scale(16)),
                           child: const TaskViewSubtask(),
                         ),
+
                       if (controller.decodedTimeline.isNotEmpty)
                         Padding(
                           padding: EdgeInsets.only(
                               top: context.scaleConfig.scale(16)),
                           child: TaskViewTimeline(controller: controller),
                         ),
+
+                      SizedBox(height: context.scaleConfig.scale(20)),
                     ],
                   ),
                 ),

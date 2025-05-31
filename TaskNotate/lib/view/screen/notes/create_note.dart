@@ -38,14 +38,45 @@ class CreateNoteView extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.check,
-                color: colorScheme.primary, size: scale.scale(28)),
-            tooltip: "key_save_note".tr, // New Key
-            onPressed: () {
-              controller.uploadData();
-              Get.offAllNamed(AppRoute.home); // Or Get.back() if appropriate
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: Icon(
+                  controller.isDrawingMode
+                      ? Icons.text_fields_outlined
+                      : Icons.draw_outlined,
+                  color: colorScheme.primary,
+                  size: scale.scale(26),
+                ),
+                tooltip: controller.isDrawingMode
+                    ? "key_drawing_mode_on_tooltip"
+                        .tr // New Key "Switch to Text Mode"
+                    : "key_drawing_mode_off_tooltip"
+                        .tr, // New Key "Switch to Drawing Mode"
+                onPressed: () {
+                  controller.toggleDrawingMode();
+                  // If switching from drawing mode to text mode, and there's a drawing, save it.
+                  if (!controller.isDrawingMode &&
+                      controller.signatureController.isNotEmpty) {
+                    controller.uploadData();
+                  }
+                },
+              ),
+              SizedBox(
+                width: scale.scale(10),
+              ),
+              IconButton(
+                icon: Icon(Icons.check,
+                    color: colorScheme.primary, size: scale.scale(28)),
+                tooltip: "key_save_note".tr, // New Key
+                onPressed: () {
+                  controller.uploadData();
+                  Get.offAllNamed(
+                      AppRoute.home); // Or Get.back() if appropriate
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -79,12 +110,12 @@ class CreateNoteView extends StatelessWidget {
                       textCapitalization: TextCapitalization.sentences,
                       onChanged: controller.saveTitle,
                     ),
-                    SizedBox(height: scale.scale(12)),
+                    SizedBox(height: scale.scale(8)),
 
                     // Category Dropdown
                     _buildCategoryDropdown(
                         context, controller, Get.find<HomeController>()),
-                    SizedBox(height: scale.scale(16)),
+                    SizedBox(height: scale.scale(13)),
 
                     // Content TextField
                     TextField(
@@ -119,7 +150,7 @@ class CreateNoteView extends StatelessWidget {
                   ],
                 ),
               ),
-              _buildBottomToolBar(context, controller),
+              // _buildBottomToolBar(context, controller),
             ],
           ),
         ),
@@ -248,58 +279,59 @@ class CreateNoteView extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomToolBar(
-      BuildContext context, NotecreateController controller) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final ScaleConfig scale = context.scaleConfig;
+//   Widget _buildBottomToolBar(
+//       BuildContext context, NotecreateController controller) {
+//     final ThemeData theme = Theme.of(context);
+//     final ColorScheme colorScheme = theme.colorScheme;
+//     final ScaleConfig scale = context.scaleConfig;
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: scale.scale(8), horizontal: scale.scale(16)),
-      decoration: BoxDecoration(
-        color: theme.cardColor, // Or theme.bottomAppBarTheme.color
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: Offset(0, -2),
-          )
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            icon: Icon(
-              controller.isDrawingMode
-                  ? Icons.text_fields_outlined
-                  : Icons.draw_outlined,
-              color: colorScheme.primary,
-              size: scale.scale(26),
-            ),
-            tooltip: controller.isDrawingMode
-                ? "key_drawing_mode_on_tooltip"
-                    .tr // New Key "Switch to Text Mode"
-                : "key_drawing_mode_off_tooltip"
-                    .tr, // New Key "Switch to Drawing Mode"
-            onPressed: () {
-              controller.toggleDrawingMode();
-              // If switching from drawing mode to text mode, and there's a drawing, save it.
-              if (!controller.isDrawingMode &&
-                  controller.signatureController.isNotEmpty) {
-                controller.uploadData();
-              }
-            },
-          ),
-          // You can add more tools here, like color picker, etc.
-          // Example:
-          // IconButton(
-          //   icon: Icon(Icons.color_lens_outlined, color: colorScheme.secondary),
-          //   onPressed: () { /* Open color picker */ },
-          // ),
-        ],
-      ),
-    );
-  }
+//     return Container(
+//       padding: EdgeInsets.symmetric(
+//           vertical: scale.scale(8), horizontal: scale.scale(16)),
+//       decoration: BoxDecoration(
+//         color: theme.cardColor, // Or theme.bottomAppBarTheme.color
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.1),
+//             blurRadius: 4,
+//             offset: Offset(0, -2),
+//           )
+//         ],
+//       ),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceAround,
+//         children: [
+//           IconButton(
+//             icon: Icon(
+//               controller.isDrawingMode
+//                   ? Icons.text_fields_outlined
+//                   : Icons.draw_outlined,
+//               color: colorScheme.primary,
+//               size: scale.scale(26),
+//             ),
+//             tooltip: controller.isDrawingMode
+//                 ? "key_drawing_mode_on_tooltip"
+//                     .tr // New Key "Switch to Text Mode"
+//                 : "key_drawing_mode_off_tooltip"
+//                     .tr, // New Key "Switch to Drawing Mode"
+//             onPressed: () {
+//               controller.toggleDrawingMode();
+//               // If switching from drawing mode to text mode, and there's a drawing, save it.
+//               if (!controller.isDrawingMode &&
+//                   controller.signatureController.isNotEmpty) {
+//                 controller.uploadData();
+//               }
+//             },
+//           ),
+//           // You can add more tools here, like color picker, etc.
+//           // Example:
+//           // IconButton(
+//           //   icon: Icon(Icons.color_lens_outlined, color: colorScheme.secondary),
+//           //   onPressed: () { /* Open color picker */ },
+//           // ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 }

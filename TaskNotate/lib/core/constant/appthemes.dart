@@ -77,6 +77,7 @@ class AppThemes {
   }
 
   static final Map<String, Color> availableColors = {
+    'IndigoBlend': Color(0xFF0C94CB), // NEW
     'vibrantBlue': Color(0xFF1976D2),
     'sunsetCoral': Color(0xFFE64A19),
     'emeraldGreen': Color(0xFF27AE60),
@@ -96,7 +97,6 @@ class AppThemes {
         Color(0xFF004D40), // Even darker teal, distinct from deepTeal
     'darkOceanCyan': Color(0xFF006064),
     'darkLimeBurst': Color(0xFF827717),
-
     'forestGreen': Color(0xFF2E7D32),
     'burntOrange': Color(0xFFEF6C00),
     'amethystPurple': Color(0xFFAB47BC),
@@ -120,12 +120,12 @@ class AppThemes {
     String? colorKey = myServices.sharedPreferences.getString('PrimaryColor');
     // Default key is 'aquaMarine' as set in ThemeController
     Color selectedColor =
-        availableColors[colorKey] ?? availableColors['aquaMarine']!;
+        availableColors[colorKey] ?? availableColors['IndigoBlend']!;
 
     if (isDarkMode) {
-      if (colorKey == 'aquaMarine') {
+      if (colorKey == 'IndigoBlend') {
         return availableColors[
-            'deepTeal']!; // Use 'deepTeal' as the dark variant for 'aquaMarine'
+            'IndigoBlend']!; // Use 'deepTeal' as the dark variant for 'aquaMarine'
       }
       // Add other explicit mappings for mid-tones to their darker counterparts if needed
       // e.g., if 'goldenYellow' is selected, use 'darkGoldenYellow' in dark mode
@@ -143,9 +143,9 @@ class AppThemes {
         availableColors[colorKey] ?? availableColors['aquaMarine']!;
 
     if (isDarkMode) {
-      if (colorKey == 'aquaMarine') {
+      if (colorKey == 'IndigoBlend') {
         return availableColors[
-            'deepTeal']!; // Use 'deepTeal' as the dark variant for 'aquaMarine'
+            'IndigoBlend']!; // Use 'deepTeal' as the dark variant for 'aquaMarine'
       }
       // Add other explicit mappings for mid-tones
       // else if (colorKey == 'limeBurst') {

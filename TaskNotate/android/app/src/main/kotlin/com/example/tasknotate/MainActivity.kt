@@ -1,4 +1,4 @@
-package com.example.tasknotate // Replace with your actual package name
+package com.megoabkm.tasknotate // Replace with your actual package name
 
 import android.app.KeyguardManager
 import android.content.Context
@@ -12,7 +12,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
-    private val CHANNEL_NAME = "com.example.tasknotate/alarm"
+    private val CHANNEL_NAME = "com.megoabkm.tasknotate/alarm"
     private var methodChannel: MethodChannel? = null
     private var initialIntentData: Map<String, Any?>? = null
 
@@ -54,7 +54,7 @@ class MainActivity : FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Apply/Clear window flags BEFORE super.onCreate()
-        if (intent?.action == "com.example.tasknotate.ALARM_TRIGGER") {
+        if (intent?.action == "com.megoabkm.tasknotate.ALARM_TRIGGER") {
             Log.d("MainActivity", "onCreate: ALARM_TRIGGER intent found. Applying lock screen flags.")
             applyLockScreenFlags()
         } else {
@@ -97,7 +97,7 @@ class MainActivity : FlutterActivity() {
         super.onNewIntent(intent)
         setIntent(intent) // Update the activity's intent to be the new one
 
-        if (intent.action == "com.example.tasknotate.ALARM_TRIGGER") {
+        if (intent.action == "com.megoabkm.tasknotate.ALARM_TRIGGER") {
             Log.d("MainActivity", "onNewIntent: ALARM_TRIGGER intent. Applying lock screen flags.")
             applyLockScreenFlags()
         } else {
@@ -109,21 +109,21 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun handleIntent(intent: Intent?) {
-        if (intent?.action == "com.example.tasknotate.ALARM_TRIGGER") {
+        if (intent?.action == "com.megoabkm.tasknotate.ALARM_TRIGGER") {
             val alarmId = intent.getIntExtra("alarmId", -1)
             val title = intent.getStringExtra("title")
             Log.d("MainActivity", "handleIntent: ALARM_TRIGGER received. ID: $alarmId, Title: $title")
 
             if (alarmId != -1 && title != null) {
                 initialIntentData = mapOf(
-                    "action" to "com.example.tasknotate.ALARM_TRIGGER",
+                    "action" to "com.megoabkm.tasknotate.ALARM_TRIGGER",
                     "alarmId" to alarmId,
                     "title" to title
                 )
                 // The AppBootstrapService will use this data for initial routing
             } else {
                 Log.w("MainActivity", "handleIntent: ALARM_TRIGGER missing alarmId or title.")
-                initialIntentData = mapOf("action" to "com.example.tasknotate.ALARM_TRIGGER", "error" to "Missing data")
+                initialIntentData = mapOf("action" to "com.megoabkm.tasknotate.ALARM_TRIGGER", "error" to "Missing data")
             }
         } else if (intent != null) {
             initialIntentData = mapOf("action" to intent.action, "data" to intent.dataString)

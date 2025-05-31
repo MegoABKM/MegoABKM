@@ -3,23 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tasknotate/controller/tasks/base_task_controller.dart';
 import 'package:tasknotate/core/functions/alarm.dart';
-// import 'package:tasknotate/data/datasource/local/sqldb.dart'; // Inherited
+import 'package:tasknotate/core/services/sound_service.dart';
 import 'package:tasknotate/data/model/usertasksmodel.dart';
 import 'package:tasknotate/view/screen/tasks/update_task.dart';
 
 class Taskviewcontroller extends BaseTaskController {
-  // Extend BaseTaskController
   UserTasksModel? task;
   String? index;
-  // DateTime? selectedAlarm; // Inherited
   Map<String, dynamic>? decodedsubtask;
   Map<String, String> decodedImages = {};
   List<Map<String, dynamic>> decodedTimeline = [];
   String? categoryName;
-  // SqlDb sqlDb = SqlDb(); // Inherited
-
-  // Note: Taskviewcontroller doesn't use titlecontroller, subtaskControllers, etc.
-  // from BaseTaskController for editing, so they will be unused but present.
 
   void decodethemap() {
     if (task?.subtask != null && task?.subtask != "Not Set") {
@@ -43,13 +37,14 @@ class Taskviewcontroller extends BaseTaskController {
   }
 
   Future<String?> fromIdToName(String? categoryid) async {
-    if (categoryid == null || categoryid.isEmpty || categoryid == "Home")
+    if (categoryid == null || categoryid.isEmpty || categoryid == "Home") {
       return "key_home".tr;
+    }
     int? parsedCategoryId = int.tryParse(categoryid);
-    if (parsedCategoryId == null)
-      return "key_home".tr; // Should not happen if DB stores int
+    if (parsedCategoryId == null) {
+      return "key_home".tr;
+    }
     List<Map<String, dynamic>> response = await sqlDb.readData(
-      // sqlDb inherited
       "SELECT categoryName FROM categoriestasks WHERE id = ?",
       [parsedCategoryId],
     );
@@ -59,43 +54,75 @@ class Taskviewcontroller extends BaseTaskController {
   }
 
   Future<void> updateStatus(
-      String currentStatus, String id, String targetStatus) async {
-    // Renamed parameters for clarity
+      String currentStatus, String? taskId, String targetStatus) async {
+    if (taskId == null || taskId.isEmpty) {
+      print(
+          "Taskviewcontroller Error: Task ID is null or empty. Cannot update status.");
+      Get.snackbar("key_error".tr, "Invalid Task ID for status update.",
+          snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
+
+    print(
+        "Taskviewcontroller: Attempting to update task '$taskId' to status '$targetStatus'");
     int response = await sqlDb.updateData(
-      // sqlDb inherited
+      // This await is crucial and correct
       "UPDATE tasks SET status = ? WHERE id = ?",
-      [targetStatus, id],
+      [targetStatus, taskId],
     );
+    print(
+        "Taskviewcontroller: DB update response for task '$taskId': $response");
+
     if (response > 0) {
-      task = task!.copyWith(status: targetStatus);
-      update();
+      if (task != null && task!.id == taskId) {
+        task = task!.copyWith(status: targetStatus);
+        print(
+            "Taskviewcontroller: Local task model updated to status '$targetStatus' for task '$taskId'");
+      } else {
+        print(
+            "Taskviewcontroller: Warning - local 'task' instance might not match updated taskId ('$taskId') or is null.");
+      }
+
+      if (targetStatus == "Completed") {
+        final soundService = Get.find<SoundService>();
+        // --- MODIFICATION START ---
+        // Remove 'await' to make sound playback non-blocking.
+        // The sound will start playing, and the code will continue executing.
+        soundService.playTaskCompletedSound();
+        print(
+            "Taskviewcontroller: Completion sound playback INITIATED for task '$taskId'."); // Changed log message
+        // --- MODIFICATION END ---
+      }
+      update(); // Updates the UI of Taskviewcontroller (though this screen is about to be dismissed)
+    } else {
+      print(
+          "Taskviewcontroller: Failed to update status in DB for task '$taskId'.");
+      Get.snackbar("key_error".tr, "key_failed_to_update_status".tr,
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 
   Future<void> pickDateTime(BuildContext context) async {
-    final DateTime? dateTime = await selectDateTime(context); // Use helper
+    final DateTime? dateTime = await selectDateTime(context);
     if (dateTime != null) {
-      selectedAlarm = dateTime; // selectedAlarm is inherited
-      // Ensure task and task.id are not null before proceeding
+      selectedAlarm = dateTime;
       if (task != null && task!.id != null && task!.title != null) {
         await setAlarm(selectedAlarm, int.parse(task!.id!), task!.title!);
-        await updateReminder(); // This specific updateReminder method
+        await updateReminder();
       }
       update();
     }
   }
 
   Future<void> updateReminder() async {
-    String reminderValue = selectedAlarm != null
-        ? selectedAlarm!.toIso8601String()
-        : "Not Set"; // selectedAlarm inherited
+    String reminderValue =
+        selectedAlarm != null ? selectedAlarm!.toIso8601String() : "Not Set";
     int response = await sqlDb.updateData(
-      // sqlDb inherited
       "UPDATE tasks SET reminder = ? WHERE id = ?",
       [reminderValue, task!.id],
     );
     if (response > 0) task = task!.copyWith(reminder: reminderValue);
-    update(); // Update UI if needed
+    update();
   }
 
   Future<void> removeReminder() async {
@@ -104,17 +131,14 @@ class Taskviewcontroller extends BaseTaskController {
           snackPosition: SnackPosition.BOTTOM);
       return;
     }
-    await deactivateAlarm({
-      'id': task!.id.toString()
-    }); // Assuming deactivateAlarm is global or imported
+    await deactivateAlarm({'id': task!.id.toString()});
     int response = await sqlDb.updateData(
-      // sqlDb inherited
       "UPDATE tasks SET reminder = ? WHERE id = ?",
       ["Not Set", task!.id],
     );
     if (response > 0) {
       task = task!.copyWith(reminder: "Not Set");
-      selectedAlarm = null; // selectedAlarm inherited
+      selectedAlarm = null;
       update();
     } else {
       Get.snackbar("key_error".tr, "key_failed_to_remove_reminder".tr,
@@ -124,7 +148,6 @@ class Taskviewcontroller extends BaseTaskController {
 
   Future<void> refreshTask(String taskId) async {
     List<Map<String, dynamic>> response = await sqlDb.readData(
-      // sqlDb inherited
       "SELECT * FROM tasks WHERE id = ?",
       [taskId],
     );
@@ -135,7 +158,6 @@ class Taskviewcontroller extends BaseTaskController {
       decodeTimeline();
       categoryName = await fromIdToName(task?.category);
       if (task?.reminder != null && task?.reminder != "Not Set") {
-        // Re-assign selectedAlarm on refresh
         selectedAlarm = DateTime.parse(task!.reminder!);
       } else {
         selectedAlarm = null;
@@ -144,7 +166,7 @@ class Taskviewcontroller extends BaseTaskController {
     } else {
       Get.snackbar("key_error".tr, "key_task_not_found".tr,
           snackPosition: SnackPosition.BOTTOM);
-      Get.back(); // Or handle error appropriately
+      Get.back();
     }
   }
 
@@ -161,7 +183,6 @@ class Taskviewcontroller extends BaseTaskController {
         "task": task,
         "taskindex": index,
         "taskdecodedimages": decodedImages,
-        // "taskdecodedtimeline": decodedTimeline, // TaskUpdateController decodes its own from task.timeline
         "categoryname": categoryName,
       },
     );
@@ -169,7 +190,7 @@ class Taskviewcontroller extends BaseTaskController {
 
   @override
   Future<void> onInit() async {
-    super.onInit(); // Call base onInit
+    super.onInit();
     final args = Get.arguments;
     if (args == null || args['task'] == null) {
       Get.snackbar("key_error".tr, "key_no_task_found".tr,
@@ -188,21 +209,17 @@ class Taskviewcontroller extends BaseTaskController {
     }
 
     if (task?.reminder != null && task?.reminder != "Not Set") {
-      selectedAlarm =
-          DateTime.parse(task!.reminder!); // selectedAlarm inherited
+      selectedAlarm = DateTime.parse(task!.reminder!);
     }
     decodethemap();
     decodeImages();
     decodeTimeline();
     categoryName = await fromIdToName(task?.category);
-    // No titlecontroller or subtaskControllers to initialize here for editing
-    update(); // Initial update after loading data
+    update();
   }
 
   @override
   void onClose() {
-    // No specific controllers like descriptioncontroller or contentcontroller to dispose here
-    // titlecontroller (if it were used and non-null) and subtaskControllers are handled by base.
     super.onClose();
   }
 }

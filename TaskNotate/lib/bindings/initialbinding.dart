@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasknotate/controller/home_controller.dart';
 import 'package:tasknotate/controller/theme_controller.dart';
 import 'package:tasknotate/core/localization/changelocal.dart';
 import 'package:tasknotate/core/services/alarm_display_service.dart';
@@ -16,41 +17,34 @@ class InitialBinding extends Bindings {
   Future<void> dependencies() async {
     print('InitialBinding: Starting async dependencies...');
 
-    // 1. StorageService
     final prefs = await SharedPreferences.getInstance();
     final storageService = StorageService(prefs: prefs);
     Get.put<StorageService>(storageService, permanent: true);
     print('InitialBinding: StorageService initialized and put.');
 
-    // 2. SupabaseService
-    // SupabaseService.init() will call Supabase.initialize()
     await Get.putAsync<SupabaseService>(() async {
       final service = SupabaseService();
-      await service.init(); // This initializes Supabase and sets up the client
+      await service.init();
       print('InitialBinding: SupabaseService initialized and put.');
       return service;
     }, permanent: true);
 
-    // 3. AppSecurityService (depends on StorageService, SupabaseService)
     final appSecurityService = AppSecurityService();
     Get.put<AppSecurityService>(appSecurityService, permanent: true);
     print('InitialBinding: AppSecurityService initialized and put.');
 
-    // 4. ThemeController (depends on StorageService)
     await Get.putAsync<ThemeController>(() async {
       final controller = ThemeController();
       print('InitialBinding: ThemeController initialized and put.');
       return controller;
     }, permanent: true);
 
-    // 5. LocalController
     await Get.putAsync<LocalController>(() async {
       final controller = LocalController();
       print('InitialBinding: LocalController initialized and put.');
       return controller;
     }, permanent: true);
 
-    // 6. SoundService
     await Get.putAsync<SoundService>(() async {
       final service = SoundService();
       await service.init();
@@ -58,7 +52,6 @@ class InitialBinding extends Bindings {
       return service;
     }, permanent: true);
 
-    // 7. Other services
     await Get.putAsync<AlarmDisplayStateService>(
       () => AlarmDisplayStateService().initService(),
       permanent: true,
@@ -87,6 +80,9 @@ class InitialBinding extends Bindings {
       return service;
     }, permanent: true);
 
+    // HomeController is already permanent: true
+    Get.put<HomeController>(HomeController(), permanent: true);
+    print('InitialBinding: HomeController put (permanent).');
     print('InitialBinding: All async dependencies completed.');
   }
 }

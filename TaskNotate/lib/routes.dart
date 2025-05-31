@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tasknotate/bindings/view_note_binding.dart';
 import 'package:tasknotate/core/constant/routes.dart';
 import 'package:tasknotate/core/functions/alarm_screen.dart';
 import 'package:tasknotate/core/middleware/mymiddleware.dart'; // Ensure correct import
@@ -43,6 +44,7 @@ List<GetPage<dynamic>> routes = [
   GetPage(
     name: AppRoute.viewNote,
     page: () => const ViewNote(),
+    binding: ViewNoteBinding(),
     middlewares: [Mymiddleware()], // <<-- ADDED MIDDLEWARE
   ),
   GetPage(

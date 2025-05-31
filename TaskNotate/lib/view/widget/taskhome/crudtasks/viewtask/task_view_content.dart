@@ -12,6 +12,14 @@ class TaskViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // If the content is specifically "Not Set", then render an empty widget.
+    if (content == "Not Set") {
+      return const SizedBox
+          .shrink(); // This widget takes up no space and is invisible.
+    }
+
+    // If content is not "Not Set", proceed to build the Card.
+    // The logic inside will handle empty strings by showing "No description available".
     return Card(
       elevation: context.scaleConfig.scale(4),
       shape: RoundedRectangleBorder(
@@ -42,6 +50,9 @@ class TaskViewContent extends StatelessWidget {
             ),
             SizedBox(height: context.scaleConfig.scale(12)),
             Text(
+              // At this point, 'content' is not "Not Set".
+              // If 'content' is an empty string, show "No description available".
+              // Otherwise, show the actual content.
               content.isNotEmpty
                   ? content
                   : "157".tr, // "No description available"

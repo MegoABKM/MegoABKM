@@ -458,16 +458,16 @@ class CategoryDrawerTask extends StatelessWidget {
     }
     print('Opening delete task category dialog for ${category.categoryName}');
     // Get the translated name for the dialog message
-    String displayCategoryName = category.categoryName.tr;
+    // String displayCategoryName = category.categoryName.tr;
 
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (dialogContext) => AlertDialog(
-        title: Text('key_delete_category'.tr),
+        title: Text('key_delete_category'.tr), // Title can remain the same
         content: Text(
-            'key_confirm_delete_category_named' // Use a key that expects a named parameter
-                .trParams({'categoryName': displayCategoryName})),
+            'key_confirm_delete_selected_category'.tr // Use the new generic key
+            ),
         actions: [
           TextButton(
             onPressed: () {
@@ -491,9 +491,6 @@ class CategoryDrawerTask extends StatelessWidget {
 
   void _confirmSetTasksToPending(BuildContext context, CategoryModel category) {
     print('Opening set tasks pending dialog for ${category.categoryName}');
-    // Get the translated name for the dialog message
-    String displayCategoryName =
-        category.categoryName.tr; // "key_home".tr becomes "Home"
 
     showDialog(
       context: context,
@@ -501,10 +498,7 @@ class CategoryDrawerTask extends StatelessWidget {
       builder: (dialogContext) => AlertDialog(
         title: Text('key_set_tasks_pending'.tr),
         content: Text(
-          (category.id == null
-              ? 'key_confirm_set_tasks_pending_home'.tr // Specific key for Home
-              : 'key_confirm_set_tasks_pending_category' // Key for other categories
-                  .trParams({'categoryName': displayCategoryName})),
+          'key_confirm_set_all_tasks_in_selected_category_pending'.tr,
         ),
         actions: [
           TextButton(

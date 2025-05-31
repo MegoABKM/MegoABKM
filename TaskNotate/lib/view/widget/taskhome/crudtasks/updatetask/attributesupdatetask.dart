@@ -7,6 +7,7 @@ import 'package:tasknotate/controller/tasks/taskupdate_controller.dart';
 import 'package:tasknotate/core/constant/appthemes.dart';
 import 'package:tasknotate/core/constant/utils/scale_confige.dart';
 import 'package:tasknotate/core/functions/formatdate.dart';
+import 'package:tasknotate/core/localization/changelocal.dart';
 import 'package:tasknotate/data/model/categorymodel.dart'; // Import CategoryModel
 import 'package:tasknotate/view/widget/taskhome/crudtasks/updatetask/custom_drop_down_button_update.dart';
 import 'package:tasknotate/view/widget/taskhome/crudtasks/updatetask/custom_pick_date_and_time.dart';
@@ -17,6 +18,8 @@ class Attributesupdatetask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final LocalController localController = Get.find<LocalController>();
+    final String currentLocale = localController.language.languageCode;
     final scaleConfig = ScaleConfig(context);
     final textTheme = AppThemes.getCommonTextTheme(); // Get text theme once
     const String homeCategoryTranslationKey = "key_home";
@@ -364,7 +367,7 @@ class Attributesupdatetask extends StatelessWidget {
                     controller.task!.date != null &&
                             controller.task!.date!.isNotEmpty
                         // If using Option A (new function):
-                        ? formatDateTime(controller.task!.date!)
+                        ? formatDateTime(controller.task!.date!, currentLocale)
                         // If using Option B (modified function):
                         // ? formatDate(controller.task!.date!, includeTime: true)
                         : "136".tr,

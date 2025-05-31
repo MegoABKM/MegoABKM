@@ -635,6 +635,19 @@
   "key_drawing_tools_done": "Hecho",
   "key_save_note": "Guardar",
   "key_untitled_placeholder": "Sin título" ,
-   "key_create_task": "Crear tarea"
+   "key_create_task": "Crear tarea" , 
+    "key_task_deleted": "Tarea eliminada" ,
+     "key_set_reminder_or_disable": "Por favor, configure una hora de recordatorio o desactive el recordatorio.",
+  "key_set_finish_date_or_disable": "Por favor, configure una fecha/hora de finalización o desactívela.",
+  "key_title_cannot_empty": "El título no puede estar vacío.",
+  "key_failed_refresh_task_view": "Error al actualizar la vista de la tarea.",
+  "key_no_subtasks_add_new": "Aún no se han añadido subtareas. Haga clic en 'Añadir subtarea'." ,
+  "IndigoBlend": "Mezcla Índigo (Predeterminado)" ,
+   "key_failed_to_set_pending": "Error al establecer tareas como pendientes.",
+  "key_error_fetching_tasks": "Error al obtener las tareas.",
+  "key_no_tasks_in_category": "No hay tareas en esta categoría.",
+  "key_confirm_delete_category_named": "¿Estás seguro de que quieres eliminar la categoría \"{categoryName}\"? Esto también desasignará sus tareas.",
+"key_confirm_set_all_tasks_in_selected_category_pending": "¿Estás seguro de que quieres marcar todas las tareas en el ámbito seleccionado como 'Pendiente'?",
+"key_confirm_delete_selected_category": "¿Estás seguro de que quieres eliminar la categoría seleccionada? Esto también desasignará sus tareas."
 } 
     

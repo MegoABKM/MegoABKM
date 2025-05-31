@@ -116,7 +116,7 @@ class TaskViewAttributes extends GetView<Taskviewcontroller> {
         _buildAttributeRow(
           context: context,
           icon: Icons.alarm,
-          title: "Reminder".tr,
+          title: "key_reminder_text".tr,
           value: dateFormatter.format(task.reminder),
           isTappable: true,
           onTap: onTap,

@@ -637,5 +637,16 @@
   "key_drawing_tools_done": "完成",
   "key_save_note": "保存",
   "key_untitled_placeholder": "无标题" , 
-  "key_create_task": "创建任务"
+  "key_create_task": "创建任务" ,
+    "key_set_reminder_or_disable": "请设置提醒时间或禁用提醒。",
+  "key_set_finish_date_or_disable": "请设置完成日期/时间或禁用它。",
+  "key_title_cannot_empty": "标题不能为空。",
+  "key_failed_refresh_task_view": "刷新任务视图失败。",
+  "key_no_subtasks_add_new": "尚未添加子任务。点击“添加子任务”。" ,
+  "IndigoBlend": "靛蓝混合 (默认)" ,
+    "key_failed_to_set_pending": "设置任务为“待处理”失败。",
+  "key_error_fetching_tasks": "获取任务时出错。",
+  "key_no_tasks_in_category": "此分类下没有任务。",
+"key_confirm_set_all_tasks_in_selected_category_pending": "您确定要将所选范围内的所有任务设为“待处理”吗？",
+"key_confirm_delete_selected_category": "您确定要删除所选分类吗？ 这也将取消分配其任务。"
 } 

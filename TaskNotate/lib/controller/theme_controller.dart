@@ -8,8 +8,8 @@ class ThemeController extends GetxController {
   final StorageService myServices = Get.find<StorageService>();
   bool isDarkMode = false;
   ThemeData currentTheme;
-  String primaryColorKey = 'oceanCyan';
-  String secondaryColorKey = 'oceanCyan';
+  String primaryColorKey = 'IndigoBlend';
+  String secondaryColorKey = 'IndigoBlend';
 
   ThemeController() : currentTheme = AppThemes.lightTheme("en");
 
@@ -25,6 +25,7 @@ class ThemeController extends GetxController {
     'softTaupe': 'deepTeal',
     'palePeach': 'sunsetCoral',
     'mutedSageGreen': 'emeraldGreen',
+    'aquaMarine': 'IndigoBlend',
   };
 
   @override
@@ -50,17 +51,17 @@ class ThemeController extends GetxController {
     // Migrate old color keys to new ones
     primaryColorKey = _colorMigrationMap[savedPrimaryColor] ??
         savedPrimaryColor ??
-        'oceanCyan';
+        'IndigoBlend';
     secondaryColorKey = _colorMigrationMap[savedSecondaryColor] ??
         savedSecondaryColor ??
-        'oceanCyan';
+        'IndigoBlend';
 
     // Validate colors exist in availableColors
     if (!AppThemes.availableColors.containsKey(primaryColorKey)) {
-      primaryColorKey = 'oceanCyan';
+      primaryColorKey = 'IndigoBlend';
     }
     if (!AppThemes.availableColors.containsKey(secondaryColorKey)) {
-      secondaryColorKey = 'oceanCyan';
+      secondaryColorKey = 'IndigoBlend';
     }
 
     // Save migrated colors and theme

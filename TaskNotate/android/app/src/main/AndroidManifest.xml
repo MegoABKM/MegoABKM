@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.tasknotate">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.megoabkm.tasknotate">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.example.tasknotate.ALARM_TRIGGER" />
+                <action android:name="com.megoabkm.tasknotate.ALARM_TRIGGER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

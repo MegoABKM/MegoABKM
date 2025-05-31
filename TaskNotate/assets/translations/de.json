@@ -634,5 +634,18 @@
   "key_drawing_tools_done": "Fertig",
   "key_save_note": "Speichern",
   "key_untitled_placeholder": "Ohne Titel" , 
-  "key_create_task": "Aufgabe erstellen"
+  "key_create_task": "Aufgabe erstellen" , 
+   "key_task_deleted": "Aufgabe gelöscht" ,
+   "key_set_reminder_or_disable": "Bitte legen Sie eine Erinnerungszeit fest oder deaktivieren Sie die Erinnerung.",
+  "key_set_finish_date_or_disable": "Bitte legen Sie ein Enddatum/-zeit fest oder deaktivieren Sie es.",
+  "key_title_cannot_empty": "Der Titel darf nicht leer sein.",
+  "key_failed_refresh_task_view": "Aktualisierung der Aufgabenansicht fehlgeschlagen.",
+  "key_no_subtasks_add_new": "Noch keine Teilaufgaben hinzugefügt. Klicken Sie auf 'Teilaufgabe hinzufügen'." ,
+  "IndigoBlend": "Indigomischung (Standard)" ,
+    "key_failed_to_set_pending": "Aufgaben konnten nicht auf 'Ausstehend' gesetzt werden.",
+  "key_error_fetching_tasks": "Fehler beim Abrufen der Aufgaben.",
+  "key_no_tasks_in_category": "Keine Aufgaben in dieser Kategorie.",
+  "key_confirm_delete_category_named": "Sind Sie sicher, dass Sie die Kategorie \"{categoryName}\" löschen möchten? Dadurch werden auch die zugewiesenen Aufgaben entfernt.",
+"key_confirm_set_all_tasks_in_selected_category_pending": "Sind Sie sicher, dass Sie alle Aufgaben im ausgewählten Bereich auf 'Ausstehend' setzen möchten?" ,
+"key_confirm_delete_selected_category": "Sind Sie sicher, dass Sie die ausgewählte Kategorie löschen möchten? Dadurch werden auch die zugewiesenen Aufgaben entfernt."
   }
