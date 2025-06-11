@@ -21,7 +21,7 @@ Note-Taking: Inspired by Samsung Notes, enjoy a sleek design with:
 Rich text editing and formatting.
 Add notes to categories for better organization.
 
-🛠️ Tech Stack
+🛠️ Tech Stack:
 Dart & Flutter: Cross-platform development for seamless iOS and Android experiences.
 SQLite (sqflite): Robust offline data storage for tasks and notes.
 GetX: State management and navigation for a smooth, efficient app experience.
