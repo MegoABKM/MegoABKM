@@ -23,7 +23,7 @@ Whether you're managing complex projects or jotting down quick thoughts, TaskNot
 TaskNotate is packed with features designed to keep you organized and on track.
 
 #### General Features
-*   **☀️ Daily Offline Notifications**: Stay on top of your schedule with daily reminders that work even without an internet connection.
+*   **☀️ Powerful Offline Notifications**: Stay on top of your schedule with precise, scheduled reminders for tasks and daily summaries that work perfectly without an internet connection.
 *   **🎨 Customizable Colors**: Personalize your app experience with a selection of vibrant color themes to match your style.
 *   **🌐 Multi-Language Support**: Productivity for everyone! The app is fully localized in **English, Arabic, Spanish, German, and Chinese**.
 
@@ -61,17 +61,19 @@ TaskNotate is built with a modern, efficient, and reliable tech stack.
 *   **Framework**: **[Flutter](https://flutter.dev/)** & **[Dart](https://dart.dev/)** for a high-performance, cross-platform experience on both iOS and Android.
 *   **Local Database**: **[SQLite](https://www.sqlite.org/index.html)** via the `sqflite` package, ensuring all your data is stored securely and available offline.
 *   **State Management**: **[GetX](https://pub.dev/packages/get)** for reactive state management, dependency injection, and simplified navigation.
-*   **Notifications**: `flutter_local_notifications` for robust, customizable offline notifications.
+*   **Notifications & Alarms**:
+    *   **[awesome_notifications](https://pub.dev/packages/awesome_notifications)**: For creating rich, customizable, and high-quality local notifications.
+    *   **[alarm](https://pub.dev/packages/alarm)**: For reliably scheduling and managing alarms to trigger notifications, even when the app is in the background or terminated.
 
 ---
 
 ## 🚀 Future Enhancements
 
 The vision for TaskNotate is to keep growing. Planned features include:
-*   Cloud sync and backup functionality.
-*   Collaboration features for shared projects.
-*   Calendar integration.
-*   Advanced reporting and productivity analytics.
+*   **Cloud Sync & Backup**: Securely back up your data and sync it across multiple devices.
+*   **Collaboration Features**: Share projects and tasks with other users.
+*   **Calendar Integration**: View your tasks and deadlines directly in your device's calendar.
+*   **Advanced Reporting**: Get insights into your productivity with detailed reports and analytics.
 
 ---
 
