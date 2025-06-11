@@ -1,0 +1,10 @@
+POST http://localhost/ecommerce/orders/details.php
+Content-Type: application/json
+
+{
+    "key1": "value1",
+    "key2": "value2",
+    "key3": {
+        "subkey": "subvalue"
+    }
+}

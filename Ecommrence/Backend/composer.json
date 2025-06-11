@@ -1,0 +1,12 @@
+{
+    "name": "mycompany/ecommerce",
+    "description": "A simple e-commerce website",
+    "require": {
+        "php": "^7.3|^8.0",
+        "monolog/monolog": "^2.0",
+        "google/auth": "^1.43",
+        "guzzlehttp/guzzle": "^7.9",
+        "paragonie/sodium_compat": "^2.1",
+        "kreait/firebase-php": "^7.15"
+    }
+}
