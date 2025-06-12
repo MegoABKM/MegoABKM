@@ -20,6 +20,7 @@ I’m a problem-solver with a knack for building apps that people love to use. M
   <a href="https://www.php.net" target="_blank"><img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP"></a>
   <a href="https://www.mysql.com/" target="_blank"><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"></a>
   <a href="https://git-scm.com/" target="_blank"><img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white" alt="Git"></a>
+  <a href="https://www.linkedin.com/in/mohammed-abdullkareem-02a965330" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
 </p>
 
 ---
@@ -32,10 +33,9 @@ Dive into my portfolio to see the applications I’ve been working on. Each one 
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ |
 | **TaskNotate** 📋                          | A beautifully designed app to manage tasks and notes with ease. Features customizable colors, multi-language support (AR, EN, ES, DE, CN), reminders, and timelines. Your go-to productivity companion.     | `🚀 Actively Enhancing`              |
 | **E-commerce Platform** 🛒🚚                  | A full-fledged e-commerce app with multi-store support, interactive map-based address selection, favorites, and a PHP/MySQL backend.                                                                   | `🚀 Actively Enhancing`              |
-| **CompanyTaskMaster** 🏢                   | A powerful app for managers to create companies and assign tasks to all or specific employees, with real-time progress tracking via progress bars.                                                       | `🚀 Actively Enhancing`                     |
-| **SchoolManagement** 🎓                    | A comprehensive system to manage educational institutions. From student records to course scheduling, this app empowers schools with tools to stay organized and efficient.                               | `🚀 Actively Enhancing`                     |
+| **CompanyTaskMaster** 🏢                   | A powerful app for managers to create companies and assign tasks to all or specific employees, with real-time progress tracking via progress bars.                                                       | `🚀 Actively Enhancing`              |
+| **SchoolManagement** 🎓                    | A comprehensive system to manage educational institutions. From student records to course scheduling, this app empowers schools with tools to stay organized and efficient.                               | `🚀 Actively Enhancing`              |
 | **BankSystem** 💳                          | A secure and modern banking solution built to simplify financial management. Designed for trust and efficiency with a focus on robust security features and a user-friendly interface.                  | `In Development`                     |
-
 | **RedCrescentHelper** 🩺                   | A humanitarian-focused app inspired by my work with the Red Crescent system. Supports users with first aid resources, course enrollments, and blood donation coordination.                                | `In Development`                     |
 | **LaterAnotherProjects** 🔮                | A placeholder for more exciting projects on the horizon. I’m always dreaming up new ideas to tackle challenges and delight users—watch this space!                                                         | `Planning Phase`                     |
 
@@ -59,8 +59,9 @@ I’m currently working on enhancing all these projects, adding new features, an
 I’m always open to new ideas, partnerships, or feedback. If you’re interested in any of my projects or want to collaborate on something innovative, let's connect.
 
 *   **Email**: [sonsabdulkareem@gmail.com](mailto:sonsabdulkareem@gmail.com)
+*   **LinkedIn**: [Connect with me on LinkedIn](https://www.linkedin.com/in/mohammed-abdullkareem-02a965330)
 *   **GitHub**: Feel free to open a discussion, but please respect the privacy and integrity of my work.
 
 ---
 
-🎉 **Thank you for exploring MyProjects!** Follow along to see how I’m transforming ideas into reality, one project at a time. Let’s make the world more organized, connected, and inspired
+🎉 **Thank you for exploring MyProjects!** Follow along to see how I’m transforming ideas into reality, one project at a time. Let’s make the world more organized, connected, and inspired.
