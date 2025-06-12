@@ -9,9 +9,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-const supabaseUrl = 'https://fzprvthwliuzpbbflrer.supabase.co';
+const supabaseUrl = '';
 const supabaseKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6cHJ2dGh3bGl1enBiYmZscmVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzMDMxNjYsImV4cCI6MjA1NTg3OTE2Nn0.sqSnTaw6djZWL9wzS_sPYYzqzd6TNLaElxs0Nv0k8C8';
+    '';
 MyServices myServices = Get.find();
 
 void main() async {
