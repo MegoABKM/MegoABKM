@@ -1,87 +1,80 @@
-# CompanyTaskMaster 🏢
+# 🏢 CompanyTaskMaster
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Language: Dart](https://img.shields.io/badge/Language-Dart-blue.svg?logo=dart)
-![Framework: Flutter](https://img.shields.io/badge/Framework-Flutter-02569B.svg?logo=flutter)
-![Backend: PHP](https://img.shields.io/badge/Backend-PHP-777BB4.svg?logo=php)
-![Database: MySQL](https://img.shields.io/badge/Database-MySQL-blue.svg?logo=mysql)
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with-Flutter-02569B.svg?style=for-the-badge&logo=flutter&logoColor=white" alt="Made with Flutter">
+  <img src="https://img.shields.io/badge/Backend-PHP-777BB4.svg?style=for-the-badge&logo=php&logoColor=white" alt="Backend with PHP">
+  <img src="https://img.shields.io/badge/Database-MySQL-005C84.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="Database with MySQL">
+</p>
 
-A comprehensive and feature-rich task management application designed for companies and teams. Built with a powerful PHP/MySQL backend and a beautiful, responsive Flutter frontend, CompanyTaskMaster helps streamline workflow, enhance collaboration, and boost productivity.
+**CompanyTaskMaster** is a powerful and elegant task management solution built for modern teams. It bridges the gap between managers and employees with a seamless, feature-rich platform, facilitating superior collaboration and workflow efficiency.
 
-## ✨ Key Features & Screenshots
+---
 
-*(**Action Required:** Replace the placeholder links below with actual screenshots of your app! Upload your screenshots to the GitHub repository and get their links.)*
+## ✨ Core Features
+
+### 👑 Management & Administration
+- **Company & Team Creation:** Effortlessly set up your company and onboard employees.
+- **Dynamic Task Assignment:** Assign tasks to individuals or entire teams with specific start/end dates.
+- **Centralized Dashboard:** Get a bird's-eye view of all ongoing tasks and team progress.
+- **Employee Management:** Easily modify employee roles and details as your team grows.
+
+### 👨‍💻 Employee Workspace
+- **Personalized Task List:** A clear and intuitive view of all assigned tasks and deadlines.
+- **Rich Task Details:** Tasks include subtasks, file attachments, and priority levels.
+- **Collaborative Environment:** View your colleagues' profiles and stay connected.
+- **Profile Customization:** Personalize your profile with a picture and updated information.
+
+### 🚀 Standout Functionality
+- **Dual Language Support:** Fully bilingual interface supporting both **English** and **Arabic**.
+- **Offline Capabilities:** Create personal tasks and notes that are saved locally and accessible anytime, without an internet connection.
+- **Real-Time Notifications:** Powered by **Firebase Cloud Messaging (FCM)** to ensure you never miss an important update or task assignment.
+- **Stunning UI/UX:** A beautifully crafted, responsive interface built with Flutter, providing a native experience on both iOS and Android.
+
+---
+
+## 📸 Application Showcase
+
+*(**Action Required:** This is the most important part! Replace these placeholder links with real screenshots of your app. Upload the images to your GitHub repository to get the links.)*
 
 <table>
   <tr>
     <td align="center"><strong>Login & Sign Up</strong></td>
     <td align="center"><strong>Manager Dashboard</strong></td>
     <td align="center"><strong>Task Details View</strong></td>
-    <td align="center"><strong>Employee & Team View</strong></td>
   </tr>
   <tr>
     <td><img src="https://via.placeholder.com/200x400.png?text=Login+Screen" alt="Login Screen" width="200"/></td>
     <td><img src="https://via.placeholder.com/200x400.png?text=Dashboard" alt="Manager Dashboard" width="200"/></td>
     <td><img src="https://via.placeholder.com/200x400.png?text=Task+Details" alt="Task Details" width="200"/></td>
+  </tr>
+    <tr>
+    <td align="center"><strong>Team View & Profiles</strong></td>
+    <td align="center"><strong>Offline Notes</strong></td>
+    <td align="center"><strong>Multi-Language (Arabic)</strong></td>
+  </tr>
+  <tr>
     <td><img src="https://via.placeholder.com/200x400.png?text=Team+View" alt="Employee List" width="200"/></td>
+    <td><img src="https://via.placeholder.com/200x400.png?text=Offline+Notes" alt="Offline Notes" width="200"/></td>
+    <td><img src="https://via.placeholder.com/200x400.png?text=Arabic+UI" alt="Arabic UI" width="200"/></td>
   </tr>
 </table>
 
-### 👑 For Managers
-*   🏢 **Company Management:** Easily create and configure your company profile.
-*   👥 **Employee Management:** Add new employees to the company and modify their details and roles.
-*   ✅ **Task Assignment:** Assign tasks to specific employees or broadcast them to the entire team.
-*   📊 **Project Oversight:** Monitor task progress, deadlines, and team workload from a central dashboard.
+---
 
-### 👨‍💻 For Employees
-*   🔐 **Secure Authentication:** Simple and secure login and sign-in process.
-*   📝 **Task Handling:** View assigned tasks, update their status, and mark them as complete.
-*   🔗 **Attachments & Subtasks:** Attach relevant files and break down complex tasks into smaller, manageable subtasks.
-*   🖼️ **Profile Management:** View profiles of your workmates and update your own profile picture and information.
+## 🛠️ Technology Stack
 
-### 🚀 General & Core Features
-*   📅 **Detailed Task Information:** Each task includes a start date, end date, priority level, and detailed description.
-*   ✍️ **Offline Personal Notes & Tasks:** A dedicated section for users to jot down personal notes or create private to-do lists that work completely offline.
-*   🌐 **Multi-Language Support:** Fully functional in both **English** and **Arabic**, with a seamless language-switching experience.
-*   🎨 **Attractive & Intuitive UI:** A clean, modern, and user-friendly interface designed with Flutter to provide a smooth experience on both iOS and Android.
+This project is powered by a robust and reliable set of technologies:
 
-## 🛠️ Tech Stack
+| Category      | Technology                                                                                                                                                                                                                                                                                             |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Frontend**  | ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white) ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)                                                                                                                  |
+| **Backend**   | ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white)                                                                                                                                                                                                                    |
+| **Database**  | ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=flat&logo=mysql&logoColor=white)                                                                                                                                                                                                                 |
+| **Services**  | ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black) (For Push Notifications)                                                                                                                                                                               |
+| **API**       | Custom-built REST API to handle all data communication between the Flutter app and the backend server.                                                                                                                                                                                                |
 
-| Frontend (Mobile App) | Backend (API) | Database |
-| :--- |:--- |:--- |
-| ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white) | ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white) | ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white) |
-| ![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white) | | |
-
-## ⚙️ Getting Started
-
-### Prerequisites
-*   Flutter SDK
-*   A local web server (like XAMPP, WAMP, or MAMP) with PHP
-*   MySQL Database
-
-### Backend Setup
-1.  Clone the repository: `git clone https://github.com/MegoABKM/MyProjects.git`
-2.  Navigate to the `CompanyTaskMaster/Backend` folder.
-3.  Import the `database.sql` file into your MySQL database (e.g., via phpMyAdmin).
-4.  Configure your database connection details in the `config.php` (or equivalent) file.
-5.  Place the `Backend` folder in your web server's root directory (e.g., `htdocs` for XAMPP).
-
-### Frontend (Flutter App) Setup
-1.  Navigate to the `CompanyTaskMaster/` folder (the root of the Flutter project).
-2.  Update the API base URL in the configuration file (e.g., `lib/core/constants.dart`) to point to your local server's address.
-3.  Run `flutter pub get` to install dependencies.
-4.  Connect a device or emulator and run `flutter run`.
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the MIT License.
