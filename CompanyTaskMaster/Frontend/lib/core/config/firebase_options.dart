@@ -41,26 +41,26 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDsyTiAG-oSTRLytyBkVaiIeJ2i_JuqTUQ',
-    appId: '1:813249978198:web:ee90d01bf4c3331c1700f7',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '813249978198',
     projectId: 'tasknote-8d716',
-    authDomain: 'tasknote-8d716.firebaseapp.com',
-    storageBucket: 'tasknote-8d716.appspot.com',
+    authDomain: '',
+    storageBucket: '',
     measurementId: 'G-FGLRKN3SWF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCjNn2PU7g74x0z9CPw3yRYkcyTm_iE2qs',
-    appId: '1:813249978198:android:2176676fc303a4e61700f7',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '813249978198',
     projectId: 'tasknote-8d716',
-    storageBucket: 'tasknote-8d716.appspot.com',
+    storageBucket: '',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDo3c4Jk8Cg7HHmhKgSa5XirGPSiDz3_Dg',
-    appId: '1:813249978198:ios:17aa77f0b15a6f891700f7',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '813249978198',
     projectId: 'tasknote-8d716',
     storageBucket: 'tasknote-8d716.appspot.com',
@@ -68,8 +68,8 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDo3c4Jk8Cg7HHmhKgSa5XirGPSiDz3_Dg',
-    appId: '1:813249978198:ios:17aa77f0b15a6f891700f7',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '813249978198',
     projectId: 'tasknote-8d716',
     storageBucket: 'tasknote-8d716.appspot.com',
@@ -77,12 +77,12 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDsyTiAG-oSTRLytyBkVaiIeJ2i_JuqTUQ',
-    appId: '1:813249978198:web:1f5779a01d92adf21700f7',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '813249978198',
     projectId: 'tasknote-8d716',
-    authDomain: 'tasknote-8d716.firebaseapp.com',
-    storageBucket: 'tasknote-8d716.appspot.com',
-    measurementId: 'G-RZ4B5135V5',
+    authDomain: '',
+    storageBucket: '',
+    measurementId: '',
   );
 }
