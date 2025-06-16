@@ -12,7 +12,7 @@
 
 ## 🚀 Professional Profile
 
-**Software Engineer & Full Stack Developer** with expertise in **Flutter development** and **scalable solutions**. With 3+ years of experience, I've successfully delivered **20+ projects** across various domains, from production applications to enterprise solutions.
+**Software Engineer and Full Stack App Developer** with 4+ years of experience delivering over 20+ diverse projects I specialize in building scalable, maintainable applications using **Clean Architecture and SOLID principles**.
 
 **Key Expertise:**
 - ✔ **Software Engineering**: System design, architecture, and implementation
