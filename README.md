@@ -36,11 +36,7 @@ I'm a problem-solver with a knack for building apps that people love to use. My 
   
   <!-- Tools -->
   <a href="https://git-scm.com/" target="_blank"><img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white" alt="Git"></a>
-  
-  <!-- Languages -->
-  <img src="https://img.shields.io/badge/English-Fluent-blue" alt="English">
-  <img src="https://img.shields.io/badge/Arabic-Native-green" alt="Arabic">
-  
+
   <!-- Social -->
   <a href="https://www.linkedin.com/in/mohammed-abdullkareem-02a965330" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
 </p>
