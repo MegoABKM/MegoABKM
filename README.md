@@ -47,13 +47,37 @@ I'm a passionate **Software Engineer** and **Full Stack App Developer** with exp
   <img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play">
 </div>
 
-### Core Competencies
+---
 
-- **Frontend Development**: Flutter, Dart, Responsive UI/UX
-- **Backend Integration**: REST APIs, Firebase, MySQL, PHP
-- **Software Architecture**: Clean Architecture, SOLID, MVVM
-- **State Management**: BLoC, Riverpod, GetX, Provider
-- **Deployment**: Google Play Store, CI/CD pipelines
+## 💪 Core Competencies
+
+<div align="center">
+
+### Frontend Development
+<img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
+<img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
+<img src="https://img.shields.io/badge/UI/UX-Design-FF6B6B?style=for-the-badge" alt="UI/UX">
+
+### Backend Integration
+<img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+
+### Software Architecture
+<img src="https://img.shields.io/badge/Clean_Arch-6DB33F?style=for-the-badge" alt="Clean Architecture">
+<img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge" alt="SOLID">
+<img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge" alt="MVVM">
+
+### State Management
+<img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC">
+<img src="https://img.shields.io/badge/Riverpod-4A98E8?style=for-the-badge&logo=riverpod&logoColor=white" alt="Riverpod">
+<img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX">
+
+### Deployment
+<img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play">
+<img src="https://img.shields.io/badge/CI/CD-Pipelines-2088FF?style=for-the-badge" alt="CI/CD">
+
+</div>
 
 ---
 
