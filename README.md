@@ -12,7 +12,7 @@
 
 ## 🚀 Professional Profile
 
-**Software Engineer & Full Stack Developer** with expertise in **Flutter development** and **scalable solutions**. With 3+ years of experience, I've successfully delivered numerous projects across various domains, from production applications to enterprise solutions.
+**Software Engineer & Full Stack Developer** with expertise in **Flutter development** and **scalable solutions**. With 3+ years of experience, I've successfully delivered **20+ projects** across various domains, from production applications to enterprise solutions.
 
 **Key Expertise:**
 - ✔ **Software Engineering**: System design, architecture, and implementation
@@ -66,29 +66,29 @@
 ### Task Management
 | Project | Tech Stack | Duration | Status |
 |---------|------------|----------|--------|
-| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Flutter • GetX • SQLite | Jan 2025 - May 2025 | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Flutter • GetX • SQLite | Jan 2025 - May 2025 | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
 
 ### E-Commerce
 | Project | Tech Stack | Duration | Status |
 |---------|------------|----------|--------|
-| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Flutter • PHP • MySQL | June 2024 - Oct 2024 | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Flutter • PHP • MySQL | June 2024 - Oct 2024 | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
 
 ### Finance
 | Project | Tech Stack | Duration | Status |
 |---------|------------|----------|--------|
-| **[Budgify](https://github.com/MegoABKM/Budgify)** | Flutter • Riverpod • Hive | - | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[Budgify](https://github.com/MegoABKM/Budgify)** | Flutter • Riverpod • Hive | - | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
 
 ### Enterprise Solutions
 | Project | Tech Stack | Duration | Status |
 |---------|------------|----------|--------|
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Flutter • GetX • Supabase | - | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
-| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Flutter • GetX • Supabase | Jan 2024 - Mar 2025 | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Flutter • GetX • Supabase | - | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
+| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Flutter • GetX • Supabase | Jan 2024 - Mar 2025 | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
 
 ### Special Projects
 | Project | Tech Stack | Duration | Status |
 |---------|------------|----------|--------|
-| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Flutter • BLoC • Firebase | - | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
-| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | C++ • Qt • SOLID | - | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Flutter • BLoC • Firebase | - | ![In Development](https://img.shields.io/badge/In_Development-FFCA28?style=flat) |
+| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | C++ • Qt • SOLID | - | ![In Development](https://img.shields.io/badge/In_Development-FFCA28?style=flat) |
 
 ---
 
@@ -96,9 +96,10 @@
 
 **Freelance Software Engineer**  
 📅 March 2023 - Present  
-- Developed multiple production-ready applications using Flutter and Dart  
+- Developed **20+ production-ready applications** using Flutter and Dart  
 - Implemented clean architecture patterns for maintainable code  
 - Created full-stack solutions with backend integration  
+- Optimized application performance and user experience  
 
 ---
 
