@@ -12,7 +12,7 @@
 
 ## 🚀 Professional Profile
 
-**Software Engineer and Full Stack App Developer** with 4+ years of experience delivering over 20+ diverse projects I specialize in building scalable, maintainable applications using **Clean Architecture and SOLID principles**.
+**Software Engineer and Full Stack App Developer** with 4+ years of experience delivering over 20+ diverse projects. I specialize in building scalable, maintainable applications using **Clean Architecture and SOLID principles**.
 
 **Key Expertise:**
 - ✔ **Software Engineering**: System design, architecture, and implementation
@@ -63,32 +63,32 @@
 
 ## 🏆 Top Projects
 
-### Task Management
-| Project | Tech Stack | Duration | Status |
-|---------|------------|----------|--------|
-| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Flutter • GetX • SQLite | Jan 2025 - May 2025 | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
+### Productivity Apps
+| Project | Description | Tech Stack | Status |
+|---------|-------------|------------|--------|
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | The simplest task and note manager in the world with intuitive interface and smart organization features | Flutter • GetX • SQLite | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
-### E-Commerce
-| Project | Tech Stack | Duration | Status |
-|---------|------------|----------|--------|
-| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Flutter • PHP • MySQL | June 2024 - Oct 2024 | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
+### Finance Apps
+| Project | Description | Tech Stack | Status |
+|---------|-------------|------------|--------|
+| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker that makes counting expenses and incomes easy with beautiful charts and insights | Flutter • Riverpod • Hive | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
-### Finance
-| Project | Tech Stack | Duration | Status |
-|---------|------------|----------|--------|
-| **[Budgify](https://github.com/MegoABKM/Budgify)** | Flutter • Riverpod • Hive | - | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
+### E-Commerce Solutions
+| Project | Description | Tech Stack | Status |
+|---------|-------------|------------|--------|
+| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Complete shopping solution with product management, cart system, and secure checkout | Flutter • PHP • MySQL | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
-### Enterprise Solutions
-| Project | Tech Stack | Duration | Status |
-|---------|------------|----------|--------|
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Flutter • GetX • Supabase | - | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
-| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Flutter • GetX • Supabase | Jan 2024 - Mar 2025 | ![Active Enhance](https://img.shields.io/badge/Active_Enhance-3DDC84?style=flat) |
+### Business Tools
+| Project | Description | Tech Stack | Status |
+|---------|-------------|------------|--------|
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Team collaboration tool for task delegation and progress tracking with real-time updates | Flutter • GetX • Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Comprehensive system for managing student records, schedules, and academic progress | Flutter • GetX • Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
 ### Special Projects
-| Project | Tech Stack | Duration | Status |
-|---------|------------|----------|--------|
-| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Flutter • BLoC • Firebase | - | ![In Development](https://img.shields.io/badge/In_Development-FFCA28?style=flat) |
-| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | C++ • Qt • SOLID | - | ![In Development](https://img.shields.io/badge/In_Development-FFCA28?style=flat) |
+| Project | Description | Tech Stack | Status |
+|---------|-------------|------------|--------|
+| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid coordination platform connecting volunteers with those in need | Flutter • BLoC • Firebase | ![In Development](https://img.shields.io/badge/In_Development-FFCA28?style=flat) |
+| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | Secure financial transaction system implementing banking protocols and security standards | C++ • Qt • SOLID | ![In Development](https://img.shields.io/badge/In_Development-FFCA28?style=flat) |
 
 ---
 
@@ -96,10 +96,10 @@
 
 **Freelance Software Engineer**  
 📅 March 2023 - Present  
-- Developed **20+ production-ready applications** using Flutter and Dart  
-- Implemented clean architecture patterns for maintainable code  
-- Created full-stack solutions with backend integration  
-- Optimized application performance and user experience  
+- Developed **20+ production-ready applications** across various domains  
+- Specialized in creating intuitive user experiences with clean, maintainable code  
+- Built complete solutions from frontend to backend integration  
+- Optimized application performance and implemented best practices  
 
 ---
 
