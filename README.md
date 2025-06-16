@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=35&duration=3000&pause=1000&color=3390FF&center=true&vCenter=true&width=600&lines=Mohammed+Ghassan+Abdullkareem;Senior+Software+Engineer;Flutter+%26+Full-Stack+Expert;Clean+Code+Advocate;Problem+Solver" alt="Typing animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=35&duration=3000&pause=1000&color=3390FF&center=true&vCenter=true&width=600&lines=Mohammed+Ghassan+Abdullkareem;Full+Stack+App+Developer;Problem+Solver;Clean+Code+Advocate" alt="Typing animation" />
 </div>
 
 <div align="center">
@@ -13,13 +13,13 @@
 
 ## 🚀 Professional Profile
 
-**Senior Software Engineer** specializing in **Flutter development** and **full-stack solutions**, with 3+ years of experience building production-grade applications. Passionate about creating **scalable**, **maintainable** software that delivers exceptional user experiences.
+**Full Stack App Developer** specializing in **Flutter development** and **scalable solutions**, with 3+ years of experience building production-grade applications. Passionate about creating **maintainable** software that delivers exceptional user experiences.
 
 **Key Expertise:**
-- ✔ **Flutter Architecture**: Clean Architecture, MVVM, BLoC Pattern
-- ✔ **Full-Stack Development**: Mobile apps with robust backend systems
-- ✔ **Performance Optimization**: Reducing load times by 30-40%
-- ✔ **CI/CD Implementation**: Automated testing and deployment pipelines
+- ✔ **Flutter Development**: Clean Architecture, MVVM, BLoC Pattern
+- ✔ **Full-Stack Solutions**: Mobile apps with robust backend systems
+- ✔ **Problem Solving**: Complex technical challenges
+- ✔ **Clean Code**: SOLID principles, maintainable architecture
 - ✔ **Agile Methodologies**: Scrum, Kanban, Jira/Trello
 
 ---
@@ -30,7 +30,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
   <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
-  <img src="https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin">
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
   <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++">
 </p>
@@ -59,40 +58,35 @@
 
 ### 🚀 Production Applications
 
-| Project | Description | Tech Stack | Impact |
-|---------|-------------|------------|--------|
-| **[TaskNotate Pro](https://github.com/MegoABKM/TaskNotate)** | Advanced task manager with AI suggestions | Flutter • GetX • SQLite | 10K+ downloads |
-| **[E-Commerce Suite](https://github.com/MegoABKM/E-commerce)** | Full-featured shopping platform | Flutter • PHP • MySQL | Processed $50K+ transactions |
-| **[Budgify Finance](https://github.com/MegoABKM/Budgify)** | Personal finance tracker | Flutter • Riverpod • Hive | 4.8★ rating |
+| Project | Description | Tech Stack |
+|---------|-------------|------------|
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Advanced task manager with multilingual support | Flutter • GetX • SQLite |
+| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Full-featured shopping solution | Flutter • PHP • MySQL |
+| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker with analytics | Flutter • Riverpod • Hive |
 
 ### 🏢 Enterprise Solutions
 
-| Project | Description | Tech Stack | Impact |
-|---------|-------------|------------|--------|
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Corporate task delegation system | Flutter • Supabase • BLoC | Used by 50+ teams |
-| **[SchoolManagement Pro](https://github.com/MegoABKM/SchoolManagement)** | Education management platform | Flutter • Firebase • GetX | Deployed in 3 institutions |
+| Project | Description | Tech Stack |
+|---------|-------------|------------|
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Corporate task management system | Flutter • Supabase • BLoC |
+| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Education management platform | Flutter • Firebase • GetX |
 
 ### 🔧 In Development
 
-| Project | Description | Tech Stack | Progress |
-|---------|-------------|------------|----------|
-| **[RedCrescent Helper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid coordination | Flutter • BLoC • Firebase | ![75%](https://img.shields.io/badge/75%25-FFCA28?style=flat) |
-| **[BankSystem Secure](https://github.com/MegoABKM/BankSystem)** | Financial transaction system | C++ • Qt • SOLID | ![50%](https://img.shields.io/badge/50%25-FFCA28?style=flat) |
+| Project | Description | Tech Stack |
+|---------|-------------|------------|
+| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid coordination app | Flutter • BLoC • Firebase |
+| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | Secure banking application | C++ • Qt • SOLID |
 
 ---
 
 ## 💼 Professional Experience
 
-**Senior Flutter Developer (Freelance)**  
+**Freelance Software Engineer**  
 📅 March 2023 - Present  
-- Led development of 5+ production Flutter applications with 100K+ combined downloads  
-- Reduced app launch time by 35% through performance optimization  
-- Implemented CI/CD pipelines reducing deployment time by 40%  
-
-**Software Engineering Intern**  
-📅 [Company Name] • [Dates]  
-- [Notable achievement 1]  
-- [Notable achievement 2]  
+- Developed and deployed 5+ production Flutter applications  
+- Implemented clean architecture patterns for maintainable code  
+- Created full-stack solutions with backend integration  
 
 ---
 
@@ -101,12 +95,12 @@
 **Aljazeera Private University**  
 *Bachelor of Science in Software Engineering*  
 📅 October 2020 - July 2025  
-🎓 GPA: 3.2/4.0 • Dean's List (3 Semesters)  
+🎓 GPA: 3.2/4.0  
 🔗 [University Website](https://jude.edu.sy/)
 
 ---
 
-## 📬 Let's Collaborate!
+## 📬 Let's Connect!
 
 <div align="center">
   <a href="mailto:sonsabdulkareem@gmail.com" target="_blank"><img src="https://img.shields.io/badge/📧_Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
