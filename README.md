@@ -119,12 +119,6 @@ Agile/Scrum, Jira/Trello
 🌐 [University Website](https://jude.edu.sy/)
 
 ---
-<hr>
-<img src="https://komarev.com/ghpvc/?username=MegoABKM&label=Profile+Views&color=0e75b6&style=flat" alt="Profile views" />
-<br><br>
-<img src="https://github-readme-stats.vercel.app/api?username=MegoABKM&show_icons=true&theme=tokyonight&rank_icon=github" alt="MegoABKM's GitHub stats">
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MegoABKM&layout=compact&theme=tokyonight" alt="Top Languages">
-
 <div align="center">
   <h2>💌 Let's Collaborate!</h2>
   <p>I'm always excited about new opportunities and interesting projects.</p>
