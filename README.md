@@ -30,13 +30,13 @@ I'm a problem-solver with a knack for building apps that people love to use. My 
 
 | Project | Tech Stack | Description | Status |
 |---------|------------|-------------|--------|
-| **[TaskNotate](link-to-repo)** 📋 | Flutter • GetX • Hive | Advanced task manager with multilingual support (AR/EN/ES/DE/CN) and smart reminders | 🚀 Active |
-| **[Budgify](link-to-repo)** 💰 | Flutter • BLoC • Firebase | Finance tracker with expense categorization and cloud sync | 🚀 Active |
+| **[TaskNotate](link-to-repo)** 📋 | Flutter • GetX • Sqflite | Advanced task manager with multilingual support (AR/EN/ES/DE/CN) and smart reminders | 🚀 Active |
+| **[Budgify](link-to-repo)** 💰 | Flutter • RiverPod - Hive | Finance tracker with expense categorization and cloud sync | 🚀 Active |
 | **[E-commerce Platform](link-to-repo)** 🛒 | Flutter • GetX • PHP/MySQL | Multi-vendor marketplace with map-based delivery system | 🚀 Active |
-| **[CompanyTaskMaster](link-to-repo)** 🏢 | Flutter • BLoC • Supabase | Enterprise task delegation system with real-time updates | 🚀 Active |
-| **[SchoolManagement](link-to-repo)** 🎓 | Flutter • GetX • Firebase | All-in-one education management solution | 🚀 Active |
+| **[CompanyTaskMaster](link-to-repo)** 🏢 | Flutter • GetX • Firebase | Enterprise task delegation system with real-time updates | 🚀 Active |
+| **[SchoolManagement](link-to-repo)** 🎓 | Flutter • GetX • Supabase | All-in-one education management solution | 🚀 Active |
 | **[BankSystem](link-to-repo)** 💳 | C++ • Qt • MySQL | Desktop banking application with transaction security | 🔧 Developing |
-| **[RedCrescentHelper](link-to-repo)** 🩺 | Flutter • BLoC • Firebase | Humanitarian aid coordination platform | 🔧 Developing |
+| **[RedCrescentHelper](link-to-repo)** 🩺 | Flutter • BLoC • Supabase | Humanitarian aid coordination platform | 🔧 Developing |
 
 ## 🌍 Development Principles
 
