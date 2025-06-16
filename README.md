@@ -12,7 +12,7 @@
 
 ## 🚀 Professional Profile
 
-**Software Engineer and Full Stack App Developer** with 4+ years of experience delivering over 20+ diverse projects. I specialize in building scalable, maintainable applications using **Clean Architecture and SOLID principles**.
+**Software Engineer and Full Stack App Developer** with 4+ years of experience delivering over 10+ diverse projects. I specialize in building scalable, maintainable applications using **Clean Architecture and SOLID principles**.
 
 **Key Expertise:**
 - ✔ **Software Engineering**: System design, architecture, and implementation
@@ -96,7 +96,7 @@
 
 **Freelance Software Engineer**  
 📅 March 2023 - Present  
-- Developed **20+ production-ready applications** across various domains  
+- Developed **10+ production-ready applications** across various domains  
 - Specialized in creating intuitive user experiences with clean, maintainable code  
 - Built complete solutions from frontend to backend integration  
 - Optimized application performance and implemented best practices  
