@@ -1,5 +1,5 @@
 <div align="center">
- <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=35&duration=3000&pause=1000&color=3390FF&center=true&vCenter=true&width=600&lines=Mohammed+Abdullkareem;Software+Engineer;Full+Stack+App+Developer;Problem+Solver;Clean+Code+Advocate" alt="Typing animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=35&duration=3000&pause=1000&color=3390FF¢er=true&vCenter=true&width=600&lines=Mohammed+Abdullkareem;Software+Engineer;Full+Stack+App+Developer;Problem+Solver;Clean+Code+Advocate" alt="Typing animation" />
 </div>
 
 <div align="center">
@@ -36,20 +36,11 @@ I'm a **Software Engineer** and **Full Stack App Developer** driven by a passion
   <a href="#"><img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play"></a>
 </p>
 
-### 💻 Languages & Frameworks
-My primary expertise lies in **Dart** and the **Flutter** framework for creating high-performance, cross-platform mobile applications. I also have a strong foundation in **C++** for systems programming, **C#** for desktop applications, and **PHP** for robust backend development.
-
-### 🗄️ Databases & Local Storage
-I am proficient in designing and managing both SQL databases like **MySQL** and **SQLite**, and NoSQL solutions like **Firebase Firestore**. For client-side storage, I leverage lightweight and fast options like **Hive** and **SharedPreferences** to ensure excellent offline capabilities.
-
-### 🧠 Core Concepts & Architecture
-I write code that is built to last. My development philosophy is centered on **Clean Architecture** and **SOLID principles** to create systems that are modular, scalable, and easy to maintain. I effectively implement state management patterns like **BLoC**, **Riverpod**, **GetX**, and **Provider** based on project needs.
-
-### ✅ Testing & Quality Assurance
-Quality is non-negotiable. I practice **Test-Driven Development (TDD)** and write comprehensive **Unit, Widget, and Integration Tests** to ensure application stability, reliability, and bug-free performance.
-
-### 🛠️ Tools & Platforms
-I use **Git** for version control and collaborate efficiently on platforms like **GitHub**. My workflow is enhanced by tools like **VS Code**, and I have hands-on experience deploying and managing applications on the **Google Play Store**.
+-   **Languages & Frameworks**: `Flutter`, `Dart`, `C++`, `C#`, `PHP`
+-   **Databases & Storage**: `MySQL`, `Firebase Firestore`, `SQLite`, `Hive`, `SharedPreferences`
+-   **Architecture & Concepts**: `Clean Architecture`, `SOLID`, `MVVM`, `BLoC`, `Riverpod`, `GetX`, `Provider`
+-   **Testing & Quality**: `Test-Driven Development (TDD)`, `Unit Testing`, `Widget Testing`, `Integration Testing`
+-   **Tools & Platforms**: `Git`, `GitHub`, `VS Code`, `Google Play Store`
 
 ---
 
