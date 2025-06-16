@@ -1,25 +1,29 @@
-# Portfolio 🚀
+# Mohammed Ghassan Abdullkareem
+#### Flutter Developer | Software Engineer | Mobile Solutions Architect
 
 <div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=26&duration=2000&pause=500&color=22D3EE&center=true&vCenter=true&width=500&lines=Hi+there+👋;I'm+Mohammed+Ghassan;Flutter+Developer;Software+Engineer;Problem+Solver" alt="Typing animation" />
+  
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://yourportfolio.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mohammed-abdullkareem-02a965330)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sonsabdulkareem@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MegoABKM)
+
 </div>
 
-## 🌟 About Me
+## 🚀 Professional Overview
 
-I'm a passionate Flutter developer and software engineer dedicated to building performant, beautiful mobile applications that solve real-world problems. With expertise in clean architecture and state management, I create maintainable solutions that scale.
+Passionate software engineer specializing in cross-platform mobile development with Flutter. I architect robust, scalable applications using modern development practices and clean code principles. Focused on delivering high-quality solutions that address real-world problems through innovative technology.
 
-<p align="center">
-  <a href="https://github.com/MegoABKM?tab=repositories" target="_blank">
-    <img alt="All Repositories" title="All Repositories" src="https://custom-icon-badges.demolab.com/badge/-All%20Repos-181717?style=for-the-badge&logoColor=white&logo=repo"/>
-  </a>
-  <a href="https://github.com/MegoABKM?tab=repositories&q=&type=source&language=dart&sort=" target="_blank">
-    <img alt="Flutter Projects" title="Flutter Projects" src="https://custom-icon-badges.demolab.com/badge/-Flutter%20Projects-02569B?style=for-the-badge&logoColor=white&logo=flutter"/>
-  </a>
-</p>
+**Core Competencies:**
+- Flutter & Dart Ecosystem
+- Mobile Architecture Patterns
+- State Management Solutions
+- API Integration & Backend Services
+- Performance Optimization
 
-## 🛠 Tech Stack
+## 🛠 Technical Proficiencies
 
-### Core Technologies
+### Languages & Frameworks
 <p>
   <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
   <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
@@ -27,59 +31,60 @@ I'm a passionate Flutter developer and software engineer dedicated to building p
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
 </p>
 
-### Architecture & State
+### Architecture & State Management
 <p>
-  <img src="https://img.shields.io/badge/Clean%20Architecture-6DB33F?style=for-the-badge&logoColor=white" alt="Clean Architecture">
+  <img src="https://img.shields.io/badge/Clean_Architecture-6DB33F?style=for-the-badge&logoColor=white" alt="Clean Architecture">
   <img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge&logoColor=white" alt="SOLID">
+  <img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge&logoColor=white" alt="MVVM">
   <img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC">
   <img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX">
 </p>
 
-### Backend & Databases
+### Backend & Database
 <p>
   <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
   <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/REST%20API-FF6D00?style=for-the-badge&logoColor=white" alt="REST API">
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
 </p>
 
-## 🏆 Featured Projects
+## 💼 Project Portfolio
+
+### Production Applications
+
+| Project | Description | Technologies | Status |
+|---------|-------------|--------------|--------|
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Advanced task management with multilingual support | Flutter, GetX, SQLite | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker with analytics dashboard | Flutter, Riverpod, Hive | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[E-commerce Platform](https://github.com/MegoABKM/E-commerce)** | Complete shopping solution with payment integration | Flutter, GetX, PHP/MySQL | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+
+### Enterprise Solutions
+
+| Project | Description | Technologies | Status |
+|---------|-------------|--------------|--------|
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Corporate task delegation system | Flutter, GetX, Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Comprehensive education management system | Flutter, GetX, Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+
+### In Development
+
+| Project | Description | Technologies | Status |
+|---------|-------------|--------------|--------|
+| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid coordination platform | Flutter, BLoC, Firebase | ![Developing](https://img.shields.io/badge/Developing-FFCA28?style=flat) |
+| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | Secure financial transaction system | C++, Qt, SOLID Principles | ![Developing](https://img.shields.io/badge/Developing-FFCA28?style=flat) |
+
+## 🎓 Education & Credentials
+
+**Aljazeera Private University**  
+*Bachelor of Science in Software Engineering*  
+📅 Oct 2020 - Jul 2025 | 🎓 GPA: 3.2/4.0  
+🔗 [University Website](https://jude.edu.sy/)
+
+## 📞 Professional Contact
 
 <div align="center">
 
-| Project | Description | Status |
-|---------|-------------|--------|
-| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Smart task manager with multilingual support | <img src="https://img.shields.io/badge/🚀_Active-3DDC84?style=flat" alt="Active"> |
-| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker with analytics | <img src="https://img.shields.io/badge/🚀_Active-3DDC84?style=flat" alt="Active"> |
-| **[E-commerce App](https://github.com/MegoABKM/E-commerce)** | Complete shopping solution | <img src="https://img.shields.io/badge/🚀_Active-3DDC84?style=flat" alt="Active"> |
-| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid application | <img src="https://img.shields.io/badge/🔧_Developing-FFCA28?style=flat" alt="Developing"> |
+[![Hire Me](https://img.shields.io/badge/📞_Hire_Me-4285F4?style=for-the-badge&logoColor=white)](mailto:sonsabdulkareem@gmail.com)
+[![LinkedIn Connect](https://img.shields.io/badge/🤝_Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mohammed-abdullkareem-02a965330)
+[![GitHub Profile](https://img.shields.io/badge/💻_GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MegoABKM)
 
-</div>
-
-## 📊 GitHub Stats
-
-<div align="center">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=MegoABKM&show_icons=true&theme=react&include_all_commits=true&count_private=true"/>
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=MegoABKM&layout=compact&langs_count=8&theme=react"/>
-</div>
-
-## 📫 Let's Connect
-
-<p align="center">
-  <a href="mailto:sonsabdulkareem@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
-  </a>
-  <a href="https://linkedin.com/in/mohammed-abdullkareem-02a965330">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
-  </a>
-  <a href="https://github.com/MegoABKM">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-  </a>
-  <a href="https://twitter.com/[YourTwitter]">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter">
-  </a>
-</p>
-
-<div align="center">
-  <img src="https://komarev.com/ghpvc/?username=MegoABKM&label=Profile%20views&color=0e75b6&style=flat" alt="Profile views" />
 </div>
