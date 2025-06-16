@@ -52,10 +52,10 @@ I'm a passionate **Software Engineer** and **Full Stack App Developer** with exp
 ## 💪 Core Competencies
 
 ### Programming Languages:
-Dart, SQL, Kotlin/Java, Swift/Objective-C, PHP, C++, C#
+Dart, PHP, C++
 
 ### Frameworks & Libraries:
-Flutter, Laravel
+Flutter, Laravel(basic)
 
 ### Flutter State Management:
 BLoC, Provider, Riverpod, GetX
@@ -67,11 +67,8 @@ Responsive & Adaptive UI, Flutter Widgets, Navigation, Animations, Platform Chan
 RESTful APIs, GraphQL, JSON/XML, HTTP Clients, WebSockets, API Testing Tools
 
 ### Databases:
-- **SQL Databases**: MySQL, PostgreSQL, SQLite  
+- **SQL Databases**: MySQL, PostgreSQL, SQLite , Supabase
 - **NoSQL Databases**: Firebase Firestore, MongoDB
-
-### Version Control:
-Git, GitHub, GitLab, BitBucket
 
 ### Software Design & Architecture:
 Object-Oriented Programming, SOLID Principles, Design Patterns, Clean Architecture/MVVM/MVC
@@ -81,7 +78,7 @@ Unit Testing, Widget Testing, Integration Testing, Test-Driven Development (TDD)
 
 ### Tools & Platforms:
 - **CI/CD**: GitHub Actions, Codemagic, Jenkins  
-- **Cloud Services**: Firebase  
+- **Cloud Services**: Firebase , Subabase  
 - **Containerization**: Docker
 
 ### Methodologies:
@@ -89,7 +86,7 @@ Agile/Scrum, Jira/Trello
 
 ---
 
-## 🏆 Notable Projects
+## 🏆 Top Projects
 
 ### Productivity & Utility
 | Project | Description | Technologies |
