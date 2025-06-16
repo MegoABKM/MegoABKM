@@ -1,87 +1,85 @@
 # Portfolio 🚀
 
-Welcome to the central hub for all projects by Mohammed Ghassan Abdullkareem, a passionate Software Engineer and App Developer dedicated to crafting innovative and impactful solutions.
+<div align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=26&duration=2000&pause=500&color=22D3EE&center=true&vCenter=true&width=500&lines=Hi+there+👋;I'm+Mohammed+Ghassan;Flutter+Developer;Software+Engineer;Problem+Solver" alt="Typing animation" />
+</div>
 
 ## 🌟 About Me
 
-I'm a problem-solver with a knack for building apps that people love to use. My journey in tech is all about creating meaningful solutions—whether it's helping users manage their tasks, streamlining education systems, or supporting humanitarian efforts.
+I'm a passionate Flutter developer and software engineer dedicated to building performant, beautiful mobile applications that solve real-world problems. With expertise in clean architecture and state management, I create maintainable solutions that scale.
 
-- **Expertise:** Cross-platform mobile development with Flutter
-- **Focus:** Clean Architecture, SOLID Principles, and Scalable Solutions
-- **Mission:** To innovate, bring ideas to life, and build the future, together. 💡
-
-<p align="left">
-  <!-- Core Technologies -->
-  <a href="https://flutter.dev" target="_blank"><img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter"></a>
-  <a href="https://dart.dev" target="_blank"><img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart"></a>
-  <a href="https://isocpp.org/" target="_blank"><img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++"></a>
-  <a href="https://www.php.net" target="_blank"><img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP"></a>
-  
-  <!-- Architecture -->
-  <a href="https://en.wikipedia.org/wiki/SOLID" target="_blank"><img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge&logo=codeigniter&logoColor=white" alt="SOLID"></a>
-  <a href="https://en.wikipedia.org/wiki/Model–view–viewmodel" target="_blank"><img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge&logo=codeigniter&logoColor=white" alt="MVVM"></a>
-  <a href="https://en.wikipedia.org/wiki/Model–view–controller" target="_blank"><img src="https://img.shields.io/badge/MVC-5C2D91?style=for-the-badge&logo=codeigniter&logoColor=white" alt="MVC"></a>
-  
-  <!-- State Management -->
-  <a href="https://bloclibrary.dev" target="_blank"><img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC"></a>
-  <a href="https://riverpod.dev/" target="_blank"><img src="https://img.shields.io/badge/Riverpod-4A98E8?style=for-the-badge&logo=riverpod&logoColor=white" alt="Riverpod"></a>
-  <a href="https://pub.dev/packages/get" target="_blank"><img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX"></a>
-  
-  <!-- Databases -->
-  <a href="https://pub.dev/packages/sqflite" target="_blank"><img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite"></a>
-  <a href="https://pub.dev/packages/hive" target="_blank"><img src="https://img.shields.io/badge/Hive-FFC107?style=for-the-badge&logo=hive&logoColor=black" alt="Hive"></a>
-  <a href="https://www.mysql.com/" target="_blank"><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"></a>
-  <a href="https://firebase.google.com/" target="_blank"><img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase"></a>
-  <a href="https://supabase.io" target="_blank"><img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"></a>
-  
-  <!-- Tools -->
-  <a href="https://git-scm.com/" target="_blank"><img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white" alt="Git"></a>
-
-  <!-- Social -->
-  <a href="https://www.linkedin.com/in/mohammed-abdullkareem-02a965330" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+<p align="center">
+  <a href="https://github.com/MegoABKM?tab=repositories" target="_blank">
+    <img alt="All Repositories" title="All Repositories" src="https://custom-icon-badges.demolab.com/badge/-All%20Repos-181717?style=for-the-badge&logoColor=white&logo=repo"/>
+  </a>
+  <a href="https://github.com/MegoABKM?tab=repositories&q=&type=source&language=dart&sort=" target="_blank">
+    <img alt="Flutter Projects" title="Flutter Projects" src="https://custom-icon-badges.demolab.com/badge/-Flutter%20Projects-02569B?style=for-the-badge&logoColor=white&logo=flutter"/>
+  </a>
 </p>
 
-## 🛠️ Technical Expertise
+## 🛠 Tech Stack
 
-**Software Architecture & Design:**
-- SOLID Principles • Clean Architecture • Design Patterns
-- MVVM • MVC • BLoC Pattern
-- Object-Oriented Programming
+### Core Technologies
+<p>
+  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
+  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++">
+  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+</p>
 
-**Flutter Ecosystem:**
-- State Management: BLoC, GetX, Riverpod, Provider
-- Local Storage: SQLite (Sqflite), Hive, SharedPreferences
-- UI/UX: Responsive Design, Material/Cupertino, Animations
-- Platform Channels, Local Notifications, Maps Integration
+### Architecture & State
+<p>
+  <img src="https://img.shields.io/badge/Clean%20Architecture-6DB33F?style=for-the-badge&logoColor=white" alt="Clean Architecture">
+  <img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge&logoColor=white" alt="SOLID">
+  <img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC">
+  <img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX">
+</p>
 
-**Backend & APIs:**
-- RESTful APIs • GraphQL • WebSockets
-- PHP • Laravel(Basic) • Node.js (Basic)
-- Firebase • Supabase • Custom Backends
+### Backend & Databases
+<p>
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
+  <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/REST%20API-FF6D00?style=for-the-badge&logoColor=white" alt="REST API">
+</p>
 
-**Testing & Quality:**
-- Unit Testing • Widget Testing • Integration Testing
-- Test-Driven Development (TDD)
-- CI/CD Pipelines (GitHub Actions, Codemagic)
+## 🏆 Featured Projects
 
-## 🏆 Top Projects
+<div align="center">
 
-| Project | Tech Stack | Key Features | Status |
-|---|---|---|---|
-| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** 📋 | Flutter • GetX • SQLite | Multilingual (5 langs), Smart Reminders, Timeline View | 🚀 Active |
-| **[Budgify](https://github.com/MegoABKM/Budgify)** 💰 | Flutter • Riverpod • Hive | Expense Tracking, Budget Analytics, Offline Support | 🚀 Active |
-| **[E-commerce Platform](https://github.com/MegoABKM/E-commerce)** 🛒 | Flutter • GetX • PHP/MySQL | Multi-vendor, Map-based Delivery, Payment Gateway | 🚀 Active |
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** 🏢 | Flutter • GetX • Supabase | Team Task Delegation, Real-time Updates | 🚀 Active |
-| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** 🎓 | Flutter • GetX • Supabase | Student Records, Course Scheduling, Analytics | 🚀 Active |
-| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** 🩺 | Flutter • BLoC • Firebase | First Aid Resources, Blood Donation Coordination | 🔧 Developing |
-| **[BankSystem](https://github.com/MegoABKM/BankSystem)** 💳 | C++ • Qt • SOLID Principles | Secure Transactions, User Management | 🔧 Developing |
+| Project | Description | Status |
+|---------|-------------|--------|
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Smart task manager with multilingual support | <img src="https://img.shields.io/badge/🚀_Active-3DDC84?style=flat" alt="Active"> |
+| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker with analytics | <img src="https://img.shields.io/badge/🚀_Active-3DDC84?style=flat" alt="Active"> |
+| **[E-commerce App](https://github.com/MegoABKM/E-commerce)** | Complete shopping solution | <img src="https://img.shields.io/badge/🚀_Active-3DDC84?style=flat" alt="Active"> |
+| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid application | <img src="https://img.shields.io/badge/🔧_Developing-FFCA28?style=flat" alt="Developing"> |
 
-## 🎓 Education
-**Aljazeera Private University**  
-B.Sc. in Software Engineering (Oct 2020 - Jul 2025)  
-GPA: 3.2/4.0 • [University Website](https://jude.edu.sy/)
+</div>
 
-## 🤝 Let's Connect!
-📧 **Email:** [sonsabdulkareem@gmail.com](mailto:sonsabdulkareem@gmail.com)  
-🔗 **LinkedIn:** [Mohammed Abdullkareem](https://www.linkedin.com/in/mohammed-abdullkareem-02a965330)  
-🐱 **GitHub:** [MegoABKM](https://github.com/MegoABKM)
+## 📊 GitHub Stats
+
+<div align="center">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=MegoABKM&show_icons=true&theme=react&include_all_commits=true&count_private=true"/>
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=MegoABKM&layout=compact&langs_count=8&theme=react"/>
+</div>
+
+## 📫 Let's Connect
+
+<p align="center">
+  <a href="mailto:sonsabdulkareem@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+  </a>
+  <a href="https://linkedin.com/in/mohammed-abdullkareem-02a965330">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
+  <a href="https://github.com/MegoABKM">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+  <a href="https://twitter.com/[YourTwitter]">
+    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter">
+  </a>
+</p>
+
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=MegoABKM&label=Profile%20views&color=0e75b6&style=flat" alt="Profile views" />
+</div>
