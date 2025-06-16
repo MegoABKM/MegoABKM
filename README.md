@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=35&duration=3000&pause=1000&color=3390FF&center=true&vCenter=true&width=600&lines=Mohammed+Ghassan+Abdullkareem;Full+Stack+App+Developer;Problem+Solver;Clean+Code+Advocate" alt="Typing animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=35&duration=3000&pause=1000&color=3390FF&center=true&vCenter=true&width=600&lines=Mohammed+Ghassan+Abdullkareem;Software+Engineer+%26+Developer;Full+Stack+App+Developer;Problem+Solver;Clean+Code+Advocate" alt="Typing animation" />
 </div>
 
 <div align="center">
@@ -13,14 +13,14 @@
 
 ## 🚀 Professional Profile
 
-**Full Stack App Developer** specializing in **Flutter development** and **scalable solutions**, with 3+ years of experience building production-grade applications. Passionate about creating **maintainable** software that delivers exceptional user experiences.
+**Software Engineer & Full Stack Developer** with expertise in **Flutter development** and **scalable solutions**. With 3+ years of experience, I've successfully delivered **20+ projects** across various domains, from production applications to enterprise solutions and innovative prototypes.
 
 **Key Expertise:**
-- ✔ **Flutter Development**: Clean Architecture, MVVM, BLoC Pattern
-- ✔ **Full-Stack Solutions**: Mobile apps with robust backend systems
-- ✔ **Problem Solving**: Complex technical challenges
-- ✔ **Clean Code**: SOLID principles, maintainable architecture
-- ✔ **Agile Methodologies**: Scrum, Kanban, Jira/Trello
+- ✔ **Software Engineering**: System design, architecture, and implementation
+- ✔ **Full-Stack Development**: End-to-end application development
+- ✔ **Flutter Ecosystem**: State management, native integration, performance
+- ✔ **Problem Solving**: Complex technical challenges and optimizations
+- ✔ **Clean Code**: SOLID principles, maintainable architecture patterns
 
 ---
 
@@ -34,13 +34,19 @@
   <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++">
 </p>
 
-### State Management & Architecture
+### Architecture & Patterns
+<p align="center">
+  <img src="https://img.shields.io/badge/Clean_Arch-6DB33F?style=for-the-badge" alt="Clean Architecture">
+  <img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge" alt="SOLID">
+  <img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge" alt="MVVM">
+  <img src="https://img.shields.io/badge/MVC-5C2D91?style=for-the-badge" alt="MVC">
+</p>
+
+### State Management
 <p align="center">
   <img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC">
   <img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX">
   <img src="https://img.shields.io/badge/Riverpod-4A98E8?style=for-the-badge&logo=riverpod&logoColor=white" alt="Riverpod">
-  <img src="https://img.shields.io/badge/Clean_Arch-6DB33F?style=for-the-badge" alt="Clean Architecture">
-  <img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge" alt="SOLID">
 </p>
 
 ### Backend & Databases
@@ -49,44 +55,43 @@
   <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
-  <img src="https://img.shields.io/badge/REST_API-FF6D00?style=for-the-badge" alt="REST API">
 </p>
 
 ---
 
-## 🏆 Top Projects
+## 🏆 Project Portfolio
 
-### 🚀 Production Applications
-
-| Project | Description | Tech Stack |
-|---------|-------------|------------|
-| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Advanced task manager with multilingual support | Flutter • GetX • SQLite |
-| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Full-featured shopping solution | Flutter • PHP • MySQL |
-| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker with analytics | Flutter • Riverpod • Hive |
+### 💼 Production Applications
+| Project | Tech Stack | Key Features |
+|---------|------------|--------------|
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | Flutter • GetX • SQLite | Multilingual support, smart reminders |
+| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Flutter • PHP • MySQL | Multi-vendor, payment integration |
+| **[Budgify](https://github.com/MegoABKM/Budgify)** | Flutter • Riverpod • Hive | Expense tracking, budget analytics |
 
 ### 🏢 Enterprise Solutions
+| Project | Tech Stack | Key Features |
+|---------|------------|--------------|
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Flutter • Supabase • BLoC | Team task delegation, real-time updates |
+| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Flutter • Firebase • GetX | Student records, course scheduling |
 
-| Project | Description | Tech Stack |
-|---------|-------------|------------|
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Corporate task management system | Flutter • Supabase • BLoC |
-| **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Education management platform | Flutter • Firebase • GetX |
+### 🔬 Experimental Projects
+| Project | Tech Stack | Purpose |
+|---------|------------|---------|
+| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Flutter • BLoC • Firebase | Humanitarian aid coordination |
+| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | C++ • Qt • SOLID | Secure financial transactions |
 
-### 🔧 In Development
-
-| Project | Description | Tech Stack |
-|---------|-------------|------------|
-| **[RedCrescentHelper](https://github.com/MegoABKM/RedCrescentHelper)** | Humanitarian aid coordination app | Flutter • BLoC • Firebase |
-| **[BankSystem](https://github.com/MegoABKM/BankSystem)** | Secure banking application | C++ • Qt • SOLID |
+**Total Projects Developed:** 20+ (Selection shown above)
 
 ---
 
-## 💼 Professional Experience
+## 💻 Professional Experience
 
 **Freelance Software Engineer**  
 📅 March 2023 - Present  
-- Developed and deployed 5+ production Flutter applications  
-- Implemented clean architecture patterns for maintainable code  
-- Created full-stack solutions with backend integration  
+- Designed and developed **20+ applications** across various domains  
+- Architected **full-stack solutions** with optimized backend systems  
+- Mentored junior developers in **software engineering best practices**  
+- Implemented **CI/CD pipelines** for automated testing and deployment  
 
 ---
 
@@ -100,12 +105,12 @@
 
 ---
 
-## 📬 Let's Connect!
+## 📬 Let's Collaborate!
 
 <div align="center">
   <a href="mailto:sonsabdulkareem@gmail.com" target="_blank"><img src="https://img.shields.io/badge/📧_Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
   <a href="https://www.linkedin.com/in/mohammed-abdullkareem-02a965330" target="_blank"><img src="https://img.shields.io/badge/🤝_LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://github.com/MegoABKM" target="_blank"><img src="https://img.shields.io/badge/💻_GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+  <a href="https://github.com/MegoABKM" target="_blank"><img src="https://img.shields.io/badge/💻_View_20%2B_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
 </div>
 
 <div align="center">
