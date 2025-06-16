@@ -17,8 +17,8 @@ I'm a problem-solver with a knack for building apps that people love to use. My 
   
   <!-- Architecture -->
   <a href="https://en.wikipedia.org/wiki/SOLID" target="_blank"><img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge&logo=codeigniter&logoColor=white" alt="SOLID"></a>
-  <a href="https://en.wikipedia.org/wiki/Model–view–viewmodel" target="_blank"><img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge&logo=.net&logoColor=white" alt="MVVM"></a>
-  <a href="https://en.wikipedia.org/wiki/Model–view–controller" target="_blank"><img src="https://img.shields.io/badge/MVC-5C2D91?style=for-the-badge&logo=.net&logoColor=white" alt="MVC"></a>
+  <a href="https://en.wikipedia.org/wiki/Model–view–viewmodel" target="_blank"><img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge&logo=codeigniter&logoColor=white" alt="MVVM"></a>
+  <a href="https://en.wikipedia.org/wiki/Model–view–controller" target="_blank"><img src="https://img.shields.io/badge/MVC-5C2D91?style=for-the-badge&logo=codeigniter&logoColor=white" alt="MVC"></a>
   
   <!-- Databases -->
   <a href="https://pub.dev/packages/sqflite" target="_blank"><img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite"></a>
