@@ -38,8 +38,10 @@ I'm a passionate **Software Engineer** and **Full Stack App Developer** with exp
   <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
-  <img src="https://img.shields.io/badge/Clean_Arch-6DB33F?style=for-the-badge" alt="Clean Architecture">
-  <img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge" alt="SOLID">
+<img src="https://img.shields.io/badge/Clean_Arch-6DB33F?style=for-the-badge" alt="Clean Architecture">
+<img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge" alt="SOLID">
+<img src="https://img.shields.io/badge/MVVM-5C5C5C?style=for-the-badge" alt="MVVM">
+<img src="https://img.shields.io/badge/MVC-5C5C5C?style=for-the-badge" alt="MVC">
   <img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC">
   <img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX">
   <img src="https://img.shields.io/badge/Riverpod-4A98E8?style=for-the-badge&logo=riverpod&logoColor=white" alt="Riverpod">
