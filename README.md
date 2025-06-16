@@ -105,7 +105,7 @@ Agile/Scrum, Jira/Trello
 ### Enterprise Applications
 | Project | Description | Technologies |
 |---------|-------------|--------------|
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster-app)** | Team collaboration tool | Flutter • GetX • Supabase |
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster-app)** | Team collaboration tool | Flutter • GetX • MySQL |
 | **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Academic management system | Flutter • GetX • Supabase |
 
 ---
