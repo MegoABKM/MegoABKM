@@ -51,54 +51,40 @@ I'm a passionate **Software Engineer** and **Full Stack App Developer** with exp
 
 ## 💪 Core Competencies
 
-### 🎨 Frontend Development
-<div align="center">
-  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
-  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
-  <img src="https://img.shields.io/badge/UI/UX-Design-FF6B6B?style=for-the-badge" alt="UI/UX">
-</div>
-- Building beautiful, responsive cross-platform applications
-- Creating intuitive user interfaces with Material Design principles
-- Implementing smooth animations and transitions
+### Frontend Development
+- Flutter application development
+- Dart programming
+- Responsive UI/UX design
+- Cross-platform mobile development
+- Material Design implementation
 
-### ⚙️ Backend Integration
-<div align="center">
-  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
-</div>
-- Developing RESTful APIs and integrating third-party services
-- Implementing authentication and database solutions
-- Optimizing data fetching and caching strategies
+### Backend Integration
+- RESTful API development
+- Firebase services integration
+- MySQL database management
+- PHP backend development
+- Authentication systems implementation
 
-### 🏗️ Software Architecture
-<div align="center">
-  <img src="https://img.shields.io/badge/Clean_Arch-6DB33F?style=for-the-badge" alt="Clean Architecture">
-  <img src="https://img.shields.io/badge/SOLID-FF6D00?style=for-the-badge" alt="SOLID">
-  <img src="https://img.shields.io/badge/MVVM-5C2D91?style=for-the-badge" alt="MVVM">
-</div>
-- Designing scalable application architectures
-- Implementing design patterns for maintainable code
-- Separating concerns with layered architecture
+### Software Architecture
+- Clean Architecture implementation
+- SOLID principles application
+- MVVM pattern implementation
+- Scalable system design
+- Maintainable code structure
 
-### 🔄 State Management
-<div align="center">
-  <img src="https://img.shields.io/badge/BLoC-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="BLoC">
-  <img src="https://img.shields.io/badge/Riverpod-4A98E8?style=for-the-badge&logo=riverpod&logoColor=white" alt="Riverpod">
-  <img src="https://img.shields.io/badge/GetX-6DB33F?style=for-the-badge&logo=flutter&logoColor=white" alt="GetX">
-</div>
-- Managing complex application state efficiently
-- Implementing reactive programming patterns
-- Optimizing performance with state management solutions
+### State Management
+- BLoC pattern implementation
+- Riverpod state management
+- GetX framework utilization
+- Provider pattern application
+- Reactive programming
 
-### 🚀 Deployment
-<div align="center">
-  <img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play">
-  <img src="https://img.shields.io/badge/CI/CD-Pipelines-2088FF?style=for-the-badge" alt="CI/CD">
-</div>
-- Publishing applications to Google Play Store
-- Setting up automated build and deployment pipelines
-- Implementing app signing and release management
+### Deployment & DevOps
+- Google Play Store deployment
+- CI/CD pipeline setup
+- App release management
+- Version control with Git
+- Automated testing implementation
 
 ---
 
