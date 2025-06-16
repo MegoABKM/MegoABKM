@@ -66,22 +66,22 @@
 ### Productivity Apps
 | Project | Description | Tech Stack | Status |
 |---------|-------------|------------|--------|
-| **[TaskNotate](https://github.com/MegoABKM/TaskNotate)** | The simplest task and note manager in the world with intuitive interface and smart organization features | Flutter • GetX • SQLite | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[TaskNotate](https://github.com/MegoABKM/TaskNotate-app)** | The simplest task and note manager in the world with intuitive interface and smart organization features | Flutter • GetX • SQLite | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
 ### Finance Apps
 | Project | Description | Tech Stack | Status |
 |---------|-------------|------------|--------|
-| **[Budgify](https://github.com/MegoABKM/Budgify)** | Personal finance tracker that makes counting expenses and incomes easy with beautiful charts and insights | Flutter • Riverpod • Hive | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[Budgify](https://github.com/MegoABKM/Budgify-app)** | Personal finance tracker that makes counting expenses and incomes easy with beautiful charts and insights | Flutter • Riverpod • Hive | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
 ### E-Commerce Solutions
 | Project | Description | Tech Stack | Status |
 |---------|-------------|------------|--------|
-| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce)** | Complete shopping solution with product management, cart system, and secure checkout | Flutter • PHP • MySQL | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[E-Commerce Platform](https://github.com/MegoABKM/E-commerce-app)** | Complete shopping solution with product management, cart system, and secure checkout | Flutter • PHP • MySQL | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
 ### Business Tools
 | Project | Description | Tech Stack | Status |
 |---------|-------------|------------|--------|
-| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster)** | Team collaboration tool for task delegation and progress tracking with real-time updates | Flutter • GetX • Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
+| **[CompanyTaskMaster](https://github.com/MegoABKM/CompanyTaskMaster-app)** | Team collaboration tool for task delegation and progress tracking with real-time updates | Flutter • GetX • Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 | **[SchoolManagement](https://github.com/MegoABKM/SchoolManagement)** | Comprehensive system for managing student records, schedules, and academic progress | Flutter • GetX • Supabase | ![Active](https://img.shields.io/badge/Active-3DDC84?style=flat) |
 
 ### Special Projects
