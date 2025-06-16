@@ -81,7 +81,7 @@ Unit Testing, Widget Testing, Integration Testing, Test-Driven Development (TDD)
 
 ### Tools & Platforms:
 - **CI/CD**: GitHub Actions, Codemagic, Jenkins  
-- **Cloud Services**: Firebase , Subabase  
+- **Cloud Services**: Firebase , Supabase  
 - **Containerization**: Docker
 
 ### Methodologies:
