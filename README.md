@@ -10,7 +10,7 @@
 
 ---
 
-## 🚀 Professional Profile
+## 🚀 Portfolio
 
 **Software Engineer and Full Stack App Developer** with 4+ years of experience delivering over 10+ diverse projects. I specialize in building scalable, maintainable applications using **Clean Architecture and SOLID principles**.
 
