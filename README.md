@@ -18,7 +18,7 @@
 
 ## 👋 Hello, World!
 
-I'm a passionate **Software Engineer** and **Full Stack App Developer** with expertise in building end-to-end solutions that solve real problems. With a strong foundation in **Clean Architecture** and **SOLID principles**, I specialize in creating:
+I'm a passionate **Software Engineer** and **Full Stack App Developer** with expertise in building end-to-end solutions that solve real problems , I specialize in creating:
 
 - 🚀 **Production-ready applications** deployed on Google Play Store
 - 💡 **Intuitive user experiences** with thoughtful design
